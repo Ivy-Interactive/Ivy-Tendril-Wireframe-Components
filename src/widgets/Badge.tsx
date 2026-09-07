@@ -1,7 +1,7 @@
 import * as React from "react";
-import { byDensity, cn, densityIconSize } from "@/lib/utils";
-import type { Densities, WidgetBaseProps } from "@/lib/types";
-import { INK, resolveColor, tint } from "@/sketch/colors";
+import { byDensity, cn, densityIconSize, widgetStyle } from "@/lib/utils";
+import type { WidgetBaseProps } from "@/lib/types";
+import { INK, STROKE, resolveColor, tint } from "@/sketch/colors";
 import { Icon } from "@/sketch/Icon";
 import { SketchFrame } from "@/sketch/SketchFrame";
 
@@ -30,7 +30,6 @@ export interface BadgeProps extends WidgetBaseProps {
   iconPosition?: "Left" | "Right";
   variant?: BadgeVariant;
   color?: string;
-  density?: Densities;
   children?: React.ReactNode;
   onClick?: React.MouseEventHandler<HTMLElement>;
 }
@@ -44,6 +43,10 @@ export const Badge = ({
   variant = "Primary",
   color,
   density = "Medium",
+  width,
+  height,
+  aspectRatio,
+  visible,
   children,
   className,
   style,
@@ -64,7 +67,7 @@ export const Badge = ({
       seed={id ?? `${variant}-${title ?? "badge"}`}
       corner="pill"
       stroke={accent}
-      strokeWidth={1.1}
+      strokeWidth={STROKE.thin}
       fill={filled ? tint(accent, 0.85) : undefined}
       fillStyle="solid"
       onClick={onClick}
@@ -73,7 +76,7 @@ export const Badge = ({
         "flex items-center gap-1 leading-none whitespace-nowrap",
         byDensity(density, ["px-2 py-0.5 text-[10px]", "px-2.5 py-1 text-xs", "px-3 py-1.5 text-sm"]),
       )}
-      style={{ color: accent, ...style }}
+      style={{ color: accent, ...widgetStyle({ width, height, aspectRatio, visible, style }) }}
       {...rest}
     >
       {iconPosition === "Left" && iconNode}

@@ -1,7 +1,7 @@
 import * as React from "react";
-import { cn, sizeStyle } from "@/lib/utils";
-import type { Sizing, WidgetBaseProps } from "@/lib/types";
-import { resolveColor, tint } from "@/sketch/colors";
+import { cn, widgetStyle } from "@/lib/utils";
+import type { WidgetBaseProps } from "@/lib/types";
+import { STROKE, resolveColor, tint } from "@/sketch/colors";
 import { RoughShape } from "@/sketch/RoughShape";
 import { SketchFrame } from "@/sketch/SketchFrame";
 import { useMeasuredSize } from "@/sketch/useRough";
@@ -9,8 +9,6 @@ import { useMeasuredSize } from "@/sketch/useRough";
 export interface WireframeNoteProps extends WidgetBaseProps {
   text?: string;
   color?: string;
-  width?: Sizing;
-  height?: Sizing;
   children?: React.ReactNode;
 }
 
@@ -21,6 +19,8 @@ export const WireframeNote = ({
   color = "Amber",
   width = "12rem",
   height,
+  aspectRatio,
+  visible,
   children,
   className,
   style,
@@ -33,12 +33,12 @@ export const WireframeNote = ({
       seed={id ?? text ?? "note"}
       corner="sharp"
       stroke={accent}
-      strokeWidth={1.2}
+      strokeWidth={STROKE.regular}
       fill={tint(accent, 0.82)}
       fillStyle="solid"
       className={cn("inline-block rotate-[-1.2deg] shadow-[2px_3px_0_0_rgba(47,47,47,0.12)]", className)}
       contentClassName="block p-3 text-sm leading-snug"
-      style={{ ...sizeStyle(width, height), ...style }}
+      style={widgetStyle({ width, height, aspectRatio, visible, style })}
     >
       {children ?? text}
     </SketchFrame>
@@ -61,23 +61,27 @@ export const WireframeCallout = ({
   color = "Destructive",
   leader,
   children,
+  width,
+  height,
+  aspectRatio,
+  visible,
   className,
   style,
 }: WireframeCalloutProps) => {
   const accent = resolveColor(color);
-  const { ref, width } = useMeasuredSize<HTMLSpanElement>();
+  const { ref, width: leaderWidth } = useMeasuredSize<HTMLSpanElement>();
 
   return (
     <span
       id={id}
       className={cn("inline-flex items-center gap-2 align-middle", className)}
-      style={style}
+      style={widgetStyle({ width, height, aspectRatio, visible, style })}
     >
       <SketchFrame
         seed={id ?? `callout-${label}`}
         corner="ellipse"
         stroke={accent}
-        strokeWidth={1.5}
+        strokeWidth={STROKE.emphasis}
         fill={tint(accent, 0.85)}
         fillStyle="solid"
         className="inline-block shrink-0"
@@ -90,13 +94,13 @@ export const WireframeCallout = ({
       </SketchFrame>
       {leader ? (
         <span ref={ref} className="relative inline-block h-[3px]" style={{ width: leader }}>
-          {width > 0 && (
+          {leaderWidth > 0 && (
             <svg aria-hidden="true" className="absolute inset-0 h-full w-full overflow-visible">
               <RoughShape
-                shape={{ kind: "line", x1: 0, y1: 1, x2: width, y2: 1 }}
+                shape={{ kind: "line", x1: 0, y1: 1, x2: leaderWidth, y2: 1 }}
                 seed={`${id}-leader`}
                 stroke={accent}
-                strokeWidth={1.2}
+                strokeWidth={STROKE.regular}
                 roughness={1.6}
               />
             </svg>
@@ -131,13 +135,62 @@ export interface AnimationProps extends WidgetBaseProps {
   delay?: number;
   direction?: "Left" | "Right" | "Up" | "Down";
   distance?: number;
+  easing?: AnimationEasing;
   repeat?: number | null;
   repeatDelay?: number;
-  visible?: boolean;
   intensity?: number;
   trigger?: "Auto" | "Click" | "Hover";
   children?: React.ReactNode;
 }
+
+export type AnimationEasing =
+  | "EaseIn"
+  | "EaseOut"
+  | "EaseInOut"
+  | "Linear"
+  | "CircIn"
+  | "CircOut"
+  | "CircInOut"
+  | "BackIn"
+  | "BackOut"
+  | "BackInOut"
+  | "Anticipate"
+  | "AnticipateOut"
+  | "BounceIn"
+  | "BounceOut"
+  | "BounceInOut"
+  | "ElasticIn"
+  | "ElasticOut"
+  | "ElasticInOut";
+
+/** Ivy's easing enum, mapped onto CSS timing functions. */
+const EASING: Record<AnimationEasing, string> = {
+  Linear: "linear",
+  EaseIn: "ease-in",
+  EaseOut: "ease-out",
+  EaseInOut: "ease-in-out",
+  CircIn: "cubic-bezier(0.55, 0, 1, 0.45)",
+  CircOut: "cubic-bezier(0, 0.55, 0.45, 1)",
+  CircInOut: "cubic-bezier(0.85, 0, 0.15, 1)",
+  BackIn: "cubic-bezier(0.36, 0, 0.66, -0.56)",
+  BackOut: "cubic-bezier(0.34, 1.56, 0.64, 1)",
+  BackInOut: "cubic-bezier(0.68, -0.6, 0.32, 1.6)",
+  Anticipate: "cubic-bezier(0.5, -0.5, 0.2, 1.2)",
+  AnticipateOut: "cubic-bezier(0.8, -0.2, 0.5, 1.5)",
+  BounceIn: "cubic-bezier(0.7, -0.4, 0.9, 0.2)",
+  BounceOut: "cubic-bezier(0.1, 0.8, 0.3, 1.4)",
+  BounceInOut: "cubic-bezier(0.8, -0.4, 0.2, 1.4)",
+  ElasticIn: "cubic-bezier(0.7, -0.6, 0.9, 0.4)",
+  ElasticOut: "cubic-bezier(0.1, 1.6, 0.3, 1)",
+  ElasticInOut: "cubic-bezier(0.9, -0.6, 0.1, 1.6)",
+};
+
+const DIRECTION_SIGN: Record<NonNullable<AnimationProps["direction"]>, number> = {
+  Left: -1,
+  Up: -1,
+  Right: 1,
+  Down: 1,
+};
 
 const KEYFRAMES: Record<AnimationType, string> = {
   Rotate: "tendril-rotate",
@@ -166,9 +219,16 @@ export const Animation = ({
   type = "FadeIn",
   duration = 0.6,
   delay = 0,
+  easing = "Linear",
   repeat = 0,
   repeatDelay = 0,
+  direction,
+  distance,
+  intensity = 1,
   visible = true,
+  width,
+  height,
+  aspectRatio,
   trigger = "Auto",
   children,
   className,
@@ -182,8 +242,6 @@ export const Animation = ({
     setPlaying(true);
   };
 
-  if (!visible) return null;
-
   return (
     <span
       id={id}
@@ -194,12 +252,15 @@ export const Animation = ({
       style={{
         animationName: playing ? KEYFRAMES[type] : undefined,
         animationDuration: `${duration}s`,
-        animationDelay: `${delay}s`,
+        animationDelay: `${delay + repeatDelay}s`,
         animationIterationCount: repeat === null ? "infinite" : repeat + 1,
         animationFillMode: "both",
-        animationTimingFunction: "ease-in-out",
-        ...(repeatDelay ? { animationDelay: `${delay + repeatDelay}s` } : {}),
-        ...style,
+        animationTimingFunction: EASING[easing],
+        // Ivy scales SlideIn/SlideOut by direction and distance, and every
+        // animation by intensity; both ride along as custom properties.
+        ["--tendril-distance" as string]: `${(distance ?? 100) * intensity * DIRECTION_SIGN[direction ?? "Left"]}px`,
+        ["--tendril-intensity" as string]: intensity,
+        ...widgetStyle({ width, height, aspectRatio, visible, style }),
       }}
     >
       {children}
@@ -222,6 +283,10 @@ export const Confetti = ({
   trigger = "Auto",
   count = 24,
   children,
+  width,
+  height,
+  aspectRatio,
+  visible,
   className,
   style,
 }: ConfettiProps) => {
@@ -242,7 +307,7 @@ export const Confetti = ({
     <span
       id={id}
       className={cn("relative inline-block", trigger !== "Auto" && "cursor-pointer", className)}
-      style={style}
+      style={widgetStyle({ width, height, aspectRatio, visible, style })}
       onClick={trigger === "Click" ? () => setBurst((value) => value + 1) : undefined}
       onMouseEnter={trigger === "Hover" ? () => setBurst((value) => value + 1) : undefined}
     >

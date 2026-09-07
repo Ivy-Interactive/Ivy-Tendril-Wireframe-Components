@@ -1,5 +1,5 @@
-import { byDensity, cn, densityIconSize, densityText } from "@/lib/utils";
-import { INK, INK_FAINT, PAPER_RAISED, resolveColor } from "@/sketch/colors";
+import { byDensity, cn, densityIconSize, densityText, widgetStyle } from "@/lib/utils";
+import { INK, INK_FAINT, PAPER_RAISED, STROKE, resolveColor } from "@/sketch/colors";
 import { Icon } from "@/sketch/Icon";
 import { RoughShape } from "@/sketch/RoughShape";
 import { SketchFrame } from "@/sketch/SketchFrame";
@@ -45,11 +45,16 @@ export const BoolInput = ({
   invalid,
   icon,
   density = "Medium",
+  width,
+  height,
+  aspectRatio,
+  visible,
   autoFocus,
   className,
   style,
   onChange,
 }: BoolInputProps) => {
+  const rootStyle = widgetStyle({ width, height, aspectRatio, visible, style });
   const iconSize = densityIconSize(density);
   const stroke = invalid ? resolveColor("Destructive") : value ? INK : INK_FAINT;
 
@@ -91,7 +96,7 @@ export const BoolInput = ({
           "flex items-center gap-2",
           byDensity(density, ["px-2 py-1", "px-3 py-1.5", "px-4 py-2.5"]),
         )}
-        style={style}
+        style={rootStyle}
       >
         {loading ? (
           <Icon name="LoaderCircle" size={iconSize} className="animate-spin" />
@@ -116,7 +121,7 @@ export const BoolInput = ({
           disabled ? "cursor-not-allowed opacity-50" : "cursor-pointer",
           className,
         )}
-        style={style}
+        style={rootStyle}
       >
         <button
           type="button"
@@ -142,7 +147,7 @@ export const BoolInput = ({
               }}
               seed={`${id}-track`}
               stroke={stroke}
-              strokeWidth={1.2}
+              strokeWidth={STROKE.regular}
               fill={value ? "#e8e5db" : undefined}
               fillStyle="solid"
             />
@@ -155,7 +160,7 @@ export const BoolInput = ({
               }}
               seed={`${id}-knob`}
               stroke={value ? INK : INK_FAINT}
-              strokeWidth={1.3}
+              strokeWidth={STROKE.regular}
               fill={value ? INK : PAPER_RAISED}
               fillStyle="solid"
             />
@@ -181,7 +186,7 @@ export const BoolInput = ({
         disabled ? "cursor-not-allowed opacity-50" : "cursor-pointer",
         className,
       )}
-      style={style}
+      style={rootStyle}
     >
       <SketchFrame
         as="button"
@@ -192,7 +197,7 @@ export const BoolInput = ({
         stroke={stroke}
         fill={PAPER_RAISED}
         fillStyle="solid"
-        strokeWidth={1.3}
+        strokeWidth={STROKE.regular}
         role="checkbox"
         aria-checked={value === null ? "mixed" : value === true}
         disabled={disabled || loading}

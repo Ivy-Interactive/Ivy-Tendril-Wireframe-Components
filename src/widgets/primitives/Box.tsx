@@ -1,5 +1,5 @@
 import * as React from "react";
-import { alignStyle, cn, sizeStyle, toCssSize } from "@/lib/utils";
+import { alignStyle, cn, toCssSize, widgetStyle } from "@/lib/utils";
 import type { Align, BorderRadius, BorderStyle, HoverEffect, Sizing, WidgetBaseProps } from "@/lib/types";
 import { resolveColor } from "@/sketch/colors";
 import { SketchFrame, type SketchCorner, type SketchOutline } from "@/sketch/SketchFrame";
@@ -26,12 +26,9 @@ export interface BoxProps extends WidgetBaseProps {
   borderColor?: string;
   padding?: Sizing;
   margin?: Sizing;
-  width?: Sizing;
-  height?: Sizing;
   contentAlign?: Align;
   opacity?: number;
   borderOpacity?: number;
-  aspectRatio?: number;
   hoverVariant?: HoverEffect;
   onClick?: React.MouseEventHandler<HTMLElement>;
 }
@@ -49,10 +46,11 @@ export const Box = ({
   margin,
   width,
   height,
+  aspectRatio,
+  visible,
   contentAlign = "Center",
   opacity,
   borderOpacity,
-  aspectRatio,
   hoverVariant = "None",
   className,
   style,
@@ -77,11 +75,9 @@ export const Box = ({
       contentClassName="h-full w-full"
       style={{
         opacity,
-        aspectRatio,
         padding: toCssSize(padding),
         margin: toCssSize(margin),
-        ...sizeStyle(width, height),
-        ...style,
+        ...widgetStyle({ width, height, aspectRatio, visible, style }),
       }}
       {...rest}
     >

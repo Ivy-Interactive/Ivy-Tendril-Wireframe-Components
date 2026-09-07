@@ -1,4 +1,4 @@
-import type { Densities, Sizing, WidgetBaseProps } from "@/lib/types";
+import type { WidgetBaseProps } from "@/lib/types";
 import type { ColorScheme } from "@/sketch/colors";
 
 export type { ColorScheme };
@@ -106,14 +106,13 @@ export interface MarkArea {
 
 /** Props shared by every chart in the library. */
 export interface BaseChartProps extends WidgetBaseProps {
-  width?: Sizing;
-  height?: Sizing;
   colorScheme?: ColorScheme;
   tooltip?: ToolTipProps;
   legend?: LegendProps;
   toolbox?: ToolboxProps;
-  density?: Densities;
 }
+
+export type StackOffset = "None" | "Expand" | "Wiggle" | "Silhouette";
 
 export interface CartesianChartProps extends BaseChartProps {
   data?: ChartData[];

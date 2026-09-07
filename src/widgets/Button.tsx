@@ -1,6 +1,6 @@
 import * as React from "react";
-import { byDensity, cn, densityIconSize, densityText, sizeStyle } from "@/lib/utils";
-import type { BorderRadius, Densities, Sizing, WidgetBaseProps } from "@/lib/types";
+import { byDensity, cn, densityIconSize, densityText, widgetStyle } from "@/lib/utils";
+import type { BorderRadius, WidgetBaseProps } from "@/lib/types";
 import { INK, INK_FAINT, INK_MUTED, resolveColor, tint } from "@/sketch/colors";
 import { Icon } from "@/sketch/Icon";
 import { SketchFrame } from "@/sketch/SketchFrame";
@@ -20,7 +20,6 @@ export interface ButtonProps extends WidgetBaseProps {
   title?: string;
   icon?: string;
   iconPosition?: "Left" | "Right";
-  density?: Densities;
   variant?: ButtonVariant;
   disabled?: boolean;
   tooltip?: string;
@@ -29,7 +28,6 @@ export interface ButtonProps extends WidgetBaseProps {
   loading?: boolean;
   url?: string;
   target?: "Blank" | "Self";
-  width?: Sizing;
   autoFocus?: boolean;
   /** Keyboard shortcut shown on the right, e.g. `"Ctrl+S"`. */
   shortcutKey?: string;
@@ -87,6 +85,9 @@ export const Button = React.forwardRef<HTMLElement, ButtonProps>(function Button
     url,
     target = "Self",
     width,
+    height,
+    aspectRatio,
+    visible,
     autoFocus,
     shortcutKey,
     badge,
@@ -151,7 +152,10 @@ export const Button = React.forwardRef<HTMLElement, ButtonProps>(function Button
         "flex items-center justify-center gap-2",
         bare ? "px-0.5 py-0.5" : byDensity(density, ["px-2.5 py-1", "px-3.5 py-1.5", "px-5 py-2.5"]),
       )}
-      style={{ color: foreground ? resolveColor(foreground) : undefined, ...sizeStyle(width), ...style }}
+      style={{
+        color: foreground ? resolveColor(foreground) : undefined,
+        ...widgetStyle({ width, height, aspectRatio, visible, style }),
+      }}
       {...rest}
     >
       {iconPosition === "Left" && iconNode}

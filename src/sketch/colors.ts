@@ -135,3 +135,37 @@ export function tint(color: string, amount = 0.88, towards = PAPER_RAISED): stri
   );
   return `#${mixed.map((c) => c.toString(16).padStart(2, "0")).join("")}`;
 }
+
+/**
+ * Named surfaces. Every widget fill comes from here rather than a literal hex,
+ * so the whole sheet stays on one paper stock.
+ */
+export const SURFACE = {
+  /** Cards, lists, tables, menus — anything sitting on top of the page. */
+  raised: PAPER_RAISED,
+  /** Table headers, terminals — anything pressed into the page. */
+  sunken: PAPER_SUNKEN,
+  /** Chat transcripts and other large reading areas. */
+  quiet: "#fbfaf5",
+  /** Code listings and editors. */
+  code: "#f7f6f1",
+  /** The primary button and other "pressed pencil" fills. */
+  pressed: "#e8e5db",
+  /** The secondary button. */
+  muted: "#f4f2ec",
+  /** Highlighted rows, hovered menu items, active drop targets. */
+  highlight: HIGHLIGHT,
+} as const;
+
+/**
+ * Stroke weights, so a border's weight always means the same thing:
+ * hairline for grid lines, regular for a resting edge, emphasis for focus or
+ * selection, heavy for a modal.
+ */
+export const STROKE = {
+  hairline: 0.8,
+  thin: 1.1,
+  regular: 1.3,
+  emphasis: 1.6,
+  heavy: 1.8,
+} as const;

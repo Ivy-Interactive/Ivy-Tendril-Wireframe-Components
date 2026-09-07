@@ -11,8 +11,8 @@ import {
   startOfDay,
   startOfWeek,
 } from "date-fns";
-import { byDensity, cn, densityText, sizeStyle } from "@/lib/utils";
-import type { Densities, Sizing, WidgetBaseProps } from "@/lib/types";
+import { byDensity, cn, densityText, widgetStyle } from "@/lib/utils";
+import type { WidgetBaseProps } from "@/lib/types";
 import { INK_FAINT, PAPER_RAISED, resolveColor, tint } from "@/sketch/colors";
 import { Icon } from "@/sketch/Icon";
 import { SketchFrame } from "@/sketch/SketchFrame";
@@ -78,14 +78,14 @@ const EventPill = ({
 export interface CalendarProps extends WidgetBaseProps {
   events?: CalendarEvent[];
   defaultView?: CalendarView;
-  /** ISO date the calendar opens on. */
+  /** ISO date the calendar opens on. Ivy calls this `Date`. */
   defaultDate?: string;
+  /** ISO dates bounding what can be selected. */
+  minDate?: string;
+  maxDate?: string;
   enableDragDrop?: boolean;
   showToolbar?: boolean;
   firstDayOfWeek?: WeekDay;
-  density?: Densities;
-  width?: Sizing;
-  height?: Sizing;
   onEventClick?: (event: CalendarEvent) => void;
   onEventMove?: (eventId: string, start: string, end: string | undefined) => void;
   onSelectSlot?: (start: string, end: string) => void;
@@ -98,12 +98,16 @@ export const Calendar = ({
   events = [],
   defaultView = "Month",
   defaultDate,
+  minDate,
+  maxDate,
   enableDragDrop,
   showToolbar = true,
   firstDayOfWeek = 1,
   density = "Medium",
   width = "100%",
   height = "32rem",
+  aspectRatio,
+  visible,
   className,
   style,
   onEventClick,
@@ -170,7 +174,7 @@ export const Calendar = ({
       fillStyle="solid"
       className={cn("block", densityText(density), className)}
       contentClassName="flex h-full flex-col overflow-hidden"
-      style={{ ...sizeStyle(width, height), ...style }}
+      style={widgetStyle({ width, height, aspectRatio, visible, style })}
     >
       {showToolbar && (
         <div className="flex flex-wrap items-center gap-2 border-b border-dashed border-ink-faint px-3 py-2">
@@ -200,6 +204,8 @@ export const Calendar = ({
               seed={`${id}-month`}
               month={cursor}
               onMonthChange={setCursor}
+              min={minDate ? parseISO(minDate) : undefined}
+              max={maxDate ? parseISO(maxDate) : undefined}
               firstDayOfWeek={firstDayOfWeek}
               showNavigation={false}
               onSelect={(day) => onSelectSlot?.(day.toISOString(), addDays(day, 1).toISOString())}

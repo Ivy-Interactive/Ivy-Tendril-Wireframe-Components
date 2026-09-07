@@ -14,7 +14,10 @@ npm run storybook   # browse every component at http://localhost:6006
 npm run build       # emit dist/index.js, dist/index.cjs, dist/tendril.css and types
 ```
 
-## Using it
+## Using it in another project
+
+Everything except React is a normal dependency and stays external in the build, so you
+get one copy of Radix, lucide and rough.js — not a second set bundled inside the library.
 
 ```tsx
 import "@ivy/tendril/styles.css";
@@ -37,8 +40,49 @@ export function App() {
 ```
 
 `SketchProvider` mounts the shared SVG filters and sets the pencil (roughness, bowing,
-stroke width) for everything beneath it. The `tendril` class applies the handwriting font
-and ink colour — put it on whatever wraps your app.
+stroke width) for everything beneath it. It is optional — without it the borders still
+draw, they just lose the turbulence wobble on icons and images. The `tendril` class
+applies the handwriting font and ink colour; put it on whatever wraps your app.
+
+### Styles: pick one of two paths
+
+**You don't use Tailwind** — import the prebuilt stylesheet and you're done. It carries
+its own reset and every class the components need:
+
+```ts
+import "@ivy/tendril/styles.css";
+```
+
+**You already use Tailwind v4** — import the tokens instead of the full sheet, and point
+`@source` at the package so your Tailwind generates the utilities the components use.
+This avoids shipping Tailwind's preflight twice, and lets you write `text-ink` or
+`font-sketch` in your own markup:
+
+```css
+@import "tailwindcss";
+@import "@ivy/tendril/theme.css";
+@source "../node_modules/@ivy/tendril/dist";
+```
+
+### Two things worth knowing
+
+**Linked installs need `dedupe`.** With `npm link` or a `file:` dependency, your bundler
+can resolve two copies of React — one yours, one from the library's own `node_modules` —
+and every hook throws `Cannot read properties of null (reading 'useContext')`. This is not
+specific to Tendril, but you will hit it while developing against a local checkout:
+
+```ts
+// vite.config.ts
+export default defineConfig({ resolve: { dedupe: ["react", "react-dom"] } });
+```
+
+A normal registry or tarball install has no such problem.
+
+**Icons cost about 60 kB gzipped.** `icon="Rocket"` resolves lucide icons by name at
+runtime, exactly as Ivy does, which means the whole icon map has to be in the bundle and
+cannot be tree-shaken. It is the single largest part of the package. If that matters more
+to you than Ivy parity, import lucide components directly and pass them as children
+instead of using the `icon` prop.
 
 ## How it maps to Ivy
 
@@ -52,6 +96,13 @@ a plain React library:
 | `events: string[]` plus a widget-tree event handler | ordinary React callbacks — `onClick`, `onChange`, `onSelect`, `onOpenChange` |
 | `slots: { Header, Content, Footer }` | named `ReactNode` props — `header`, `children`, `footer` |
 | `DataTableConnection` streaming rows | a plain `rows` array |
+| `Responsive<Size>` / `Responsive<bool?>` | plain values — `width="20rem"`, `visible={false}` |
+
+Every component also takes the props Ivy puts on `WidgetBase`: `width`, `height`,
+`aspectRatio`, `density`, `visible`, `id`, plus `className`, `style` and `data-testid`.
+`visible={false}` hides a widget without unmounting it, which is what Ivy's responsive
+visibility does. Sizes accept what Ivy accepts: CSS lengths (`"20rem"`), fractions
+(`"1/2"`) and bare numbers, which mean quarter-rem steps.
 
 Layout widgets are intentionally out of scope, as requested: `StackLayout`, `GridLayout`,
 `HeaderLayout`, `FooterLayout`, `TabsLayout`, `SidebarLayout`, `ResizablePanelGroup`,
@@ -103,6 +154,13 @@ Every frame takes a `seed`, so a component redraws with the same wobble on each 
 instead of shimmering. Pass `deterministic={false}` to the provider if you want it to
 re-scribble.
 
+Surfaces and stroke weights come from two tables in `src/sketch/colors.ts` rather than
+literal values, so a border's weight always means the same thing across the set:
+`SURFACE` (`raised`, `sunken`, `quiet`, `code`, `pressed`, `muted`, `highlight`) and
+`STROKE` (`hairline`, `thin`, `regular`, `emphasis`, `heavy`). Containers are drawn with
+a faint regular edge, controls with a full-ink one, and inputs move from faint to ink on
+focus.
+
 ### Theming
 
 The palette and typeface are Tailwind v4 theme tokens in `src/styles/tendril.css`.
@@ -141,3 +199,6 @@ src/
 | `npm run build` | library bundle, stylesheet and `.d.ts` files into `dist/` |
 | `npm run build-storybook` | static Storybook into `storybook-static/` |
 | `npm run typecheck` | `tsc --noEmit` over `src` |
+
+The build emits `dist/index.js` (ESM), `dist/index.cjs`, `dist/tendril.css`,
+`dist/theme.css` and per-file `.d.ts` declarations.

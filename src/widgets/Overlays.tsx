@@ -1,8 +1,8 @@
 import * as React from "react";
 import * as DialogPrimitive from "@radix-ui/react-dialog";
-import { cn, sizeStyle } from "@/lib/utils";
-import type { Sizing, WidgetBaseProps } from "@/lib/types";
-import { INK_FAINT, PAPER_RAISED } from "@/sketch/colors";
+import { cn, sizeStyle, widgetStyle } from "@/lib/utils";
+import type { WidgetBaseProps } from "@/lib/types";
+import { INK_FAINT, PAPER_RAISED, STROKE } from "@/sketch/colors";
 import { Icon } from "@/sketch/Icon";
 import { SketchFrame } from "@/sketch/SketchFrame";
 
@@ -16,7 +16,6 @@ export interface DialogProps extends WidgetBaseProps {
   children?: React.ReactNode;
   /** Element that opens the dialog. */
   trigger?: React.ReactNode;
-  width?: Sizing;
   onOpenChange?: (open: boolean) => void;
   onClose?: () => void;
 }
@@ -29,6 +28,9 @@ export const Dialog = ({
   children,
   trigger,
   width = "28rem",
+  height,
+  aspectRatio,
+  visible,
   className,
   style,
   onOpenChange,
@@ -48,14 +50,17 @@ export const Dialog = ({
       <DialogPrimitive.Content
         id={id}
         className="tendril fixed top-1/2 left-1/2 z-50 max-h-[85vh] w-[calc(100vw-2rem)] -translate-x-1/2 -translate-y-1/2 focus:outline-none"
-        style={{ maxWidth: sizeStyle(width).width, ...style }}
+        style={{
+          maxWidth: sizeStyle(width).width,
+          ...widgetStyle({ height, aspectRatio, visible, style }),
+        }}
       >
         <SketchFrame
           seed={`${id}-dialog`}
           corner="rounded"
           fill={PAPER_RAISED}
           fillStyle="solid"
-          strokeWidth={1.8}
+          strokeWidth={STROKE.heavy}
           doubleStroke
           className={cn("block -rotate-[0.15deg]", className)}
           contentClassName="flex max-h-[85vh] flex-col overflow-hidden"
@@ -81,6 +86,10 @@ export const DialogHeader = ({
   description,
   hideCloseButton,
   children,
+  width,
+  height,
+  aspectRatio,
+  visible,
   className,
   style,
 }: DialogHeaderProps) => (
@@ -90,7 +99,7 @@ export const DialogHeader = ({
       "flex items-start gap-3 border-b border-dashed border-ink-faint px-5 py-3.5",
       className,
     )}
-    style={style}
+    style={widgetStyle({ width, height, aspectRatio, visible, style })}
   >
     <div className="min-w-0 flex-1">
       {title && <DialogPrimitive.Title className="text-lg font-bold">{title}</DialogPrimitive.Title>}
@@ -114,8 +123,21 @@ export interface DialogBodyProps extends WidgetBaseProps {
 }
 
 /** Mirrors `Ivy.DialogBody`. */
-export const DialogBody = ({ id, children, className, style }: DialogBodyProps) => (
-  <div id={id} className={cn("flex-1 overflow-auto px-5 py-4", className)} style={style}>
+export const DialogBody = ({
+  id,
+  children,
+  width,
+  height,
+  aspectRatio,
+  visible,
+  className,
+  style,
+}: DialogBodyProps) => (
+  <div
+    id={id}
+    className={cn("flex-1 overflow-auto px-5 py-4", className)}
+    style={widgetStyle({ width, height, aspectRatio, visible, style })}
+  >
     {children}
   </div>
 );
@@ -125,14 +147,23 @@ export interface DialogFooterProps extends WidgetBaseProps {
 }
 
 /** Mirrors `Ivy.DialogFooter`. */
-export const DialogFooter = ({ id, children, className, style }: DialogFooterProps) => (
+export const DialogFooter = ({
+  id,
+  children,
+  width,
+  height,
+  aspectRatio,
+  visible,
+  className,
+  style,
+}: DialogFooterProps) => (
   <div
     id={id}
     className={cn(
       "flex items-center justify-end gap-2 border-t border-dashed border-ink-faint px-5 py-3.5",
       className,
     )}
-    style={style}
+    style={widgetStyle({ width, height, aspectRatio, visible, style })}
   >
     {children}
   </div>
@@ -147,8 +178,6 @@ export interface SheetProps extends WidgetBaseProps {
   description?: string;
   trigger?: React.ReactNode;
   children?: React.ReactNode;
-  width?: Sizing;
-  height?: Sizing;
   side?: SheetSide;
   resizable?: boolean;
   onOpenChange?: (open: boolean) => void;
@@ -173,6 +202,8 @@ export const Sheet = ({
   children,
   width = "24rem",
   height = "20rem",
+  aspectRatio,
+  visible,
   side = "Right",
   resizable,
   className,
@@ -202,7 +233,7 @@ export const Sheet = ({
             ...(horizontal ? { height: "100%" } : { width: "100%" }),
             resize: resizable ? (horizontal ? "horizontal" : "vertical") : undefined,
             overflow: resizable ? "auto" : undefined,
-            ...style,
+            ...widgetStyle({ aspectRatio, visible, style }),
           }}
         >
           <SketchFrame
@@ -244,11 +275,20 @@ export interface BladeContainerProps extends WidgetBaseProps {
 }
 
 /** Horizontal stack of drill-down blades. Mirrors `Ivy.BladeContainer`. */
-export const BladeContainer = ({ id, children, className, style }: BladeContainerProps) => (
+export const BladeContainer = ({
+  id,
+  children,
+  width,
+  height,
+  aspectRatio,
+  visible,
+  className,
+  style,
+}: BladeContainerProps) => (
   <div
     id={id}
     className={cn("flex h-full items-stretch gap-3 overflow-x-auto", className)}
-    style={style}
+    style={widgetStyle({ width, height, aspectRatio, visible, style })}
   >
     {children}
   </div>
@@ -256,7 +296,6 @@ export const BladeContainer = ({ id, children, className, style }: BladeContaine
 
 export interface BladeProps extends WidgetBaseProps {
   title?: string;
-  width?: Sizing;
   index?: number;
   header?: React.ReactNode;
   children?: React.ReactNode;
@@ -269,6 +308,9 @@ export const Blade = ({
   id,
   title,
   width = "22rem",
+  height = "100%",
+  aspectRatio,
+  visible,
   index = 0,
   header,
   children,
@@ -286,7 +328,7 @@ export const Blade = ({
     fillStyle="solid"
     className={cn("block shrink-0", className)}
     contentClassName="flex h-full flex-col overflow-hidden"
-    style={{ ...sizeStyle(width, "100%"), ...style }}
+    style={widgetStyle({ width, height, aspectRatio, visible, style })}
   >
     <div className="flex items-center gap-2 border-b border-dashed border-ink-faint px-4 py-2.5">
       <span className="min-w-0 flex-1 truncate font-bold">{title}</span>

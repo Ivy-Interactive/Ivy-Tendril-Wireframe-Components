@@ -1,9 +1,9 @@
 import * as React from "react";
 import * as PopoverPrimitive from "@radix-ui/react-popover";
 import { icons } from "lucide-react";
-import { byDensity, cn, densityIconSize, densityText, formatBytes, sizeStyle } from "@/lib/utils";
-import type { FileItem, Sizing } from "@/lib/types";
-import { INK, INK_FAINT, PAPER_RAISED, resolveColor } from "@/sketch/colors";
+import { byDensity, cn, densityIconSize, densityText, formatBytes, widgetStyle } from "@/lib/utils";
+import type { FileItem } from "@/lib/types";
+import { INK, INK_FAINT, PAPER_RAISED, STROKE, SURFACE, resolveColor } from "@/sketch/colors";
 import { Icon } from "@/sketch/Icon";
 import { RoughShape } from "@/sketch/RoughShape";
 import { SketchFrame } from "@/sketch/SketchFrame";
@@ -39,6 +39,9 @@ export const ColorInput = ({
   density = "Medium",
   ghost,
   width = "12rem",
+  height,
+  aspectRatio,
+  visible,
   prefix,
   suffix,
   className,
@@ -80,7 +83,7 @@ export const ColorInput = ({
         fillStyle="solid"
         className={cn("inline-block", className)}
         contentClassName="block"
-        style={style}
+        style={widgetStyle({ width, height, aspectRatio, visible, style })}
       >
         {swatchGrid}
       </SketchFrame>
@@ -95,6 +98,9 @@ export const ColorInput = ({
       density={density}
       ghost={ghost}
       width={width}
+      height={height}
+      aspectRatio={aspectRatio}
+      visible={visible}
       className={className}
       style={style}
       showClear={Boolean(nullable && value)}
@@ -182,6 +188,9 @@ export const IconInput = ({
   density = "Medium",
   ghost,
   width = "14rem",
+  height,
+  aspectRatio,
+  visible,
   className,
   style,
   onChange,
@@ -209,6 +218,9 @@ export const IconInput = ({
             density={density}
             ghost={ghost}
             width={width}
+            height={height}
+            aspectRatio={aspectRatio}
+            visible={visible}
             focused={open}
             className={className}
             style={style}
@@ -292,11 +304,16 @@ export const FeedbackInput = ({
   invalid,
   nullable,
   density = "Medium",
+  width,
+  height,
+  aspectRatio,
+  visible,
   className,
   style,
   onChange,
 }: FeedbackInputProps) => {
   const size = byDensity(density, [18, 24, 30]);
+  const rootStyle = widgetStyle({ width, height, aspectRatio, visible, style });
 
   const pick = (next: number | boolean) => {
     if (disabled) return;
@@ -305,7 +322,7 @@ export const FeedbackInput = ({
 
   if (variant === "Thumbs") {
     return (
-      <div id={id} className={cn("inline-flex items-center gap-2", className)} style={style} role="group">
+      <div id={id} className={cn("inline-flex items-center gap-2", className)} style={rootStyle} role="group">
         {[true, false].map((thumb) => (
           <button
             key={String(thumb)}
@@ -330,7 +347,7 @@ export const FeedbackInput = ({
 
   if (variant === "Emojis") {
     return (
-      <div id={id} className={cn("inline-flex items-center gap-1", className)} style={style} role="group">
+      <div id={id} className={cn("inline-flex items-center gap-1", className)} style={rootStyle} role="group">
         {EMOJIS.map((emoji, index) => (
           <button
             key={emoji}
@@ -357,7 +374,7 @@ export const FeedbackInput = ({
   const rating = typeof value === "number" ? value : 0;
 
   return (
-    <div id={id} className={cn("inline-flex items-center gap-0.5", className)} style={style} role="group">
+    <div id={id} className={cn("inline-flex items-center gap-0.5", className)} style={rootStyle} role="group">
       {Array.from({ length: max }).map((_, index) => {
         const filled = rating >= index + 1;
         const half = allowHalf && !filled && rating >= index + 0.5;
@@ -392,6 +409,8 @@ export interface FileInputProps extends BaseInputProps {
   multiple?: boolean;
   maxFiles?: number;
   variant?: "Default" | "Drop";
+  /** Endpoint the host uploads to; surfaced so callers can wire their own upload. */
+  uploadUrl?: string;
   onChange?: (files: File[]) => void;
   onRemove?: (file: FileItem) => void;
 }
@@ -405,11 +424,15 @@ export const FileInput = ({
   multiple,
   maxFiles,
   variant = "Default",
+  uploadUrl,
   placeholder = "Choose a file",
   disabled,
   invalid,
   density = "Medium",
   width = "20rem",
+  height,
+  aspectRatio,
+  visible,
   className,
   style,
   onChange,
@@ -455,13 +478,17 @@ export const FileInput = ({
       multiple={multiple}
       disabled={disabled}
       className="hidden"
+      data-upload-url={uploadUrl}
       onChange={(event) => onChange?.(Array.from(event.target.files ?? []))}
     />
   );
 
   if (variant === "Drop") {
     return (
-      <div className={cn("inline-block", className)} style={{ ...sizeStyle(width), ...style }}>
+      <div
+        className={cn("inline-block", className)}
+        style={widgetStyle({ width, height, aspectRatio, visible, style })}
+      >
         <SketchFrame
           seed={id ?? "dropzone"}
           outline="dashed"
@@ -499,7 +526,10 @@ export const FileInput = ({
   }
 
   return (
-    <div className={cn("inline-block", className)} style={{ ...sizeStyle(width), ...style }}>
+    <div
+      className={cn("inline-block", className)}
+      style={widgetStyle({ width, height, aspectRatio, visible, style })}
+    >
       <InputShell
         id={id ? `${id}-shell` : undefined}
         disabled={disabled}
@@ -526,6 +556,8 @@ export interface SignatureInputProps extends BaseInputProps {
   pen?: string;
   background?: string;
   penThickness?: number;
+  /** `Bordered` keeps the frame; `Ghost` drops it, as in Ivy. */
+  variant?: "Bordered" | "Ghost";
   onChange?: (value: string | null) => void;
 }
 
@@ -536,11 +568,15 @@ export const SignatureInput = ({
   pen = "Primary",
   background,
   penThickness = 2,
+  variant = "Bordered",
   placeholder = "Sign here",
   disabled,
   invalid,
   density = "Medium",
   width = "22rem",
+  height: rootHeight,
+  aspectRatio,
+  visible,
   className,
   style,
   onChange,
@@ -596,9 +632,13 @@ export const SignatureInput = ({
   };
 
   return (
-    <div className={cn("inline-block", className)} style={{ ...sizeStyle(width), ...style }}>
+    <div
+      className={cn("inline-block", className)}
+      style={widgetStyle({ width, height: rootHeight, aspectRatio, visible, style })}
+    >
       <SketchFrame
         seed={id ?? "signature"}
+        outline={variant === "Ghost" ? "none" : "solid"}
         stroke={invalid ? resolveColor("Destructive") : INK_FAINT}
         fill={background ? resolveColor(background) : PAPER_RAISED}
         fillStyle="solid"
@@ -639,7 +679,9 @@ export const SignatureInput = ({
 export interface CodeInputProps extends BaseInputProps {
   value?: string;
   language?: string;
-  height?: Sizing;
+  /** Ivy's editor flavour. `Default` shows line numbers; `Ghost` drops the chrome. */
+  variant?: "Default" | "Ghost";
+  showCopyButton?: boolean;
   onChange?: (value: string | null) => void;
 }
 
@@ -648,6 +690,8 @@ export const CodeInput = ({
   id,
   value = "",
   language,
+  variant = "Default",
+  showCopyButton,
   placeholder,
   disabled,
   invalid,
@@ -655,31 +699,58 @@ export const CodeInput = ({
   density = "Medium",
   width = "28rem",
   height = "12rem",
+  aspectRatio,
+  visible,
   autoFocus,
   className,
   style,
   onChange,
 }: CodeInputProps) => {
+  const [copied, setCopied] = React.useState(false);
   const lineCount = value.split("\n").length;
 
   return (
-    <div className={cn("inline-block", className)} style={{ ...sizeStyle(width), ...style }}>
+    <div
+      className={cn("inline-block", className)}
+      style={widgetStyle({ width, aspectRatio, visible, style })}
+    >
       <SketchFrame
         seed={id ?? "code-input"}
+        outline={variant === "Ghost" ? "none" : "solid"}
         stroke={invalid ? resolveColor("Destructive") : INK_FAINT}
-        fill="#f7f6f1"
+        fill={SURFACE.code}
         fillStyle="solid"
-        className="block w-full"
+        className="relative block w-full"
         contentClassName="flex overflow-hidden"
-        style={sizeStyle(undefined, height)}
+        style={widgetStyle({ height })}
       >
-        <span className="shrink-0 border-r border-dashed border-ink-faint px-2 py-2 text-right font-sketch-mono text-xs text-ink-faint select-none">
-          {Array.from({ length: lineCount }).map((_, index) => (
-            <span key={index} className="block leading-relaxed">
-              {index + 1}
-            </span>
-          ))}
-        </span>
+        {showCopyButton && (
+          <button
+            type="button"
+            aria-label="Copy code"
+            onClick={async () => {
+              try {
+                await navigator.clipboard.writeText(value);
+                setCopied(true);
+                setTimeout(() => setCopied(false), 1400);
+              } catch {
+                setCopied(false);
+              }
+            }}
+            className="absolute top-1.5 right-1.5 z-[2] cursor-pointer p-1 text-ink-muted hover:text-ink"
+          >
+            <Icon name={copied ? "Check" : "Copy"} size={14} />
+          </button>
+        )}
+        {variant !== "Ghost" && (
+          <span className="shrink-0 border-r border-dashed border-ink-faint px-2 py-2 text-right font-sketch-mono text-xs text-ink-faint select-none">
+            {Array.from({ length: lineCount }).map((_, index) => (
+              <span key={index} className="block leading-relaxed">
+                {index + 1}
+              </span>
+            ))}
+          </span>
+        )}
         <textarea
           id={id}
           value={value}
@@ -708,6 +779,8 @@ export interface ContentInputProps extends BaseInputProps {
   files?: FileItem[];
   accept?: string;
   maxFiles?: number;
+  maxFileSize?: number;
+  uploadUrl?: string;
   shortcutKey?: string;
   onChange?: (value: string | null) => void;
   onAttach?: (files: File[]) => void;
@@ -726,12 +799,17 @@ export const ContentInput = ({
   files = [],
   accept,
   maxFiles,
+  maxFileSize,
+  uploadUrl,
   shortcutKey,
   placeholder = "Write something…",
   disabled,
   invalid,
   density = "Medium",
   width = "28rem",
+  height,
+  aspectRatio,
+  visible,
   autoFocus,
   className,
   style,
@@ -742,7 +820,10 @@ export const ContentInput = ({
   const fileRef = React.useRef<HTMLInputElement>(null);
 
   return (
-    <div className={cn("inline-block", className)} style={{ ...sizeStyle(width), ...style }}>
+    <div
+      className={cn("inline-block", className)}
+      style={widgetStyle({ width, height, aspectRatio, visible, style })}
+    >
       <SketchFrame
         seed={id ?? "content-input"}
         stroke={invalid ? resolveColor("Destructive") : INK_FAINT}
@@ -786,6 +867,8 @@ export const ContentInput = ({
               accept={accept}
               multiple={maxFiles !== 1}
               className="hidden"
+              data-upload-url={uploadUrl}
+              data-max-file-size={maxFileSize}
               onChange={(event) => onAttach?.(Array.from(event.target.files ?? []))}
             />
             <button
@@ -842,6 +925,9 @@ export const AudioInput = ({
   invalid,
   density = "Medium",
   width = "18rem",
+  height,
+  aspectRatio,
+  visible,
   className,
   style,
   onToggleRecording,
@@ -858,7 +944,10 @@ export const AudioInput = ({
   }, [w, recording, elapsed, waveHeight]);
 
   return (
-    <div className={cn("inline-block", className)} style={{ ...sizeStyle(width), ...style }}>
+    <div
+      className={cn("inline-block", className)}
+      style={widgetStyle({ width, height, aspectRatio, visible, style })}
+    >
       <SketchFrame
         seed={id ?? "audio-input"}
         corner="pill"
@@ -889,7 +978,7 @@ export const AudioInput = ({
                 shape={{ kind: "linearPath", points }}
                 seed={`${id}-wave`}
                 stroke={recording ? resolveColor("Destructive") : INK_FAINT}
-                strokeWidth={1.3}
+                strokeWidth={STROKE.regular}
                 roughness={1.8}
               />
             </svg>
@@ -908,6 +997,8 @@ export interface CameraInputProps extends BaseInputProps {
   facingMode?: "user" | "environment";
   /** Data URL of the captured frame. */
   value?: string | null;
+  /** Endpoint the host uploads captures to. */
+  uploadUrl?: string;
   onCapture?: () => void;
   onClear?: () => void;
 }
@@ -917,30 +1008,38 @@ export const CameraInput = ({
   id,
   facingMode = "user",
   value,
+  uploadUrl,
   placeholder = "Camera preview",
   disabled,
   invalid,
   density = "Medium",
   width = "20rem",
+  height: rootHeight,
+  aspectRatio,
+  visible,
   className,
   style,
   onCapture,
   onClear,
 }: CameraInputProps) => {
-  const height = byDensity(density, [140, 180, 240]);
+  const viewHeight = byDensity(density, [140, 180, 240]);
   const { ref, width: w, height: h } = useMeasuredSize<HTMLSpanElement>();
 
   return (
-    <div className={cn("inline-block", className)} style={{ ...sizeStyle(width), ...style }}>
+    <div
+      className={cn("inline-block", className)}
+      style={widgetStyle({ width, height: rootHeight, aspectRatio, visible, style })}
+      data-upload-url={uploadUrl}
+    >
       <SketchFrame
         seed={id ?? "camera"}
         stroke={invalid ? resolveColor("Destructive") : INK_FAINT}
-        fill="#f2f0e9"
+        fill={SURFACE.sunken}
         fillStyle="solid"
         className="block w-full overflow-hidden"
         contentClassName="block"
       >
-        <span ref={ref} className="relative flex items-center justify-center" style={{ height }}>
+        <span ref={ref} className="relative flex items-center justify-center" style={{ height: viewHeight }}>
           {value ? (
             <img src={value} alt="Captured" className="h-full w-full object-cover" />
           ) : (
@@ -951,13 +1050,13 @@ export const CameraInput = ({
                     shape={{ kind: "line", x1: 2, y1: 2, x2: w - 2, y2: h - 2 }}
                     seed="cam-x1"
                     stroke={INK_FAINT}
-                    strokeWidth={1}
+                    strokeWidth={STROKE.thin}
                   />
                   <RoughShape
                     shape={{ kind: "line", x1: w - 2, y1: 2, x2: 2, y2: h - 2 }}
                     seed="cam-x2"
                     stroke={INK_FAINT}
-                    strokeWidth={1}
+                    strokeWidth={STROKE.thin}
                   />
                 </svg>
               )}

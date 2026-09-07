@@ -1,7 +1,7 @@
 import * as React from "react";
-import { cn, sizeStyle } from "@/lib/utils";
-import type { Sizing, WidgetBaseProps } from "@/lib/types";
-import { INK_FAINT, INK_MUTED } from "@/sketch/colors";
+import { cn, widgetStyle } from "@/lib/utils";
+import type { WidgetBaseProps } from "@/lib/types";
+import { INK_FAINT, INK_MUTED, STROKE, resolveColor, tint } from "@/sketch/colors";
 import { Icon } from "@/sketch/Icon";
 import { SketchFrame } from "@/sketch/SketchFrame";
 import { RoughShape } from "@/sketch/RoughShape";
@@ -14,16 +14,27 @@ export interface ErrorProps extends WidgetBaseProps {
 }
 
 /** The red-pencil error panel. Mirrors `Ivy.Error`. */
-export const ErrorPanel = ({ id, title, message, stackTrace, className, style }: ErrorProps) => (
+export const ErrorPanel = ({
+  id,
+  title,
+  message,
+  stackTrace,
+  width,
+  height,
+  aspectRatio,
+  visible,
+  className,
+  style,
+}: ErrorProps) => (
   <SketchFrame
     id={id}
     seed={id ?? "error"}
-    stroke="#b04a3f"
-    fill="#fbf1ef"
+    stroke={resolveColor("Destructive")}
+    fill={tint(resolveColor("Destructive"), 0.9)}
     fillStyle="solid"
     className={cn("inline-block max-w-full", className)}
     contentClassName="flex items-start gap-3 p-4"
-    style={style}
+    style={widgetStyle({ width, height, aspectRatio, visible, style })}
   >
     <Icon name="OctagonAlert" color="Destructive" size={20} className="mt-0.5" />
     <span className="block min-w-0 flex-1">
@@ -52,13 +63,17 @@ export const Empty = ({
   description,
   icon = "Inbox",
   children,
+  width,
+  height,
+  aspectRatio,
+  visible,
   className,
   style,
 }: EmptyProps) => (
   <div
     id={id}
     className={cn("flex flex-col items-center justify-center gap-2 p-8 text-center", className)}
-    style={style}
+    style={widgetStyle({ width, height, aspectRatio, visible, style })}
   >
     <Icon name={icon} size={36} color={INK_FAINT} />
     <span className="font-bold text-ink-muted">{title}</span>
@@ -68,14 +83,21 @@ export const Empty = ({
 );
 
 export interface SkeletonProps extends WidgetBaseProps {
-  width?: Sizing;
-  height?: Sizing;
   /** Number of stacked placeholder lines. */
   lines?: number;
 }
 
 /** A scribbled placeholder block. Mirrors `Ivy.Skeleton`. */
-export const Skeleton = ({ id, width = "100%", height = "1.25rem", lines = 1, className, style }: SkeletonProps) => {
+export const Skeleton = ({
+  id,
+  width = "100%",
+  height = "1.25rem",
+  aspectRatio,
+  visible,
+  lines = 1,
+  className,
+  style,
+}: SkeletonProps) => {
   const { ref, width: w, height: h } = useMeasuredSize<HTMLDivElement>();
   const rowHeight = lines > 1 ? h / lines : h;
 
@@ -84,7 +106,13 @@ export const Skeleton = ({ id, width = "100%", height = "1.25rem", lines = 1, cl
       id={id}
       ref={ref}
       className={cn("relative animate-[tendril-pulse_1.8s_ease-in-out_infinite]", className)}
-      style={{ ...sizeStyle(width, lines > 1 ? `calc(${height} * ${lines})` : height), ...style }}
+      style={widgetStyle({
+        width,
+        height: lines > 1 ? `calc(${height} * ${lines})` : height,
+        aspectRatio,
+        visible,
+        style,
+      })}
     >
       {w > 0 && h > 0 && (
         <svg aria-hidden="true" className="absolute inset-0 h-full w-full overflow-visible">
@@ -103,7 +131,7 @@ export const Skeleton = ({ id, width = "100%", height = "1.25rem", lines = 1, cl
                   height: Math.max(1, rowHeight * 0.6),
                 }}
                 stroke={INK_FAINT}
-                strokeWidth={1}
+                strokeWidth={STROKE.thin}
                 fill={INK_FAINT}
                 fillStyle="hachure"
                 fillWeight={0.6}
@@ -122,19 +150,31 @@ export interface LoadingProps extends WidgetBaseProps {
 }
 
 /** Spinner or skeleton placeholder. Mirrors `Ivy.Loading`. */
-export const Loading = ({ id, type = "Spinner", label, className, style }: LoadingProps) => {
+export const Loading = ({
+  id,
+  type = "Spinner",
+  label,
+  width,
+  height,
+  aspectRatio,
+  visible,
+  className,
+  style,
+}: LoadingProps) => {
+  const rootStyle = widgetStyle({ width, height, aspectRatio, visible, style });
+
   if (type === "Skeleton") {
-    return <Skeleton id={id} lines={3} className={className} style={style} />;
+    return <Skeleton id={id} lines={3} className={className} style={rootStyle} />;
   }
 
   return (
-    <div id={id} className={cn("flex items-center gap-2 text-ink-muted", className)} style={style}>
+    <div id={id} className={cn("flex items-center gap-2 text-ink-muted", className)} style={rootStyle}>
       <svg width="20" height="20" viewBox="0 0 20 20" className="animate-spin" aria-hidden="true">
         <RoughShape
           shape={{ kind: "arc", x: 10, y: 10, width: 15, height: 15, start: 0.5, stop: 5.4 }}
           seed="loading-arc"
           stroke={INK_MUTED}
-          strokeWidth={1.8}
+          strokeWidth={STROKE.heavy}
           roughness={1.6}
         />
       </svg>
@@ -144,17 +184,14 @@ export const Loading = ({ id, type = "Spinner", label, className, style }: Loadi
   );
 };
 
-export interface SpacerProps extends WidgetBaseProps {
-  width?: Sizing;
-  height?: Sizing;
-}
+export type SpacerProps = WidgetBaseProps;
 
 /** Blank space. Mirrors `Ivy.Spacer`. */
-export const Spacer = ({ id, width, height, className, style }: SpacerProps) => (
+export const Spacer = ({ id, width, height, aspectRatio, visible, className, style }: SpacerProps) => (
   <div
     id={id}
     aria-hidden="true"
     className={cn(!width && !height && "flex-1", className)}
-    style={{ ...sizeStyle(width, height), ...style }}
+    style={widgetStyle({ width, height, aspectRatio, visible, style })}
   />
 );

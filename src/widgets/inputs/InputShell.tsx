@@ -1,6 +1,6 @@
 import * as React from "react";
-import { byDensity, cn, densityIconSize, densityText, sizeStyle } from "@/lib/utils";
-import type { Densities, Sizing, WidgetBaseProps } from "@/lib/types";
+import { byDensity, cn, densityIconSize, densityText, sizeStyle, widgetStyle } from "@/lib/utils";
+import type { Densities, WidgetBaseProps } from "@/lib/types";
 import { INK, INK_FAINT, PAPER_RAISED, resolveColor } from "@/sketch/colors";
 import { Icon } from "@/sketch/Icon";
 import { SketchFrame } from "@/sketch/SketchFrame";
@@ -12,11 +12,9 @@ export interface BaseInputProps extends WidgetBaseProps {
   invalid?: string;
   nullable?: boolean;
   placeholder?: string;
-  density?: Densities;
   autoFocus?: boolean;
   /** Renders the field without its border, for embedding in toolbars. */
   ghost?: boolean;
-  width?: Sizing;
   prefix?: React.ReactNode;
   suffix?: React.ReactNode;
 }
@@ -33,7 +31,6 @@ export interface InputShellProps extends BaseInputProps {
   className?: string;
   contentClassName?: string;
   corner?: "rounded" | "pill" | "sharp";
-  height?: Sizing;
   onClick?: React.MouseEventHandler<HTMLElement>;
 }
 
@@ -50,6 +47,8 @@ export const InputShell = ({
   ghost,
   width,
   height,
+  aspectRatio,
+  visible,
   prefix,
   suffix,
   showClear,
@@ -65,7 +64,10 @@ export const InputShell = ({
   const stroke = invalid ? resolveColor("Destructive") : focused ? INK : INK_FAINT;
 
   return (
-    <div className={cn("inline-flex flex-col gap-1", className)} style={{ ...sizeStyle(width), ...style }}>
+    <div
+      className={cn("inline-flex flex-col gap-1", className)}
+      style={widgetStyle({ width, aspectRatio, visible, style })}
+    >
       <SketchFrame
         id={id}
         seed={id ?? "input"}

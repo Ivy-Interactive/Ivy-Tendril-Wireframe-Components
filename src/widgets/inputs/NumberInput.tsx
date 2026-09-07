@@ -1,6 +1,6 @@
 import * as React from "react";
-import { byDensity, cn, densityIconSize, densityText } from "@/lib/utils";
-import { INK, INK_FAINT, PAPER_RAISED, resolveColor } from "@/sketch/colors";
+import { byDensity, cn, densityIconSize, densityText, widgetStyle } from "@/lib/utils";
+import { INK, INK_FAINT, PAPER_RAISED, STROKE, resolveColor } from "@/sketch/colors";
 import { Icon } from "@/sketch/Icon";
 import { RoughShape } from "@/sketch/RoughShape";
 import { useMeasuredSize } from "@/sketch/useRough";
@@ -54,6 +54,18 @@ export function formatNumber(
   }
 }
 
+/** Ranges Ivy clamps to when a numeric input is bound to a CLR type. */
+export const TYPE_LIMITS: Record<string, { min: number; max: number }> = {
+  byte: { min: 0, max: 255 },
+  sbyte: { min: -128, max: 127 },
+  short: { min: -32768, max: 32767 },
+  ushort: { min: 0, max: 65535 },
+  int: { min: -2147483648, max: 2147483647 },
+  uint: { min: 0, max: 4294967295 },
+  long: { min: Number.MIN_SAFE_INTEGER, max: Number.MAX_SAFE_INTEGER },
+  ulong: { min: 0, max: Number.MAX_SAFE_INTEGER },
+};
+
 /** Slider track and thumb, drawn with rough.js. */
 const SketchSlider = ({
   value,
@@ -86,19 +98,19 @@ const SketchSlider = ({
             shape={{ kind: "line", x1: 4, y1: height / 2, x2: width - 4, y2: height / 2 }}
             seed={`${seed}-track`}
             stroke={INK_FAINT}
-            strokeWidth={1.4}
+            strokeWidth={STROKE.regular}
           />
           <RoughShape
             shape={{ kind: "line", x1: 4, y1: height / 2, x2: knobX, y2: height / 2 }}
             seed={`${seed}-filled`}
             stroke={INK}
-            strokeWidth={1.8}
+            strokeWidth={STROKE.heavy}
           />
           <RoughShape
             shape={{ kind: "circle", cx: knobX, cy: height / 2, diameter: height - 8 }}
             seed={`${seed}-knob`}
             stroke={INK}
-            strokeWidth={1.4}
+            strokeWidth={STROKE.regular}
             fill={PAPER_RAISED}
             fillStyle="solid"
           />
@@ -128,6 +140,8 @@ export interface NumberInputProps extends BaseInputProps {
   formatStyle?: FormatStyle;
   currency?: string;
   noGrouping?: boolean;
+  /** Ivy's CLR type name, used to clamp to that type's range (e.g. `"int"`). */
+  targetType?: string;
   /** Hides the stepper buttons on the `Number` variant. */
   hideStepper?: boolean;
   onChange?: (value: number | null) => void;
@@ -146,6 +160,7 @@ export const NumberInput = ({
   formatStyle = "Decimal",
   currency,
   noGrouping,
+  targetType,
   hideStepper,
   placeholder,
   disabled,
@@ -154,6 +169,9 @@ export const NumberInput = ({
   density = "Medium",
   ghost,
   width = "12rem",
+  height,
+  aspectRatio,
+  visible,
   autoFocus,
   prefix,
   suffix,
@@ -181,8 +199,10 @@ export const NumberInput = ({
     if (raw.trim() === "") return onChange?.(nullable ? null : 0);
     const parsed = Number(raw.replace(/[^\d.eE+-]/g, ""));
     if (Number.isNaN(parsed)) return;
-    const bounded = Math.min(max ?? Infinity, Math.max(min ?? -Infinity, parsed));
-    onChange?.(bounded);
+    const limits = targetType ? TYPE_LIMITS[targetType] : undefined;
+    const lower = Math.max(min ?? -Infinity, limits?.min ?? -Infinity);
+    const upper = Math.min(max ?? Infinity, limits?.max ?? Infinity);
+    onChange?.(Math.min(upper, Math.max(lower, parsed)));
   };
 
   const nudge = (direction: 1 | -1) => {
@@ -198,7 +218,7 @@ export const NumberInput = ({
     return (
       <div
         className={cn("inline-flex flex-col gap-1", densityText(density), className)}
-        style={{ width: typeof width === "number" ? width : width, ...style }}
+        style={widgetStyle({ width, height, aspectRatio, visible, style })}
       >
         <div className="flex items-center gap-3">
           <div className="min-w-0 flex-1">
@@ -234,6 +254,9 @@ export const NumberInput = ({
       density={density}
       ghost={ghost}
       width={width}
+      height={height}
+      aspectRatio={aspectRatio}
+      visible={visible}
       focused={focused}
       prefix={prefix}
       className={className}
@@ -312,6 +335,7 @@ export interface NumberRangeInputProps extends BaseInputProps {
   formatStyle?: FormatStyle;
   currency?: string;
   noGrouping?: boolean;
+  targetType?: string;
   onChange?: (lower: number | null, upper: number | null) => void;
 }
 
@@ -327,11 +351,15 @@ export const NumberRangeInput = ({
   formatStyle = "Decimal",
   currency,
   noGrouping,
+  targetType,
   disabled,
   invalid,
   nullable,
   density = "Medium",
   width = "20rem",
+  height,
+  aspectRatio,
+  visible,
   className,
   style,
   onChange,
@@ -343,7 +371,7 @@ export const NumberRangeInput = ({
     <div
       id={id}
       className={cn("inline-flex flex-col gap-2", densityText(density), className)}
-      style={{ width: typeof width === "string" ? width : undefined, ...style }}
+      style={widgetStyle({ width, height, aspectRatio, visible, style })}
     >
       <div className="flex items-center gap-2">
         <NumberInput
@@ -356,6 +384,7 @@ export const NumberRangeInput = ({
           formatStyle={formatStyle}
           currency={currency}
           noGrouping={noGrouping}
+          targetType={targetType}
           nullable={nullable}
           disabled={disabled}
           density={density}
@@ -374,6 +403,7 @@ export const NumberRangeInput = ({
           formatStyle={formatStyle}
           currency={currency}
           noGrouping={noGrouping}
+          targetType={targetType}
           nullable={nullable}
           disabled={disabled}
           density={density}

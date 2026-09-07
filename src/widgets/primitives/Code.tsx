@@ -1,7 +1,7 @@
 import * as React from "react";
-import { cn, densityText, sizeStyle, textAlignClass } from "@/lib/utils";
-import type { Densities, Sizing, TextAlignment, WidgetBaseProps } from "@/lib/types";
-import { INK_FAINT } from "@/sketch/colors";
+import { cn, densityText, textAlignClass, widgetStyle } from "@/lib/utils";
+import type { TextAlignment, WidgetBaseProps } from "@/lib/types";
+import { INK_FAINT, SURFACE } from "@/sketch/colors";
 import { Icon } from "@/sketch/Icon";
 import { SketchFrame } from "@/sketch/SketchFrame";
 
@@ -38,9 +38,6 @@ export interface CodeBlockProps extends WidgetBaseProps {
   startingLineNumber?: number;
   showBorder?: boolean;
   wrapLines?: boolean;
-  width?: Sizing;
-  height?: Sizing;
-  density?: Densities;
 }
 
 /** Monospaced source listing on ruled paper. Mirrors `Ivy.CodeBlock`. */
@@ -55,6 +52,8 @@ export const CodeBlock = ({
   wrapLines,
   width,
   height,
+  aspectRatio,
+  visible,
   density = "Medium",
   className,
   style,
@@ -67,11 +66,11 @@ export const CodeBlock = ({
       seed={id ?? "code"}
       outline={showBorder ? "solid" : "none"}
       stroke={INK_FAINT}
-      fill="#f7f6f1"
+      fill={SURFACE.code}
       fillStyle="solid"
       className={cn("relative inline-block max-w-full", className)}
       contentClassName="overflow-auto p-3"
-      style={{ ...sizeStyle(width, height), ...style }}
+      style={widgetStyle({ width, height, aspectRatio, visible, style })}
     >
       {showCopyButton && <CopyButton value={content} />}
       {language && (
@@ -104,12 +103,10 @@ export const CodeBlock = ({
 export interface JsonProps extends WidgetBaseProps {
   content: string;
   expanded?: number | null;
-  width?: Sizing;
-  height?: Sizing;
 }
 
 /** Pretty-printed JSON. Mirrors `Ivy.Json`. */
-export const Json = ({ id, content, width, height, className, style }: JsonProps) => {
+export const Json = ({ id, content, width, height, aspectRatio, visible, density, className, style }: JsonProps) => {
   const formatted = React.useMemo(() => {
     try {
       return JSON.stringify(JSON.parse(content), null, 2);
@@ -125,6 +122,9 @@ export const Json = ({ id, content, width, height, className, style }: JsonProps
       language="json"
       width={width}
       height={height}
+      aspectRatio={aspectRatio}
+      visible={visible}
+      density={density}
       className={className}
       style={style}
     />
@@ -134,12 +134,10 @@ export const Json = ({ id, content, width, height, className, style }: JsonProps
 export interface XmlProps extends WidgetBaseProps {
   content: string;
   expanded?: number | null;
-  width?: Sizing;
-  height?: Sizing;
 }
 
 /** Indented XML. Mirrors `Ivy.Xml`. */
-export const Xml = ({ id, content, width, height, className, style }: XmlProps) => {
+export const Xml = ({ id, content, width, height, aspectRatio, visible, density, className, style }: XmlProps) => {
   const formatted = React.useMemo(() => {
     const tokens = content.replace(/>\s*</g, "><").replace(/></g, ">\n<").split("\n");
     let depth = 0;
@@ -160,6 +158,9 @@ export const Xml = ({ id, content, width, height, className, style }: XmlProps) 
       language="xml"
       width={width}
       height={height}
+      aspectRatio={aspectRatio}
+      visible={visible}
+      density={density}
       className={className}
       style={style}
     />
@@ -168,20 +169,36 @@ export const Xml = ({ id, content, width, height, className, style }: XmlProps) 
 
 export interface HtmlProps extends WidgetBaseProps {
   content: string;
-  density?: Densities;
-  width?: Sizing;
-  height?: Sizing;
+  /** Ivy's escape hatch: keeps `<script>` tags in the markup instead of stripping them. */
+  dangerouslyAllowScripts?: boolean;
 }
 
 /** Renders raw HTML inside the wireframe. Mirrors `Ivy.Html`. */
-export const Html = ({ id, content, density, width, height, className, style }: HtmlProps) => (
-  <div
-    id={id}
-    className={cn("tendril-prose", densityText(density), className)}
-    style={{ ...sizeStyle(width, height), ...style }}
-    dangerouslySetInnerHTML={{ __html: content }}
-  />
-);
+export const Html = ({
+  id,
+  content,
+  dangerouslyAllowScripts,
+  density,
+  width,
+  height,
+  aspectRatio,
+  visible,
+  className,
+  style,
+}: HtmlProps) => {
+  const markup = dangerouslyAllowScripts
+    ? content
+    : content.replace(/<script\b[\s\S]*?<\/script>/gi, "");
+
+  return (
+    <div
+      id={id}
+      className={cn("tendril-prose", densityText(density), className)}
+      style={widgetStyle({ width, height, aspectRatio, visible, style })}
+      dangerouslySetInnerHTML={{ __html: markup }}
+    />
+  );
+};
 
 export interface TerminalLine {
   content: string;
@@ -194,8 +211,6 @@ export interface TerminalProps extends WidgetBaseProps {
   title?: string;
   showHeader?: boolean;
   showCopyButton?: boolean;
-  width?: Sizing;
-  height?: Sizing;
 }
 
 /** A console transcript. Mirrors `Ivy.Terminal`. */
@@ -207,6 +222,8 @@ export const Terminal = ({
   showCopyButton = true,
   width,
   height,
+  aspectRatio,
+  visible,
   className,
   style,
 }: TerminalProps) => {
@@ -216,11 +233,11 @@ export const Terminal = ({
     <SketchFrame
       id={id}
       seed={id ?? "terminal"}
-      fill="#f2f0e9"
+      fill={SURFACE.sunken}
       fillStyle="solid"
       className={cn("relative inline-block max-w-full", className)}
       contentClassName="overflow-hidden"
-      style={{ ...sizeStyle(width, height), ...style }}
+      style={widgetStyle({ width, height, aspectRatio, visible, style })}
     >
       {showHeader && (
         <span className="flex items-center gap-2 border-b border-dashed border-ink-faint px-3 py-1.5">
@@ -243,10 +260,11 @@ export const Terminal = ({
 
 export interface MarkdownProps extends WidgetBaseProps {
   content: string;
-  density?: Densities;
   textAlignment?: TextAlignment;
-  width?: Sizing;
-  height?: Sizing;
+  /** Widens the measure and adds article spacing, as Ivy's docs pages do. */
+  article?: boolean;
+  /** Allows `file://` image sources, which are stripped by default. */
+  dangerouslyAllowLocalFiles?: boolean;
 }
 
 function renderInline(text: string, keyPrefix: string): React.ReactNode[] {
@@ -294,18 +312,33 @@ export const Markdown = ({
   content,
   density,
   textAlignment,
+  article,
+  dangerouslyAllowLocalFiles,
   width,
   height,
+  aspectRatio,
+  visible,
   className,
   style,
 }: MarkdownProps) => {
-  const blocks = React.useMemo(() => content.split(/\n{2,}/), [content]);
+  const blocks = React.useMemo(() => {
+    const safe = dangerouslyAllowLocalFiles
+      ? content
+      : content.replace(/!\[([^\]]*)\]\(file:\/\/[^)]*\)/gi, "![$1]()");
+    return safe.split(/\n{2,}/);
+  }, [content, dangerouslyAllowLocalFiles]);
 
   return (
     <div
       id={id}
-      className={cn("flex flex-col gap-3", densityText(density), textAlignClass(textAlignment), className)}
-      style={{ ...sizeStyle(width, height), ...style }}
+      className={cn(
+        "flex flex-col gap-3",
+        densityText(density),
+        textAlignClass(textAlignment),
+        article && "max-w-[65ch] gap-5 leading-loose",
+        className,
+      )}
+      style={widgetStyle({ width, height, aspectRatio, visible, style })}
     >
       {blocks.map((block, index) => {
         const key = `md-${index}`;

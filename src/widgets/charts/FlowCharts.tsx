@@ -1,4 +1,4 @@
-import { seriesColor } from "@/sketch/colors";
+import { STROKE, seriesColor } from "@/sketch/colors";
 import { RoughShape } from "@/sketch/RoughShape";
 import { ChartShell } from "./ChartShell";
 import type { BaseChartProps, ChordData, SankeyData } from "./types";
@@ -107,6 +107,9 @@ export const SankeyChart = ({
   legend,
   width,
   height,
+  aspectRatio,
+  visible,
+  density,
   className,
   style,
 }: SankeyChartProps) => {
@@ -120,6 +123,9 @@ export const SankeyChart = ({
       id={id}
       width={width}
       height={height ?? "20rem"}
+      aspectRatio={aspectRatio}
+      visible={visible}
+      density={density}
       className={className}
       style={style}
       legend={legend}
@@ -200,7 +206,7 @@ export const SankeyChart = ({
                   shape={{ kind: "rectangle", x: node.x, y: node.y, width: nodeWidth, height: node.height }}
                   seed={`${id}-node-${node.index}`}
                   stroke={seriesColor(colorScheme, node.index)}
-                  strokeWidth={1.2}
+                  strokeWidth={STROKE.regular}
                   fill={seriesColor(colorScheme, node.index)}
                   fillStyle="solid"
                 />
@@ -246,6 +252,9 @@ export const ChordChart = ({
   legend,
   width,
   height,
+  aspectRatio,
+  visible,
+  density,
   className,
   style,
 }: ChordChartProps) => {
@@ -259,6 +268,9 @@ export const ChordChart = ({
       id={id}
       width={width}
       height={height ?? "20rem"}
+      aspectRatio={aspectRatio}
+      visible={visible}
+      density={density}
       className={className}
       style={style}
       legend={legend}

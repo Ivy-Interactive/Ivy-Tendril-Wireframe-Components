@@ -14,7 +14,7 @@ import {
   startOfWeek,
 } from "date-fns";
 import { cn } from "@/lib/utils";
-import { INK, INK_FAINT } from "@/sketch/colors";
+import { INK, INK_FAINT, STROKE, SURFACE } from "@/sketch/colors";
 import { Icon } from "@/sketch/Icon";
 import { SketchFrame } from "@/sketch/SketchFrame";
 
@@ -130,8 +130,8 @@ export const MonthGrid = ({
               seed={`${seed}-${day.getDate()}`}
               corner="ellipse"
               stroke={INK}
-              strokeWidth={1.4}
-              fill="#e8e5db"
+              strokeWidth={STROKE.regular}
+              fill={SURFACE.pressed}
               fillStyle="solid"
               className="block"
               contentClassName="block"

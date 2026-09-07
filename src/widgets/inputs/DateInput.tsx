@@ -54,6 +54,9 @@ export const DateTimeInput = ({
   density = "Medium",
   ghost,
   width = "14rem",
+  height,
+  aspectRatio,
+  visible,
   autoFocus,
   prefix,
   suffix,
@@ -76,6 +79,9 @@ export const DateTimeInput = ({
         density={density}
         ghost={ghost}
         width={width}
+        height={height}
+        aspectRatio={aspectRatio}
+        visible={visible}
         prefix={prefix ?? <Icon name="Clock" size={iconSize} />}
         suffix={suffix}
         showClear={Boolean(nullable && value)}
@@ -107,6 +113,9 @@ export const DateTimeInput = ({
         density={density}
         ghost={ghost}
         width={width}
+        height={height}
+        aspectRatio={aspectRatio}
+        visible={visible}
         prefix={prefix ?? <Icon name="Calendar" size={iconSize} />}
         suffix={suffix}
         showClear={Boolean(nullable && value)}
@@ -141,6 +150,9 @@ export const DateTimeInput = ({
             density={density}
             ghost={ghost}
             width={width}
+            height={height}
+            aspectRatio={aspectRatio}
+            visible={visible}
             focused={open}
             prefix={prefix ?? <Icon name="Calendar" size={iconSize} />}
             suffix={suffix}
@@ -242,6 +254,9 @@ export const DateRangeInput = ({
   density = "Medium",
   ghost,
   width = "20rem",
+  height,
+  aspectRatio,
+  visible,
   prefix,
   suffix,
   className,
@@ -280,6 +295,9 @@ export const DateRangeInput = ({
             density={density}
             ghost={ghost}
             width={width}
+            height={height}
+            aspectRatio={aspectRatio}
+            visible={visible}
             focused={open}
             prefix={prefix ?? <Icon name="CalendarRange" size={iconSize} />}
             suffix={suffix}

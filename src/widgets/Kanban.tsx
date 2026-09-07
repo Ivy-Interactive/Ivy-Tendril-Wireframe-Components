@@ -1,6 +1,6 @@
 import * as React from "react";
-import { byDensity, cn, densityText, sizeStyle } from "@/lib/utils";
-import type { Densities, Sizing, WidgetBaseProps } from "@/lib/types";
+import { byDensity, cn, densityText, sizeStyle, widgetStyle } from "@/lib/utils";
+import type { Sizing, WidgetBaseProps } from "@/lib/types";
 import { INK_FAINT, PAPER_RAISED, resolveColor } from "@/sketch/colors";
 import { Icon } from "@/sketch/Icon";
 import { SketchFrame } from "@/sketch/SketchFrame";
@@ -27,14 +27,14 @@ export interface KanbanTask {
 
 export interface KanbanCardProps extends WidgetBaseProps {
   cardId?: string;
+  /** The column this card belongs to. `status` is Ivy's older alias. */
+  column?: string;
+  columnName?: string;
   status?: string;
   title?: string;
   description?: string;
   assignee?: string;
   priority?: number;
-  width?: Sizing;
-  height?: Sizing;
-  density?: Densities;
   children?: React.ReactNode;
   draggable?: boolean;
   onDragStart?: React.DragEventHandler<HTMLDivElement>;
@@ -53,6 +53,8 @@ export const KanbanCard = ({
   priority,
   width,
   height,
+  aspectRatio,
+  visible,
   density = "Medium",
   children,
   className,
@@ -72,7 +74,7 @@ export const KanbanCard = ({
       onClick={onClick}
       className={cn("block -rotate-[0.2deg]", onClick && "cursor-pointer", className)}
       contentClassName={cn("block", byDensity(density, ["p-2", "p-2.5", "p-3.5"]), densityText(density))}
-      style={{ ...sizeStyle(width, height), ...style }}
+      style={widgetStyle({ width, height, aspectRatio, visible, style })}
     >
       {title && <span className="block font-bold">{title}</span>}
       {description && <span className="mt-0.5 block text-ink-muted">{description}</span>}
@@ -97,11 +99,8 @@ export const KanbanCard = ({
 export interface KanbanProps extends WidgetBaseProps {
   columns?: KanbanColumn[];
   tasks?: KanbanTask[];
-  width?: Sizing;
-  height?: Sizing;
   columnWidth?: Sizing;
   showCounts?: boolean;
-  density?: Densities;
   /** Render a card yourself; falls back to the built-in `KanbanCard`. */
   renderCard?: (task: KanbanTask) => React.ReactNode;
   onCardMove?: (taskId: string, toColumnId: string) => void;
@@ -115,6 +114,8 @@ export const Kanban = ({
   tasks = [],
   width = "100%",
   height = "28rem",
+  aspectRatio,
+  visible,
   columnWidth = "16rem",
   showCounts = true,
   density = "Medium",
@@ -136,7 +137,7 @@ export const Kanban = ({
     <div
       id={id}
       className={cn("flex items-stretch gap-3 overflow-x-auto", densityText(density), className)}
-      style={{ ...sizeStyle(width, height), ...style }}
+      style={widgetStyle({ width, height, aspectRatio, visible, style })}
     >
       {columns.map((column) => {
         const cards = byColumn(column.id);

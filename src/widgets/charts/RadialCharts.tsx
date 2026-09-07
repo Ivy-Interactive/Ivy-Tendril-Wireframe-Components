@@ -1,5 +1,5 @@
 import * as React from "react";
-import { INK, INK_FAINT, resolveColor, seriesColor } from "@/sketch/colors";
+import { INK, INK_FAINT, STROKE, resolveColor, seriesColor } from "@/sketch/colors";
 import { RoughShape } from "@/sketch/RoughShape";
 import { ChartShell } from "./ChartShell";
 import type {
@@ -70,6 +70,9 @@ export const PieChart = ({
   legend,
   width,
   height,
+  aspectRatio,
+  visible,
+  density,
   className,
   style,
 }: PieChartProps) => {
@@ -88,6 +91,9 @@ export const PieChart = ({
       id={id}
       width={width}
       height={height}
+      aspectRatio={aspectRatio}
+      visible={visible}
+      density={density}
       className={className}
       style={style}
       legend={legend}
@@ -165,9 +171,14 @@ export interface RadarChartProps extends BaseChartProps {
   indicators?: RadarIndicator[];
   shape?: "Polygon" | "Circle";
   splitLine?: boolean;
+  /** Shades alternate rings, the way Ivy's `SplitArea` does. */
+  splitArea?: boolean;
   axisLine?: boolean;
   radius?: string | number;
   startAngle?: number;
+  /** Centre of the web, as a percentage of the plot or a pixel value. */
+  cx?: string | number;
+  cy?: string | number;
 }
 
 /** Mirrors `Ivy.RadarChart`. */
@@ -178,12 +189,19 @@ export const RadarChart = ({
   indicators,
   shape = "Polygon",
   splitLine = true,
+  splitArea = false,
   axisLine = true,
   radius,
+  cx: cxProp,
+  cy: cyProp,
+  startAngle = 90,
   colorScheme,
   legend,
   width,
   height,
+  aspectRatio,
+  visible,
+  density,
   className,
   style,
 }: RadarChartProps) => {
@@ -206,21 +224,46 @@ export const RadarChart = ({
       id={id}
       width={width}
       height={height}
+      aspectRatio={aspectRatio}
+      visible={visible}
+      density={density}
       className={className}
       style={style}
       legend={legend}
       legendEntries={entries}
     >
       {({ width: w, height: h }) => {
-        const cx = w / 2;
-        const cy = h / 2;
+        const cx = radiusFrom(cxProp, w, w / 2);
+        const cy = radiusFrom(cyProp, h, h / 2);
         const outer = radiusFrom(radius, Math.min(w, h) / 2, (Math.min(w, h) / 2) * 0.72);
         const count = Math.max(3, axisNames.length);
-        const angleOf = (index: number) => (index / count) * TAU - Math.PI / 2;
+        const offset = (-startAngle * Math.PI) / 180;
+        const angleOf = (index: number) => (index / count) * TAU + offset;
         const rings = [0.25, 0.5, 0.75, 1];
 
         return (
           <>
+            {splitArea &&
+              rings.map((ring, ringIndex) =>
+                ringIndex % 2 === 0 ? null : (
+                  <RoughShape
+                    key={`split-${ringIndex}`}
+                    shape={{
+                      kind: "polygon",
+                      points: Array.from({ length: count }, (_, index) =>
+                        polar(cx, cy, outer * ring, angleOf(index)),
+                      ),
+                    }}
+                    seed={`${id}-split-${ringIndex}`}
+                    stroke="none"
+                    fill={INK_FAINT}
+                    fillStyle="hachure"
+                    fillWeight={0.4}
+                    hachureGap={8}
+                    opacity={0.4}
+                  />
+                ),
+              )}
             {splitLine &&
               rings.map((ring, ringIndex) =>
                 shape === "Circle" ? (
@@ -229,7 +272,7 @@ export const RadarChart = ({
                     shape={{ kind: "circle", cx, cy, diameter: outer * ring * 2 }}
                     seed={`${id}-ring-${ringIndex}`}
                     stroke={INK_FAINT}
-                    strokeWidth={0.8}
+                    strokeWidth={STROKE.hairline}
                     roughness={0.9}
                   />
                 ) : (
@@ -243,7 +286,7 @@ export const RadarChart = ({
                     }}
                     seed={`${id}-ring-${ringIndex}`}
                     stroke={INK_FAINT}
-                    strokeWidth={0.8}
+                    strokeWidth={STROKE.hairline}
                     roughness={0.9}
                   />
                 ),
@@ -258,7 +301,7 @@ export const RadarChart = ({
                     shape={{ kind: "line", x1: cx, y1: cy, x2: x, y2: y }}
                     seed={`${id}-axis-${index}`}
                     stroke={INK_FAINT}
-                    strokeWidth={0.8}
+                    strokeWidth={STROKE.hairline}
                   />
                 );
               })}
@@ -307,7 +350,7 @@ export const RadarChart = ({
                         shape={{ kind: "circle", cx: x, cy: y, diameter: 5 }}
                         seed={`${id}-radar-dot-${radarIndex}-${index}`}
                         stroke={color}
-                        strokeWidth={1.1}
+                        strokeWidth={STROKE.thin}
                         fill={color}
                         fillStyle="solid"
                       />
@@ -341,6 +384,9 @@ export const FunnelChart = ({
   legend,
   width,
   height,
+  aspectRatio,
+  visible,
+  density,
   className,
   style,
 }: FunnelChartProps) => {
@@ -366,6 +412,9 @@ export const FunnelChart = ({
       id={id}
       width={width}
       height={height}
+      aspectRatio={aspectRatio}
+      visible={visible}
+      density={density}
       className={className}
       style={style}
       legend={legend}
@@ -454,13 +503,25 @@ export const GaugeChart = ({
   colorScheme,
   width,
   height,
+  aspectRatio,
+  visible,
+  density,
   className,
   style,
 }: GaugeChartProps) => {
   const ratio = Math.min(1, Math.max(0, (value - min) / (max - min || 1)));
 
   return (
-    <ChartShell id={id} width={width} height={height ?? "14rem"} className={className} style={style}>
+    <ChartShell
+      id={id}
+      width={width}
+      height={height ?? "14rem"}
+      aspectRatio={aspectRatio}
+      visible={visible}
+      density={density}
+      className={className}
+      style={style}
+    >
       {({ width: w, height: h }) => {
         const cx = w / 2;
         const cy = h * 0.6;
@@ -496,7 +557,7 @@ export const GaugeChart = ({
               }}
               seed={`${id}-track`}
               stroke={INK_FAINT}
-              strokeWidth={1}
+              strokeWidth={STROKE.thin}
             />
             {bands.map((band, index) => {
               const from = angleAt(band.from);
@@ -510,7 +571,7 @@ export const GaugeChart = ({
                   }}
                   seed={`${id}-band-${index}`}
                   stroke={band.color}
-                  strokeWidth={1.2}
+                  strokeWidth={STROKE.regular}
                   fill={band.color}
                   fillStyle="hachure"
                   fillWeight={0.9}
@@ -533,7 +594,7 @@ export const GaugeChart = ({
               }
               seed={`${id}-needle`}
               stroke={INK}
-              strokeWidth={1.4}
+              strokeWidth={STROKE.regular}
               fill={INK}
               fillStyle="solid"
             />
@@ -541,7 +602,7 @@ export const GaugeChart = ({
               shape={{ kind: "circle", cx, cy, diameter: 10 }}
               seed={`${id}-hub`}
               stroke={INK}
-              strokeWidth={1.2}
+              strokeWidth={STROKE.regular}
               fill={INK}
               fillStyle="solid"
             />

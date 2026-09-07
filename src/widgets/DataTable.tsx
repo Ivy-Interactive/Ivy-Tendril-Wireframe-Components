@@ -1,6 +1,6 @@
 import * as React from "react";
-import { byDensity, cn, densityIconSize, densityText, sizeStyle } from "@/lib/utils";
-import type { Align, Densities, MenuItem, Sizing, WidgetBaseProps } from "@/lib/types";
+import { byDensity, cn, densityIconSize, densityText, sizeStyle, widgetStyle } from "@/lib/utils";
+import type { Align, MenuItem, Sizing, WidgetBaseProps } from "@/lib/types";
 import { INK_FAINT, PAPER_RAISED, resolveColor } from "@/sketch/colors";
 import { Icon } from "@/sketch/Icon";
 import { SketchFrame } from "@/sketch/SketchFrame";
@@ -61,9 +61,8 @@ export interface DataTableProps extends WidgetBaseProps {
   rows?: Array<Record<string, unknown>>;
   config?: DataTableConfig;
   rowActions?: MenuItem[];
-  density?: Densities;
-  width?: Sizing;
-  height?: Sizing;
+  /** Per-row overrides for `rowActions`, keyed however your rows identify themselves. */
+  perRowActions?: (row: Record<string, unknown>) => MenuItem[] | undefined;
   headerLeft?: React.ReactNode;
   headerRight?: React.ReactNode;
   emptyView?: React.ReactNode;
@@ -126,9 +125,12 @@ export const DataTable = ({
   rows = [],
   config,
   rowActions,
+  perRowActions,
   density = "Medium",
   width = "100%",
   height,
+  aspectRatio,
+  visible,
   headerLeft,
   headerRight,
   emptyView,
@@ -206,7 +208,7 @@ export const DataTable = ({
       fillStyle="solid"
       className={cn("block", densityText(density), className)}
       contentClassName="flex h-full flex-col overflow-hidden"
-      style={{ ...sizeStyle(width, height), ...style }}
+      style={widgetStyle({ width, height, aspectRatio, visible, style })}
     >
       {(headerLeft || headerRight || config?.allowFiltering !== false) && (
         <div className="flex flex-wrap items-center gap-2 border-b border-dashed border-ink-faint px-3 py-2">
@@ -334,7 +336,7 @@ export const DataTable = ({
                   {rowActions?.length ? (
                     <td className={cellPadding}>
                       <DropDownMenu
-                        items={rowActions}
+                        items={perRowActions?.(row) ?? rowActions}
                         density={density}
                         align="End"
                         onSelect={(action) => onRowAction?.(row, action)}

@@ -1,7 +1,7 @@
 import * as React from "react";
-import { cn, sizeStyle } from "@/lib/utils";
+import { cn, widgetStyle } from "@/lib/utils";
 import type { BorderRadius, BorderStyle, HoverEffect, Sizing, WidgetBaseProps } from "@/lib/types";
-import { INK_FAINT, resolveColor } from "@/sketch/colors";
+import { INK_FAINT, STROKE, resolveColor } from "@/sketch/colors";
 import { Icon } from "@/sketch/Icon";
 import { SketchFrame } from "@/sketch/SketchFrame";
 import { RoughShape } from "@/sketch/RoughShape";
@@ -14,8 +14,6 @@ export interface ImageProps extends WidgetBaseProps {
   caption?: string;
   link?: string;
   objectFit?: "Cover" | "Contain" | "Fill" | "None" | "ScaleDown";
-  width?: Sizing;
-  height?: Sizing;
   borderColor?: string;
   borderOpacity?: number;
   borderRadius?: BorderRadius;
@@ -47,6 +45,8 @@ export const Image = ({
   objectFit = "Cover",
   width = "16rem",
   height = "10rem",
+  aspectRatio,
+  visible,
   borderColor,
   borderOpacity,
   borderRadius = "Rounded",
@@ -70,7 +70,7 @@ export const Image = ({
       onClick={onClick}
       className={cn("inline-block overflow-hidden", HOVER_CLASS[hoverVariant], className)}
       contentClassName="h-full w-full"
-      style={{ ...sizeStyle(width, height), ...style }}
+      style={widgetStyle({ width, height, aspectRatio, visible, style })}
     >
       {src ? (
         <img
@@ -116,13 +116,13 @@ const ImagePlaceholder = ({ label }: { label?: string }) => {
             shape={{ kind: "line", x1: 2, y1: 2, x2: width - 2, y2: height - 2 }}
             seed="img-x1"
             stroke={INK_FAINT}
-            strokeWidth={1.2}
+            strokeWidth={STROKE.regular}
           />
           <RoughShape
             shape={{ kind: "line", x1: width - 2, y1: 2, x2: 2, y2: height - 2 }}
             seed="img-x2"
             stroke={INK_FAINT}
-            strokeWidth={1.2}
+            strokeWidth={STROKE.regular}
           />
         </svg>
       )}
@@ -135,26 +135,25 @@ const ImagePlaceholder = ({ label }: { label?: string }) => {
 
 export interface SvgProps extends WidgetBaseProps {
   content: string;
-  width?: Sizing;
-  height?: Sizing;
 }
 
 /** Inline SVG markup, wobbled to match the rest of the sheet. Mirrors `Ivy.Svg`. */
-export const Svg = ({ id, content, width, height, className, style }: SvgProps) => (
+export const Svg = ({ id, content, width, height, aspectRatio, visible, className, style }: SvgProps) => (
   <div
     id={id}
     className={cn("inline-block [filter:url(#tendril-wobble)] [&>svg]:h-full [&>svg]:w-full", className)}
-    style={{ ...sizeStyle(width, height), ...style }}
+    style={widgetStyle({ width, height, aspectRatio, visible, style })}
     dangerouslySetInnerHTML={{ __html: content }}
   />
 );
 
 export interface IframeProps extends WidgetBaseProps {
   src: string;
-  width?: Sizing;
-  height?: Sizing;
   refreshToken?: number;
   title?: string;
+  /** Posted into the frame whenever `outboundMessageToken` changes. */
+  outboundMessageType?: string;
+  outboundMessageToken?: string;
 }
 
 /** Mirrors `Ivy.Iframe`. */
@@ -163,26 +162,46 @@ export const Iframe = ({
   src,
   width = "100%",
   height = "24rem",
+  aspectRatio,
+  visible,
   refreshToken,
   title = "Embedded content",
+  outboundMessageType,
+  outboundMessageToken,
   className,
   style,
-}: IframeProps) => (
-  <SketchFrame
-    id={id}
-    seed={id ?? src}
-    className={cn("inline-block overflow-hidden", className)}
-    contentClassName="h-full w-full"
-    style={{ ...sizeStyle(width, height), ...style }}
-  >
-    <iframe key={refreshToken} src={src} title={title} className="h-full w-full border-0" />
-  </SketchFrame>
-);
+}: IframeProps) => {
+  const frameRef = React.useRef<HTMLIFrameElement>(null);
+
+  React.useEffect(() => {
+    if (!outboundMessageType || outboundMessageToken === undefined) return;
+    frameRef.current?.contentWindow?.postMessage(
+      { type: outboundMessageType, token: outboundMessageToken },
+      "*",
+    );
+  }, [outboundMessageType, outboundMessageToken]);
+
+  return (
+    <SketchFrame
+      id={id}
+      seed={id ?? src}
+      className={cn("inline-block overflow-hidden", className)}
+      contentClassName="h-full w-full"
+      style={widgetStyle({ width, height, aspectRatio, visible, style })}
+    >
+      <iframe
+        ref={frameRef}
+        key={refreshToken}
+        src={src}
+        title={title}
+        className="h-full w-full border-0"
+      />
+    </SketchFrame>
+  );
+};
 
 export interface EmbedProps extends WidgetBaseProps {
   url: string;
-  width?: Sizing;
-  height?: Sizing;
 }
 
 const PLATFORMS: Array<{ match: RegExp; name: string; icon: string }> = [
@@ -201,7 +220,16 @@ const PLATFORMS: Array<{ match: RegExp; name: string; icon: string }> = [
  * Wireframes stand in for third-party embeds rather than loading them — a card
  * naming the platform and the link. Mirrors `Ivy.Embed`.
  */
-export const Embed = ({ id, url, width = "24rem", height, className, style }: EmbedProps) => {
+export const Embed = ({
+  id,
+  url,
+  width = "24rem",
+  height,
+  aspectRatio,
+  visible,
+  className,
+  style,
+}: EmbedProps) => {
   const platform = PLATFORMS.find((entry) => entry.match.test(url));
 
   return (
@@ -210,7 +238,7 @@ export const Embed = ({ id, url, width = "24rem", height, className, style }: Em
       seed={id ?? url}
       className={cn("inline-block", className)}
       contentClassName="flex items-center gap-3 p-3"
-      style={{ ...sizeStyle(width, height), ...style }}
+      style={widgetStyle({ width, height, aspectRatio, visible, style })}
     >
       <Icon name={platform?.icon ?? "Link"} size={20} />
       <span className="block min-w-0 flex-1">
@@ -224,8 +252,6 @@ export const Embed = ({ id, url, width = "24rem", height, className, style }: Em
 
 export interface AudioPlayerProps extends WidgetBaseProps {
   src?: string | null;
-  width?: Sizing;
-  height?: Sizing;
   autoplay?: boolean;
   loop?: boolean;
   muted?: boolean;
@@ -239,6 +265,8 @@ export const AudioPlayer = ({
   src,
   width = "20rem",
   height,
+  aspectRatio,
+  visible,
   autoplay,
   loop,
   muted,
@@ -254,7 +282,7 @@ export const AudioPlayer = ({
     corner="pill"
     className={cn("inline-block", className)}
     contentClassName="flex items-center gap-2 px-3 py-2"
-    style={{ ...sizeStyle(width, height), ...style }}
+    style={widgetStyle({ width, height, aspectRatio, visible, style })}
     {...rest}
   >
     <Icon name="Volume2" size={16} />
@@ -272,8 +300,6 @@ export const AudioPlayer = ({
 
 export interface VideoPlayerProps extends WidgetBaseProps {
   source?: string | null;
-  width?: Sizing;
-  height?: Sizing;
   autoplay?: boolean;
   loop?: boolean;
   muted?: boolean;
@@ -296,6 +322,8 @@ export const VideoPlayer = ({
   source,
   width = "28rem",
   height = "16rem",
+  aspectRatio,
+  visible,
   autoplay,
   loop,
   muted,
@@ -334,7 +362,7 @@ export const VideoPlayer = ({
       seed={id ?? "video"}
       className={cn("inline-block overflow-hidden bg-paper-sunken", className)}
       contentClassName="h-full w-full"
-      style={{ ...sizeStyle(width, height), ...style }}
+      style={widgetStyle({ width, height, aspectRatio, visible, style })}
     >
       {source ? (
         <video

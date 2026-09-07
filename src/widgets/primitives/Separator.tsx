@@ -1,6 +1,6 @@
-import { cn, sizeStyle } from "@/lib/utils";
-import type { Sizing, TextAlignment, WidgetBaseProps } from "@/lib/types";
-import { INK_FAINT } from "@/sketch/colors";
+import { cn, widgetStyle } from "@/lib/utils";
+import type { TextAlignment, WidgetBaseProps } from "@/lib/types";
+import { INK_FAINT, STROKE } from "@/sketch/colors";
 import { RoughShape } from "@/sketch/RoughShape";
 import { useMeasuredSize } from "@/sketch/useRough";
 
@@ -8,8 +8,6 @@ export interface SeparatorProps extends WidgetBaseProps {
   orientation?: "Horizontal" | "Vertical";
   text?: string;
   textAlign?: TextAlignment;
-  width?: Sizing;
-  height?: Sizing;
 }
 
 /** A hand-drawn rule, optionally with a label. Mirrors `Ivy.Separator`. */
@@ -20,6 +18,8 @@ export const Separator = ({
   textAlign = "Center",
   width,
   height,
+  aspectRatio,
+  visible,
   className,
   style,
 }: SeparatorProps) => {
@@ -39,11 +39,11 @@ export const Separator = ({
         role="separator"
         aria-orientation="vertical"
         className={cn("relative w-[3px] self-stretch", className)}
-        style={{ ...sizeStyle(width, height ?? "100%"), ...style }}
+        style={widgetStyle({ width, height: height ?? "100%", aspectRatio, visible, style })}
       >
         {h > 0 && (
           <svg aria-hidden="true" className="absolute inset-0 h-full w-full overflow-visible">
-            <RoughShape shape={line(h)} seed={`${id}-sep`} stroke={INK_FAINT} strokeWidth={1.2} />
+            <RoughShape shape={line(h)} seed={`${id}-sep`} stroke={INK_FAINT} strokeWidth={STROKE.regular} />
           </svg>
         )}
       </div>
@@ -57,11 +57,11 @@ export const Separator = ({
         ref={ref}
         role="separator"
         className={cn("relative h-[3px] w-full", className)}
-        style={{ ...sizeStyle(width ?? "100%", height), ...style }}
+        style={widgetStyle({ width: width ?? "100%", height, aspectRatio, visible, style })}
       >
         {w > 0 && (
           <svg aria-hidden="true" className="absolute inset-0 h-full w-full overflow-visible">
-            <RoughShape shape={line(w)} seed={`${id}-sep`} stroke={INK_FAINT} strokeWidth={1.2} />
+            <RoughShape shape={line(w)} seed={`${id}-sep`} stroke={INK_FAINT} strokeWidth={STROKE.regular} />
           </svg>
         )}
       </div>
@@ -77,7 +77,7 @@ export const Separator = ({
       id={id}
       role="separator"
       className={cn("flex w-full items-center gap-3", className)}
-      style={{ ...sizeStyle(width ?? "100%", height), ...style }}
+      style={widgetStyle({ width: width ?? "100%", height, aspectRatio, visible, style })}
     >
       {textAlign !== "Left" && <SeparatorRule seed={`${id}-a`} />}
       {label}
@@ -96,7 +96,7 @@ const SeparatorRule = ({ className, seed }: { className?: string; seed: string }
             shape={{ kind: "line", x1: 0, y1: 1, x2: width, y2: 1 }}
             seed={seed}
             stroke={INK_FAINT}
-            strokeWidth={1.2}
+            strokeWidth={STROKE.regular}
           />
         </svg>
       )}

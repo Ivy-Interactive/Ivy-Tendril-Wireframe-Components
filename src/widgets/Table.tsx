@@ -1,6 +1,6 @@
 import * as React from "react";
-import { byDensity, cn, densityText, sizeStyle } from "@/lib/utils";
-import type { Align, Densities, Sizing, WidgetBaseProps } from "@/lib/types";
+import { byDensity, cn, densityText, widgetStyle } from "@/lib/utils";
+import type { Align, Densities, WidgetBaseProps } from "@/lib/types";
 import { INK_FAINT, PAPER_RAISED } from "@/sketch/colors";
 import { SketchFrame } from "@/sketch/SketchFrame";
 
@@ -8,8 +8,6 @@ const TableDensityContext = React.createContext<Densities>("Medium");
 
 export interface TableProps extends WidgetBaseProps {
   children?: React.ReactNode;
-  width?: Sizing;
-  density?: Densities;
   layout?: "Auto" | "Fixed";
 }
 
@@ -18,6 +16,9 @@ export const Table = ({
   id,
   children,
   width = "100%",
+  height,
+  aspectRatio,
+  visible,
   density = "Medium",
   layout = "Auto",
   className,
@@ -33,7 +34,7 @@ export const Table = ({
       fillStyle="solid"
       className={cn("block overflow-hidden", className)}
       contentClassName="block overflow-x-auto"
-      style={{ ...sizeStyle(width), ...style }}
+      style={widgetStyle({ width, height, aspectRatio, visible, style })}
     >
       <table
         className={cn("w-full border-collapse text-left", densityText(density))}
@@ -48,7 +49,6 @@ export const Table = ({
 export interface TableRowProps extends WidgetBaseProps {
   isHeader?: boolean;
   isFooter?: boolean;
-  density?: Densities;
   children?: React.ReactNode;
   onClick?: React.MouseEventHandler<HTMLTableRowElement>;
 }
@@ -59,6 +59,10 @@ export const TableRow = ({
   isHeader,
   isFooter,
   children,
+  width,
+  height,
+  aspectRatio,
+  visible,
   className,
   style,
   onClick,
@@ -73,7 +77,7 @@ export const TableRow = ({
       onClick && "cursor-pointer hover:bg-highlight",
       className,
     )}
-    style={style}
+    style={widgetStyle({ width, height, aspectRatio, visible, style })}
   >
     {children}
   </tr>
@@ -83,9 +87,7 @@ export interface TableCellProps extends WidgetBaseProps {
   isHeader?: boolean;
   isFooter?: boolean;
   alignContent?: Align;
-  width?: Sizing;
   multiline?: boolean;
-  density?: Densities;
   colSpan?: number;
   rowSpan?: number;
   children?: React.ReactNode;
@@ -110,6 +112,9 @@ export const TableCell = ({
   isFooter,
   alignContent = "Left",
   width,
+  height,
+  aspectRatio,
+  visible,
   multiline,
   density,
   colSpan,
@@ -134,7 +139,7 @@ export const TableCell = ({
         isFooter && "font-bold",
         className,
       )}
-      style={{ ...sizeStyle(width), ...style }}
+      style={widgetStyle({ width, height, aspectRatio, visible, style })}
     >
       {children}
     </Cell>

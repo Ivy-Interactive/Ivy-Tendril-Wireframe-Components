@@ -1,5 +1,5 @@
 import * as React from "react";
-import { byDensity, cn, densityIconSize, densityText } from "@/lib/utils";
+import { byDensity, cn, densityIconSize, densityText, widgetStyle } from "@/lib/utils";
 import type { Densities, WidgetBaseProps } from "@/lib/types";
 import { INK_FAINT, PAPER_RAISED } from "@/sketch/colors";
 import { Icon } from "@/sketch/Icon";
@@ -10,11 +10,20 @@ const ListDensityContext = React.createContext<Densities>("Medium");
 
 export interface ListProps extends WidgetBaseProps {
   children?: React.ReactNode;
-  density?: Densities;
 }
 
 /** A bordered stack of `ListItem`s. Mirrors `Ivy.List`. */
-export const List = ({ id, children, density = "Medium", className, style }: ListProps) => (
+export const List = ({
+  id,
+  children,
+  density = "Medium",
+  width,
+  height,
+  aspectRatio,
+  visible,
+  className,
+  style,
+}: ListProps) => (
   <ListDensityContext.Provider value={density}>
     <SketchFrame
       id={id}
@@ -25,7 +34,7 @@ export const List = ({ id, children, density = "Medium", className, style }: Lis
       fillStyle="solid"
       className={cn("block", className)}
       contentClassName="block overflow-hidden"
-      style={style}
+      style={widgetStyle({ width, height, aspectRatio, visible, style })}
     >
       <ul className="m-0 list-none p-0">{children}</ul>
     </SketchFrame>
@@ -39,7 +48,6 @@ export interface ListItemProps extends WidgetBaseProps {
   badge?: string;
   disabled?: boolean;
   children?: React.ReactNode;
-  density?: Densities;
   onClick?: React.MouseEventHandler<HTMLElement>;
 }
 
@@ -53,6 +61,10 @@ export const ListItem = ({
   disabled,
   children,
   density,
+  width,
+  height,
+  aspectRatio,
+  visible,
   className,
   style,
   onClick,
@@ -65,7 +77,7 @@ export const ListItem = ({
     <li
       id={id}
       className={cn("border-b border-dashed border-ink-faint last:border-b-0", className)}
-      style={style}
+      style={widgetStyle({ width, height, aspectRatio, visible, style })}
     >
       <Row
         type={onClick ? "button" : undefined}
@@ -92,7 +104,6 @@ export const ListItem = ({
 
 export interface DetailsProps extends WidgetBaseProps {
   children?: React.ReactNode;
-  density?: Densities;
   /** Number of label/value columns. */
   columns?: number;
 }
@@ -103,6 +114,10 @@ export const Details = ({
   children,
   density = "Medium",
   columns = 1,
+  width,
+  height,
+  aspectRatio,
+  visible,
   className,
   style,
 }: DetailsProps) => (
@@ -110,7 +125,10 @@ export const Details = ({
     <dl
       id={id}
       className={cn("m-0 grid gap-x-6", densityText(density), className)}
-      style={{ gridTemplateColumns: `repeat(${columns}, minmax(0, 1fr))`, ...style }}
+      style={{
+        gridTemplateColumns: `repeat(${columns}, minmax(0, 1fr))`,
+        ...widgetStyle({ width, height, aspectRatio, visible, style }),
+      }}
     >
       {children}
     </dl>
@@ -124,8 +142,20 @@ export interface DetailProps extends WidgetBaseProps {
 }
 
 /** One label/value pair. Mirrors `Ivy.Detail`. */
-export const Detail = ({ id, label, multiline, children, className, style }: DetailProps) => {
-  const density = React.useContext(ListDensityContext);
+export const Detail = ({
+  id,
+  label,
+  multiline,
+  children,
+  width,
+  height,
+  aspectRatio,
+  visible,
+  density: ownDensity,
+  className,
+  style,
+}: DetailProps) => {
+  const density = ownDensity ?? React.useContext(ListDensityContext);
   return (
     <div
       id={id}
@@ -134,7 +164,7 @@ export const Detail = ({ id, label, multiline, children, className, style }: Det
         byDensity(density, ["py-1", "py-1.5", "py-2.5"]),
         className,
       )}
-      style={style}
+      style={widgetStyle({ width, height, aspectRatio, visible, style })}
     >
       <dt className="shrink-0 text-ink-muted">{label}</dt>
       <dd className={cn("m-0 text-right font-bold", !multiline && "truncate")}>{children}</dd>

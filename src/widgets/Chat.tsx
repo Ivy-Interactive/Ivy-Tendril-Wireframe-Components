@@ -1,14 +1,13 @@
 import * as React from "react";
-import { byDensity, cn, densityText, sizeStyle } from "@/lib/utils";
-import type { Densities, Sizing, WidgetBaseProps } from "@/lib/types";
-import { INK_FAINT, PAPER_RAISED } from "@/sketch/colors";
+import { byDensity, cn, densityText, widgetStyle } from "@/lib/utils";
+import type { WidgetBaseProps } from "@/lib/types";
+import { INK_FAINT, PAPER_RAISED, SURFACE } from "@/sketch/colors";
 import { Icon } from "@/sketch/Icon";
 import { SketchFrame } from "@/sketch/SketchFrame";
 import { ContentInput } from "./inputs/SpecialInputs";
 
 export interface ChatMessageProps extends WidgetBaseProps {
   sender?: "User" | "Assistant";
-  density?: Densities;
   children?: React.ReactNode;
 }
 
@@ -17,6 +16,10 @@ export const ChatMessage = ({
   id,
   sender = "Assistant",
   density = "Medium",
+  width,
+  height,
+  aspectRatio,
+  visible,
   children,
   className,
   style,
@@ -27,7 +30,7 @@ export const ChatMessage = ({
     <div
       id={id}
       className={cn("flex w-full", fromUser ? "justify-end" : "justify-start", className)}
-      style={style}
+      style={widgetStyle({ width, height, aspectRatio, visible, style })}
     >
       <SketchFrame
         seed={`${id}-${sender}`}
@@ -49,8 +52,20 @@ export const ChatMessage = ({
 };
 
 /** The three-dot "thinking" bubble. Mirrors `Ivy.ChatLoading`. */
-export const ChatLoading = ({ id, className, style }: WidgetBaseProps) => (
-  <div id={id} className={cn("flex justify-start", className)} style={style}>
+export const ChatLoading = ({
+  id,
+  width,
+  height,
+  aspectRatio,
+  visible,
+  className,
+  style,
+}: WidgetBaseProps) => (
+  <div
+    id={id}
+    className={cn("flex justify-start", className)}
+    style={widgetStyle({ width, height, aspectRatio, visible, style })}
+  >
     <SketchFrame
       seed="chat-loading"
       corner="rounded"
@@ -77,11 +92,20 @@ export interface ChatStatusProps extends WidgetBaseProps {
 }
 
 /** A centred status line between messages. Mirrors `Ivy.ChatStatus`. */
-export const ChatStatus = ({ id, text, className, style }: ChatStatusProps) => (
+export const ChatStatus = ({
+  id,
+  text,
+  width,
+  height,
+  aspectRatio,
+  visible,
+  className,
+  style,
+}: ChatStatusProps) => (
   <div
     id={id}
     className={cn("flex items-center justify-center gap-2 py-1 text-xs text-ink-muted italic", className)}
-    style={style}
+    style={widgetStyle({ width, height, aspectRatio, visible, style })}
   >
     <Icon name="Sparkles" size={12} />
     {text}
@@ -93,9 +117,6 @@ export interface ChatProps extends WidgetBaseProps {
   placeholder?: string;
   /** Disables the composer while a response streams in. */
   streaming?: boolean;
-  width?: Sizing;
-  height?: Sizing;
-  density?: Densities;
   onSend?: (message: string) => void;
 }
 
@@ -107,6 +128,8 @@ export const Chat = ({
   streaming,
   width = "32rem",
   height = "26rem",
+  aspectRatio,
+  visible,
   density = "Medium",
   className,
   style,
@@ -131,11 +154,11 @@ export const Chat = ({
       id={id}
       seed={id ?? "chat"}
       stroke={INK_FAINT}
-      fill="#fbfaf5"
+      fill={SURFACE.quiet}
       fillStyle="solid"
       className={cn("inline-block", className)}
       contentClassName="flex h-full flex-col overflow-hidden"
-      style={{ ...sizeStyle(width, height), ...style }}
+      style={widgetStyle({ width, height, aspectRatio, visible, style })}
     >
       <div ref={scrollRef} className="flex flex-1 flex-col gap-3 overflow-auto p-3">
         {children}

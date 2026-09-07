@@ -13,7 +13,8 @@
       "import": "./dist/index.js",
       "require": "./dist/index.cjs"
     },
-    "./styles.css": "./dist/tendril.css"
+    "./styles.css": "./dist/tendril.css",
+    "./theme.css": "./dist/theme.css"
   },
   "files": [
     "dist"

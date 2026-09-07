@@ -1,7 +1,7 @@
 import * as React from "react";
-import { byDensity, cn, densityIconSize, sizeStyle } from "@/lib/utils";
-import type { Densities, Sizing, WidgetBaseProps } from "@/lib/types";
-import { INK_FAINT, INK_MUTED, resolveColor, tint } from "@/sketch/colors";
+import { byDensity, cn, densityIconSize, widgetStyle } from "@/lib/utils";
+import type { WidgetBaseProps } from "@/lib/types";
+import { INK_FAINT, INK_MUTED, STROKE, resolveColor, tint } from "@/sketch/colors";
 import { Icon as SketchIcon } from "@/sketch/Icon";
 import { SketchFrame } from "@/sketch/SketchFrame";
 import { RoughShape } from "@/sketch/RoughShape";
@@ -10,17 +10,25 @@ import { useMeasuredSize } from "@/sketch/useRough";
 export interface IconProps extends WidgetBaseProps {
   name: string;
   color?: string;
-  width?: Sizing;
-  height?: Sizing;
-  density?: Densities;
 }
 
 /** A single lucide glyph sized by density. Mirrors `Ivy.Icon`. */
-export const Icon = ({ id, name, color, width, height, density, className, style }: IconProps) => (
+export const Icon = ({
+  id,
+  name,
+  color,
+  width,
+  height,
+  aspectRatio,
+  visible,
+  density,
+  className,
+  style,
+}: IconProps) => (
   <span
     id={id}
     className={cn("inline-flex items-center justify-center", className)}
-    style={{ ...sizeStyle(width, height), ...style }}
+    style={widgetStyle({ width, height, aspectRatio, visible, style })}
   >
     <SketchIcon name={name} color={color} size={densityIconSize(density) + 4} />
   </span>
@@ -30,9 +38,6 @@ export interface AvatarProps extends WidgetBaseProps {
   image?: string;
   fallback?: string;
   color?: string;
-  density?: Densities;
-  width?: Sizing;
-  height?: Sizing;
 }
 
 /** A circled portrait or set of initials. Mirrors `Ivy.Avatar`. */
@@ -44,6 +49,8 @@ export const Avatar = ({
   density = "Medium",
   width,
   height,
+  aspectRatio,
+  visible,
   className,
   style,
 }: AvatarProps) => {
@@ -60,7 +67,13 @@ export const Avatar = ({
       fillStyle="solid"
       className={cn("inline-block shrink-0 overflow-hidden", className)}
       contentClassName="flex h-full w-full items-center justify-center"
-      style={{ ...sizeStyle(width ?? `${size}px`, height ?? `${size}px`), ...style }}
+      style={widgetStyle({
+        width: width ?? `${size}px`,
+        height: height ?? `${size}px`,
+        aspectRatio,
+        visible,
+        style,
+      })}
     >
       {image ? (
         <img
@@ -80,12 +93,23 @@ export const Avatar = ({
 export interface KbdProps extends WidgetBaseProps {
   content?: string;
   ghost?: boolean;
-  density?: Densities;
   children?: React.ReactNode;
 }
 
 /** A key cap. Mirrors `Ivy.Kbd`. */
-export const Kbd = ({ id, content, ghost, density, children, className, style }: KbdProps) => (
+export const Kbd = ({
+  id,
+  content,
+  ghost,
+  density,
+  width,
+  height,
+  aspectRatio,
+  visible,
+  children,
+  className,
+  style,
+}: KbdProps) => (
   <SketchFrame
     id={id}
     as="kbd"
@@ -95,13 +119,13 @@ export const Kbd = ({ id, content, ghost, density, children, className, style }:
     stroke={INK_MUTED}
     fill={ghost ? undefined : "#f2f0e9"}
     fillStyle="solid"
-    strokeWidth={1}
+    strokeWidth={STROKE.thin}
     className={cn("inline-block align-middle", className)}
     contentClassName={cn(
       "px-1.5 py-0.5 font-sketch-mono leading-none",
       byDensity(density, ["text-[10px]", "text-xs", "text-sm"]),
     )}
-    style={style}
+    style={widgetStyle({ width, height, aspectRatio, visible, style })}
   >
     {children ?? content}
   </SketchFrame>
@@ -118,10 +142,8 @@ export interface StepperItem {
 export interface StepperProps extends WidgetBaseProps {
   items?: StepperItem[];
   selectedIndex?: number;
-  width?: Sizing;
   allowSelectForward?: boolean;
   disabled?: boolean;
-  density?: Densities;
   onSelect?: (index: number) => void;
 }
 
@@ -131,6 +153,9 @@ export const Stepper = ({
   items = [],
   selectedIndex = 0,
   width,
+  height,
+  aspectRatio,
+  visible,
   allowSelectForward = false,
   disabled,
   density = "Medium",
@@ -144,7 +169,7 @@ export const Stepper = ({
     <ol
       id={id}
       className={cn("flex list-none items-start gap-0 p-0", className)}
-      style={{ ...sizeStyle(width), ...style }}
+      style={widgetStyle({ width, height, aspectRatio, visible, style })}
     >
       {items.map((item, index) => {
         const done = index < selectedIndex;
@@ -217,7 +242,7 @@ const StepperConnector = ({ done, offset }: { done: boolean; offset: number }) =
             shape={{ kind: "line", x1: 0, y1: 1, x2: width, y2: 1 }}
             seed={`connector-${width}`}
             stroke={done ? resolveColor("Primary") : INK_FAINT}
-            strokeWidth={1.3}
+            strokeWidth={STROKE.regular}
           />
         </svg>
       )}

@@ -1,7 +1,7 @@
 import * as React from "react";
-import { cn, sizeStyle } from "@/lib/utils";
-import type { Sizing } from "@/lib/types";
-import { INK_FAINT, INK_MUTED, PAPER_RAISED, seriesColor, type ColorScheme } from "@/sketch/colors";
+import { cn, widgetStyle } from "@/lib/utils";
+import type { WidgetBaseProps } from "@/lib/types";
+import { INK_FAINT, INK_MUTED, PAPER_RAISED, STROKE, seriesColor, type ColorScheme } from "@/sketch/colors";
 import { RoughShape } from "@/sketch/RoughShape";
 import { SketchFrame } from "@/sketch/SketchFrame";
 import { useMeasuredSize } from "@/sketch/useRough";
@@ -53,12 +53,7 @@ export const ChartLegend = ({
   );
 };
 
-export interface ChartShellProps {
-  id?: string;
-  width?: Sizing;
-  height?: Sizing;
-  className?: string;
-  style?: React.CSSProperties;
+export interface ChartShellProps extends WidgetBaseProps {
   legend?: LegendProps;
   legendEntries?: SeriesLegendEntry[];
   /** Receives the plot area in pixels once it has been measured. */
@@ -70,11 +65,14 @@ export const ChartShell = ({
   id,
   width = "100%",
   height = "18rem",
+  aspectRatio,
+  visible,
   className,
   style,
   legend,
   legendEntries = [],
   children,
+  ...rest
 }: ChartShellProps) => {
   const { ref, width: w, height: h } = useMeasuredSize<HTMLDivElement>();
   const top = legend?.verticalAlign === "Top";
@@ -88,7 +86,8 @@ export const ChartShell = ({
       fillStyle="solid"
       className={cn("block", className)}
       contentClassName="flex h-full flex-col"
-      style={{ ...sizeStyle(width, height), ...style }}
+      style={widgetStyle({ width, height, aspectRatio, visible, style })}
+      data-testid={rest["data-testid"]}
     >
       {top && <ChartLegend entries={legendEntries} legend={legend} />}
       <div ref={ref} className="relative min-h-0 flex-1">
@@ -196,7 +195,7 @@ export const Axes = ({ scales, data, categoryKey, grid, xAxis, yAxis, seed }: Ax
             shape={{ kind: "line", x1: plot.left, y1: yOf(tick), x2: plot.left + plot.width, y2: yOf(tick) }}
             seed={`${seed}-grid-h-${index}`}
             stroke={gridStroke}
-            strokeWidth={0.7}
+            strokeWidth={STROKE.hairline}
             roughness={0.8}
             strokeLineDash={[4, 4]}
           />
@@ -209,7 +208,7 @@ export const Axes = ({ scales, data, categoryKey, grid, xAxis, yAxis, seed }: Ax
             shape={{ kind: "line", x1: xOf(index), y1: plot.top, x2: xOf(index), y2: plot.top + plot.height }}
             seed={`${seed}-grid-v-${index}`}
             stroke={gridStroke}
-            strokeWidth={0.7}
+            strokeWidth={STROKE.hairline}
             roughness={0.8}
             strokeLineDash={[4, 4]}
           />
@@ -220,7 +219,7 @@ export const Axes = ({ scales, data, categoryKey, grid, xAxis, yAxis, seed }: Ax
           shape={{ kind: "line", x1: plot.left, y1: plot.top, x2: plot.left, y2: plot.top + plot.height }}
           seed={`${seed}-y-axis`}
           stroke={INK_MUTED}
-          strokeWidth={1.2}
+          strokeWidth={STROKE.regular}
         />
       )}
       {xAxis?.axisLine !== false && (
@@ -234,7 +233,7 @@ export const Axes = ({ scales, data, categoryKey, grid, xAxis, yAxis, seed }: Ax
           }}
           seed={`${seed}-x-axis`}
           stroke={INK_MUTED}
-          strokeWidth={1.2}
+          strokeWidth={STROKE.regular}
         />
       )}
 

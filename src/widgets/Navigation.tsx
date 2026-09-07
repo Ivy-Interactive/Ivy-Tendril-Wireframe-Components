@@ -1,7 +1,7 @@
 import * as React from "react";
-import { byDensity, cn, densityIconSize, densityText } from "@/lib/utils";
-import type { Densities, WidgetBaseProps } from "@/lib/types";
-import { INK, INK_FAINT, INK_MUTED } from "@/sketch/colors";
+import { byDensity, cn, densityIconSize, densityText, widgetStyle } from "@/lib/utils";
+import type { WidgetBaseProps } from "@/lib/types";
+import { INK, INK_FAINT, INK_MUTED, STROKE } from "@/sketch/colors";
 import { Icon } from "@/sketch/Icon";
 import { SketchFrame } from "@/sketch/SketchFrame";
 
@@ -18,7 +18,6 @@ export interface BreadcrumbsProps extends WidgetBaseProps {
   /** Character drawn between crumbs. Defaults to a chevron. */
   separator?: string;
   disabled?: boolean;
-  density?: Densities;
   onSelect?: (item: BreadcrumbItem, index: number) => void;
 }
 
@@ -29,11 +28,20 @@ export const Breadcrumbs = ({
   separator,
   disabled,
   density = "Medium",
+  width,
+  height,
+  aspectRatio,
+  visible,
   className,
   style,
   onSelect,
 }: BreadcrumbsProps) => (
-  <nav id={id} aria-label="Breadcrumb" className={cn(densityText(density), className)} style={style}>
+  <nav
+    id={id}
+    aria-label="Breadcrumb"
+    className={cn(densityText(density), className)}
+    style={widgetStyle({ width, height, aspectRatio, visible, style })}
+  >
     <ol className="flex list-none flex-wrap items-center gap-1.5 p-0">
       {items.map((item, index) => {
         const last = index === items.length - 1;
@@ -77,7 +85,6 @@ export interface PaginationProps extends WidgetBaseProps {
   /** Pages always kept at each end. */
   boundaries?: number;
   disabled?: boolean;
-  density?: Densities;
   onChange?: (page: number) => void;
 }
 
@@ -107,6 +114,10 @@ export const Pagination = ({
   boundaries = 1,
   disabled,
   density = "Medium",
+  width,
+  height,
+  aspectRatio,
+  visible,
   className,
   style,
   onChange,
@@ -130,7 +141,7 @@ export const Pagination = ({
         seed={`${id}-${direction}`}
         corner="rounded"
         stroke={inactive ? INK_FAINT : INK_MUTED}
-        strokeWidth={1.1}
+        strokeWidth={STROKE.thin}
         disabled={inactive}
         aria-label={isPrev ? "Previous page" : "Next page"}
         onClick={() => go(isPrev ? page - 1 : page + 1)}
@@ -147,7 +158,7 @@ export const Pagination = ({
       id={id}
       aria-label="Pagination"
       className={cn("flex items-center gap-1.5", densityText(density), className)}
-      style={style}
+      style={widgetStyle({ width, height, aspectRatio, visible, style })}
     >
       {arrow("prev")}
       {items.map((item, index) =>
@@ -191,7 +202,6 @@ export interface ExpandableProps extends WidgetBaseProps {
   /** Controlled open state. Leave undefined for uncontrolled. */
   open?: boolean;
   defaultOpen?: boolean;
-  density?: Densities;
   icon?: string;
   ghost?: boolean;
   onOpenChange?: (open: boolean) => void;
@@ -208,6 +218,10 @@ export const Expandable = ({
   density = "Medium",
   icon,
   ghost,
+  width,
+  height,
+  aspectRatio,
+  visible,
   className,
   style,
   onOpenChange,
@@ -232,7 +246,7 @@ export const Expandable = ({
       stroke={INK_FAINT}
       className={cn("block w-full", densityText(density), className)}
       contentClassName="block"
-      style={style}
+      style={widgetStyle({ width, height, aspectRatio, visible, style })}
     >
       <button
         type="button"

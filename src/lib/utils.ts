@@ -19,6 +19,25 @@ export function toCssSize(size?: Sizing): string | undefined {
   return size;
 }
 
+/**
+ * Resolves the `Ivy.WidgetBase` props — size, aspect ratio and visibility —
+ * into the inline style every component spreads onto its root element.
+ */
+export function widgetStyle(base: {
+  width?: Sizing;
+  height?: Sizing;
+  aspectRatio?: number;
+  visible?: boolean;
+  style?: React.CSSProperties;
+}): React.CSSProperties {
+  return {
+    ...sizeStyle(base.width, base.height),
+    ...(base.aspectRatio !== undefined ? { aspectRatio: base.aspectRatio } : {}),
+    ...(base.visible === false ? { display: "none" } : {}),
+    ...base.style,
+  };
+}
+
 export function sizeStyle(width?: Sizing, height?: Sizing): React.CSSProperties {
   const style: React.CSSProperties = {};
   const w = toCssSize(width);

@@ -1,6 +1,5 @@
 import * as React from "react";
 import { cn, densityIconSize, sizeStyle } from "@/lib/utils";
-import type { Sizing } from "@/lib/types";
 import { Icon } from "@/sketch/Icon";
 import { BaseInputProps, InputShell, nativeInputClass } from "./InputShell";
 
@@ -16,13 +15,20 @@ export type TextInputVariant =
 export interface TextInputProps extends BaseInputProps {
   value?: string;
   variant?: TextInputVariant;
-  height?: Sizing;
   maxLength?: number;
   minLength?: number;
   pattern?: string;
   rows?: number;
   /** Hint shown on the right, e.g. `"⌘K"`. */
   shortcutKey?: string;
+  /** Adds a microphone button that toggles `onDictationToggle`. */
+  dictation?: boolean;
+  dictationUploadUrl?: string;
+  /** Text pushed back from the transcription service. */
+  dictationTranscription?: string;
+  /** Bump to apply a new `dictationTranscription` to the field. */
+  dictationTranscriptionVersion?: number;
+  onDictationToggle?: (recording: boolean) => void;
   onChange?: (value: string | null) => void;
   onBlur?: () => void;
   onSubmit?: (value: string | null) => void;
@@ -56,6 +62,12 @@ export const TextInput = ({
   pattern,
   rows = 4,
   shortcutKey,
+  dictation,
+  dictationTranscription,
+  dictationTranscriptionVersion,
+  onDictationToggle,
+  aspectRatio,
+  visible,
   autoFocus,
   prefix,
   suffix,
@@ -68,7 +80,14 @@ export const TextInput = ({
 }: TextInputProps) => {
   const [focused, setFocused] = React.useState(false);
   const [revealed, setRevealed] = React.useState(false);
+  const [recording, setRecording] = React.useState(false);
   const iconSize = densityIconSize(density);
+
+  // A new transcription version means the service has produced fresh text.
+  React.useEffect(() => {
+    if (dictationTranscription !== undefined) onChange?.(dictationTranscription);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [dictationTranscriptionVersion]);
 
   const emit = (next: string) => onChange?.(nullable && next === "" ? null : next);
 
@@ -103,6 +122,22 @@ export const TextInput = ({
           <Icon name={revealed ? "EyeOff" : "Eye"} size={iconSize} />
         </button>
       )}
+      {dictation && (
+        <button
+          type="button"
+          aria-label={recording ? "Stop dictation" : "Start dictation"}
+          aria-pressed={recording}
+          disabled={disabled}
+          onClick={() => {
+            const next = !recording;
+            setRecording(next);
+            onDictationToggle?.(next);
+          }}
+          className={cn("cursor-pointer", recording ? "text-destructive" : "text-ink-faint hover:text-ink")}
+        >
+          <Icon name={recording ? "Square" : "Mic"} size={iconSize} />
+        </button>
+      )}
       {shortcutKey && <span className="font-sketch-mono text-[10px] text-ink-faint">{shortcutKey}</span>}
       {suffix}
     </>
@@ -116,7 +151,8 @@ export const TextInput = ({
       density={density}
       ghost={ghost}
       width={width}
-      height={variant === "Textarea" ? height : undefined}
+      aspectRatio={aspectRatio}
+      visible={visible}
       focused={focused}
       prefix={leading}
       suffix={trailing}
@@ -163,6 +199,8 @@ export const ReadOnlyInput = ({
   showCopyButton,
   density = "Medium",
   width = "16rem",
+  aspectRatio,
+  visible,
   className,
   style,
   ...rest
@@ -185,6 +223,8 @@ export const ReadOnlyInput = ({
       id={id}
       density={density}
       width={width}
+      aspectRatio={aspectRatio}
+      visible={visible}
       className={className}
       style={style}
       suffix={

@@ -1,4 +1,4 @@
-import { INK, seriesColor } from "@/sketch/colors";
+import { INK, STROKE, seriesColor } from "@/sketch/colors";
 import { RoughShape } from "@/sketch/RoughShape";
 import { Axes, ChartShell, buildScales, legendEntriesFrom } from "./ChartShell";
 import type {
@@ -8,6 +8,7 @@ import type {
   LineSeries,
   ScatterSeries,
   ScatterShape,
+  StackOffset,
   ZAxisProps,
 } from "./types";
 
@@ -54,6 +55,9 @@ export const LineChart = ({
   legend,
   width,
   height,
+  aspectRatio,
+  visible,
+  density,
   className,
   style,
   referenceLines,
@@ -68,6 +72,9 @@ export const LineChart = ({
       id={id}
       width={width}
       height={height}
+      aspectRatio={aspectRatio}
+      visible={visible}
+      density={density}
       className={className}
       style={style}
       legend={legend}
@@ -108,7 +115,7 @@ export const LineChart = ({
                       shape={{ kind: "circle", cx: x, cy: y, diameter: 6 }}
                       seed={`${id}-dot-${lineIndex}-${index}`}
                       stroke={color}
-                      strokeWidth={1.2}
+                      strokeWidth={STROKE.regular}
                       fill={color}
                       fillStyle="solid"
                     />
@@ -129,7 +136,7 @@ export const LineChart = ({
                   }}
                   seed={`${id}-ref-${index}`}
                   stroke={line.stroke ?? INK}
-                  strokeWidth={1.1}
+                  strokeWidth={STROKE.thin}
                   strokeLineDash={[7, 4]}
                 />
               ),
@@ -140,7 +147,7 @@ export const LineChart = ({
                 shape={{ kind: "circle", cx: scales.xOf(dot.x), cy: scales.yOf(dot.y), diameter: 9 }}
                 seed={`${id}-refdot-${index}`}
                 stroke={INK}
-                strokeWidth={1.3}
+                strokeWidth={STROKE.regular}
               />
             ))}
           </>
@@ -152,6 +159,8 @@ export const LineChart = ({
 
 export interface AreaChartProps extends CartesianChartProps {
   areas?: LineSeries[];
+  /** `Expand` normalises each stack to 100%. Mirrors Ivy's `StackOffset`. */
+  stackOffset?: StackOffset;
 }
 
 /** Mirrors `Ivy.AreaChart`. */
@@ -159,6 +168,7 @@ export const AreaChart = ({
   id,
   data = [],
   areas = [],
+  stackOffset = "None",
   cartesianGrid,
   xAxis,
   yAxis,
@@ -166,11 +176,22 @@ export const AreaChart = ({
   legend,
   width,
   height,
+  aspectRatio,
+  visible,
+  density,
   className,
   style,
 }: AreaChartProps) => {
   const categoryKey = categoryKeyOf({ data, xAxis }, data);
-  const values = collect(data, areas.map((area) => area.dataKey));
+  const expand = stackOffset === "Expand";
+  const areaTotals = data.map((row) =>
+    areas.reduce((sum, area) => sum + (Number(row[area.dataKey]) || 0), 0),
+  );
+  const valueAt = (rowIndex: number, key: string) => {
+    const raw = Number(data[rowIndex]?.[key]) || 0;
+    return expand ? raw / (areaTotals[rowIndex] || 1) : raw;
+  };
+  const values = expand ? [0, 1] : collect(data, areas.map((area) => area.dataKey));
   const entries = legendEntriesFrom(areas, colorScheme, (area) => area.stroke);
 
   return (
@@ -178,6 +199,9 @@ export const AreaChart = ({
       id={id}
       width={width}
       height={height}
+      aspectRatio={aspectRatio}
+      visible={visible}
+      density={density}
       className={className}
       style={style}
       legend={legend}
@@ -200,7 +224,8 @@ export const AreaChart = ({
             {areas.map((area, areaIndex) => {
               const color = area.stroke ?? seriesColor(colorScheme, areaIndex);
               const points = data.map(
-                (row, index) => [scales.xOf(index), scales.yOf(Number(row[area.dataKey]))] as [number, number],
+                (_, index) =>
+                  [scales.xOf(index), scales.yOf(valueAt(index, area.dataKey))] as [number, number],
               );
               if (points.length < 2) return null;
               const polygon: Array<[number, number]> = [
@@ -241,6 +266,8 @@ export interface BarChartProps extends CartesianChartProps {
   barCategoryGap?: number | string;
   maxBarSize?: number;
   reverseStackOrder?: boolean;
+  /** `Expand` normalises each stack to 100%. Mirrors Ivy's `StackOffset`. */
+  stackOffset?: StackOffset;
 }
 
 /** Mirrors `Ivy.BarChart`, including grouped, stacked and horizontal layouts. */
@@ -255,17 +282,27 @@ export const BarChart = ({
   legend,
   barGap = 2,
   maxBarSize,
+  stackOffset = "None",
   layout = "Horizontal",
   width,
   height,
+  aspectRatio,
+  visible,
+  density,
   className,
   style,
 }: BarChartProps) => {
   const categoryKey = categoryKeyOf({ data, xAxis }, data);
   const stacked = bars.some((bar) => bar.stackId !== undefined);
-  const values = stacked
-    ? data.map((row) => bars.reduce((sum, bar) => sum + (Number(row[bar.dataKey]) || 0), 0))
-    : collect(data, bars.map((bar) => bar.dataKey));
+  const expand = stacked && stackOffset === "Expand";
+  const stackTotals = data.map((row) =>
+    bars.reduce((sum, bar) => sum + (Number(row[bar.dataKey]) || 0), 0),
+  );
+  const values = expand
+    ? [0, 1]
+    : stacked
+      ? stackTotals
+      : collect(data, bars.map((bar) => bar.dataKey));
   const entries = legendEntriesFrom(bars, colorScheme, (bar) => bar.fill);
   const vertical = layout === "Vertical";
 
@@ -274,6 +311,9 @@ export const BarChart = ({
       id={id}
       width={width}
       height={height}
+      aspectRatio={aspectRatio}
+      visible={visible}
+      density={density}
       className={className}
       style={style}
       legend={legend}
@@ -295,7 +335,7 @@ export const BarChart = ({
                 shape={{ kind: "line", x1: plot.left, y1: plot.top, x2: plot.left, y2: plot.top + plot.height }}
                 seed={`${id}-v-axis`}
                 stroke="#8b8b8b"
-                strokeWidth={1.2}
+                strokeWidth={STROKE.regular}
               />
               {data.map((row, rowIndex) => {
                 let offsetX = plot.left;
@@ -358,7 +398,8 @@ export const BarChart = ({
               return (
                 <g key={rowIndex}>
                   {bars.map((bar, barIndex) => {
-                    const value = Number(row[bar.dataKey]) || 0;
+                    const raw = Number(row[bar.dataKey]) || 0;
+                    const value = expand ? raw / (stackTotals[rowIndex] || 1) : raw;
                     const barHeight = Math.max(1, baseline - yOf(value));
                     const x = stacked
                       ? plot.left + bandWidth * rowIndex + (bandWidth - groupWidth) / 2
@@ -481,6 +522,9 @@ export const ScatterChart = ({
   legend,
   width,
   height,
+  aspectRatio,
+  visible,
+  density,
   className,
   style,
 }: ScatterChartProps) => {
@@ -499,6 +543,9 @@ export const ScatterChart = ({
       id={id}
       width={width}
       height={height}
+      aspectRatio={aspectRatio}
+      visible={visible}
+      density={density}
       className={className}
       style={style}
       legend={legend}
@@ -530,7 +577,7 @@ export const ScatterChart = ({
                       shape={{ kind: "path", d: pathThrough(points, "Linear") }}
                       seed={`${id}-scatter-line-${scatterIndex}`}
                       stroke={color}
-                      strokeWidth={1.2}
+                      strokeWidth={STROKE.regular}
                       strokeLineDash={scatter.lineType === "Fitting" ? [6, 4] : undefined}
                     />
                   )}

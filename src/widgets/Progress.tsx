@@ -1,6 +1,6 @@
-import { byDensity, cn, sizeStyle } from "@/lib/utils";
-import type { Densities, Sizing, WidgetBaseProps } from "@/lib/types";
-import { INK, INK_FAINT, resolveColor, seriesColor } from "@/sketch/colors";
+import { byDensity, cn, widgetStyle } from "@/lib/utils";
+import type { WidgetBaseProps } from "@/lib/types";
+import { INK, INK_FAINT, STROKE, resolveColor, seriesColor } from "@/sketch/colors";
 import { RoughShape } from "@/sketch/RoughShape";
 import { SketchFrame } from "@/sketch/SketchFrame";
 import { useMeasuredSize } from "@/sketch/useRough";
@@ -11,9 +11,7 @@ export interface ProgressProps extends WidgetBaseProps {
   /** Caption under the bar, e.g. `"3 of 8 uploaded"`. */
   goal?: string;
   color?: string;
-  width?: Sizing;
   indeterminate?: boolean;
-  density?: Densities;
 }
 
 /** A pencilled progress bar. Mirrors `Ivy.Progress`. */
@@ -23,6 +21,9 @@ export const Progress = ({
   goal,
   color,
   width = "100%",
+  height,
+  aspectRatio,
+  visible,
   indeterminate,
   density = "Medium",
   className,
@@ -35,14 +36,18 @@ export const Progress = ({
   const inner = Math.max(0, w - 4);
 
   return (
-    <div id={id} className={cn("flex flex-col gap-1", className)} style={{ ...sizeStyle(width), ...style }}>
+    <div
+      id={id}
+      className={cn("flex flex-col gap-1", className)}
+      style={widgetStyle({ width, height, aspectRatio, visible, style })}
+    >
       <SketchFrame
         seed={id ?? "progress"}
         corner="pill"
         stroke={INK_FAINT}
-        strokeWidth={1.1}
+        strokeWidth={STROKE.thin}
         className="w-full"
-        contentClassName="block"
+        contentClassName="block h-full"
         style={{ height: barHeight }}
       >
         <span ref={ref} className="relative block h-full w-full">
@@ -64,7 +69,7 @@ export const Progress = ({
                 }}
                 seed={`${id}-fill`}
                 stroke={accent}
-                strokeWidth={1}
+                strokeWidth={STROKE.thin}
                 fill={accent}
                 fillStyle="solid"
               />
@@ -101,8 +106,6 @@ export interface StackedProgressProps extends WidgetBaseProps {
   rounded?: boolean;
   /** Index of the segment to emphasise. */
   selected?: number;
-  width?: Sizing;
-  density?: Densities;
   onSelect?: (index: number, segment: ProgressSegment) => void;
 }
 
@@ -115,6 +118,9 @@ export const StackedProgress = ({
   rounded = true,
   selected,
   width = "100%",
+  height: rootHeight,
+  aspectRatio,
+  visible,
   density = "Medium",
   className,
   style,
@@ -128,14 +134,18 @@ export const StackedProgress = ({
   let offset = 2;
 
   return (
-    <div id={id} className={cn("flex flex-col gap-2", className)} style={{ ...sizeStyle(width), ...style }}>
+    <div
+      id={id}
+      className={cn("flex flex-col gap-2", className)}
+      style={widgetStyle({ width, height: rootHeight, aspectRatio, visible, style })}
+    >
       <SketchFrame
         seed={id ?? "stacked"}
         corner={rounded ? "pill" : "sharp"}
         stroke={INK_FAINT}
-        strokeWidth={1.1}
+        strokeWidth={STROKE.thin}
         className="w-full"
-        contentClassName="block"
+        contentClassName="block h-full"
         style={{ height }}
       >
         <span ref={ref} className="relative block h-full w-full">
@@ -158,7 +168,7 @@ export const StackedProgress = ({
                     }}
                     seed={`${id}-seg-${index}`}
                     stroke={resolveColor(segment.color, seriesColor("Default", index))}
-                    strokeWidth={1}
+                    strokeWidth={STROKE.thin}
                     fill={resolveColor(segment.color, seriesColor("Default", index))}
                     fillStyle="solid"
                     className={onSelect ? "cursor-pointer" : undefined}

@@ -1,7 +1,7 @@
 import * as React from "react";
-import { byDensity, cn, sizeStyle } from "@/lib/utils";
-import type { Densities, HoverEffect, Sizing, WidgetBaseProps } from "@/lib/types";
-import { PAPER_RAISED } from "@/sketch/colors";
+import { byDensity, cn, widgetStyle } from "@/lib/utils";
+import type { HoverEffect, WidgetBaseProps } from "@/lib/types";
+import { INK_FAINT, PAPER_RAISED } from "@/sketch/colors";
 import { SketchFrame } from "@/sketch/SketchFrame";
 import { HOVER_CLASS } from "./primitives/Box";
 
@@ -12,11 +12,7 @@ export interface CardProps extends WidgetBaseProps {
   header?: React.ReactNode;
   footer?: React.ReactNode;
   children?: React.ReactNode;
-  width?: Sizing;
-  height?: Sizing;
-  aspectRatio?: number;
   hoverVariant?: HoverEffect;
-  density?: Densities;
   disabled?: boolean;
   onClick?: React.MouseEventHandler<HTMLElement>;
 }
@@ -35,6 +31,7 @@ export const Card = ({
   width,
   height,
   aspectRatio,
+  visible,
   hoverVariant = "None",
   density = "Medium",
   disabled,
@@ -50,6 +47,7 @@ export const Card = ({
       id={id}
       seed={id ?? title ?? "card"}
       corner="rounded"
+      stroke={INK_FAINT}
       fill={PAPER_RAISED}
       fillStyle="solid"
       onClick={disabled ? undefined : onClick}
@@ -61,7 +59,7 @@ export const Card = ({
         className,
       )}
       contentClassName="flex h-full flex-col"
-      style={{ aspectRatio, ...sizeStyle(width, height), ...style }}
+      style={widgetStyle({ width, height, aspectRatio, visible, style })}
       {...rest}
     >
       {(header || title || description) && (

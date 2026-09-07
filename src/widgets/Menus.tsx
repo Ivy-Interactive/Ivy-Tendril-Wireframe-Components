@@ -1,8 +1,8 @@
 import * as React from "react";
 import * as DropdownPrimitive from "@radix-ui/react-dropdown-menu";
 import * as TooltipPrimitive from "@radix-ui/react-tooltip";
-import { byDensity, cn, densityIconSize, densityText, sizeStyle } from "@/lib/utils";
-import type { Densities, MenuItem, Sizing, WidgetBaseProps } from "@/lib/types";
+import { byDensity, cn, densityIconSize, densityText, widgetStyle } from "@/lib/utils";
+import type { Densities, MenuItem, WidgetBaseProps } from "@/lib/types";
 import { INK, INK_FAINT, INK_MUTED, PAPER_RAISED, resolveColor, tint } from "@/sketch/colors";
 import { Icon } from "@/sketch/Icon";
 import { SketchFrame } from "@/sketch/SketchFrame";
@@ -116,8 +116,6 @@ export interface DropDownMenuProps extends WidgetBaseProps {
   alignOffset?: number;
   /** Keeps the menu open after a selection, for multi-select menus. */
   stayOpen?: boolean;
-  density?: Densities;
-  width?: Sizing;
   onSelect?: (item: MenuItem) => void;
 }
 
@@ -133,6 +131,9 @@ export const DropDownMenu = ({
   stayOpen,
   density = "Medium",
   width,
+  height,
+  aspectRatio,
+  visible,
   className,
   style,
   onSelect,
@@ -148,7 +149,11 @@ export const DropDownMenu = ({
   return (
     <DropdownPrimitive.Root open={open} onOpenChange={setOpen}>
       <DropdownPrimitive.Trigger asChild>
-        <span id={id} className={cn("inline-flex", className)} style={style}>
+        <span
+          id={id}
+          className={cn("inline-flex", className)}
+          style={widgetStyle({ aspectRatio, visible, style })}
+        >
           {trigger}
         </span>
       </DropdownPrimitive.Trigger>
@@ -166,7 +171,7 @@ export const DropDownMenu = ({
             fillStyle="solid"
             className={cn("tendril min-w-44", densityText(density))}
             contentClassName="py-1"
-            style={sizeStyle(width)}
+            style={widgetStyle({ width, height })}
           >
             {header && (
               <div className="border-b border-dashed border-ink-faint px-2.5 pb-1.5 text-xs text-ink-muted">
@@ -184,7 +189,6 @@ export const DropDownMenu = ({
 export interface ToolbarProps extends WidgetBaseProps {
   items?: MenuItem[];
   disabled?: boolean;
-  density?: Densities;
   onSelect?: (item: MenuItem) => void;
 }
 
@@ -194,6 +198,10 @@ export const Toolbar = ({
   items = [],
   disabled,
   density = "Medium",
+  width,
+  height,
+  aspectRatio,
+  visible,
   className,
   style,
   onSelect,
@@ -210,7 +218,7 @@ export const Toolbar = ({
       fillStyle="solid"
       className={cn("inline-block", densityText(density), className)}
       contentClassName={cn("flex items-center gap-0.5", byDensity(density, ["p-0.5", "p-1", "p-1.5"]))}
-      style={style}
+      style={widgetStyle({ width, height, aspectRatio, visible, style })}
       role="toolbar"
     >
       {items.map((item, index) => {
@@ -280,7 +288,6 @@ export interface TooltipProps extends WidgetBaseProps {
   trigger?: React.ReactNode;
   content?: React.ReactNode;
   children?: React.ReactNode;
-  density?: Densities;
   open?: boolean;
   showArrow?: boolean;
   /** Keeps the tooltip up while the pointer is over it. */
@@ -301,6 +308,10 @@ export const Tooltip = ({
   persistent,
   variant = "Default",
   side = "Top",
+  width,
+  height,
+  aspectRatio,
+  visible,
   className,
   style,
 }: TooltipProps) => {
@@ -310,7 +321,11 @@ export const Tooltip = ({
     <TooltipPrimitive.Provider delayDuration={200}>
       <TooltipPrimitive.Root open={open} disableHoverableContent={!persistent}>
         <TooltipPrimitive.Trigger asChild>
-          <span id={id} className={cn("inline-flex", className)} style={style}>
+          <span
+            id={id}
+            className={cn("inline-flex", className)}
+            style={widgetStyle({ width, height, aspectRatio, visible, style })}
+          >
             {trigger ?? children}
           </span>
         </TooltipPrimitive.Trigger>
@@ -342,7 +357,6 @@ export const Tooltip = ({
 export interface TreeProps extends WidgetBaseProps {
   items?: MenuItem[];
   rowActions?: MenuItem[];
-  density?: Densities;
   onSelect?: (item: MenuItem) => void;
   onRowAction?: (item: MenuItem, action: MenuItem) => void;
 }
@@ -444,6 +458,10 @@ export const Tree = ({
   items = [],
   rowActions,
   density = "Medium",
+  width,
+  height,
+  aspectRatio,
+  visible,
   className,
   style,
   onSelect,
@@ -453,7 +471,7 @@ export const Tree = ({
     id={id}
     role="tree"
     className={cn("m-0 list-none p-0", densityText(density), className)}
-    style={style}
+    style={widgetStyle({ width, height, aspectRatio, visible, style })}
   >
     {items.map((item, index) => (
       <TreeNode

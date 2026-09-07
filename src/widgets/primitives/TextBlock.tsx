@@ -1,6 +1,6 @@
 import * as React from "react";
-import { cn, densityText, overflowClass, sizeStyle, textAlignClass } from "@/lib/utils";
-import type { Densities, Overflow, Sizing, TextAlignment, WidgetBaseProps } from "@/lib/types";
+import { cn, densityText, overflowClass, textAlignClass, widgetStyle } from "@/lib/utils";
+import type { Densities, Overflow, TextAlignment, WidgetBaseProps } from "@/lib/types";
 import { resolveColor } from "@/sketch/colors";
 
 export type TextBlockVariant =
@@ -28,7 +28,6 @@ export type TextBlockVariant =
 export interface TextBlockProps extends WidgetBaseProps {
   content?: string;
   variant?: TextBlockVariant;
-  width?: Sizing;
   strikeThrough?: boolean;
   color?: string;
   noWrap?: boolean;
@@ -94,6 +93,9 @@ export const TextBlock = ({
   content,
   variant = "Block",
   width,
+  height,
+  aspectRatio,
+  visible,
   strikeThrough,
   color,
   noWrap,
@@ -127,7 +129,10 @@ export const TextBlock = ({
         muted && "text-ink-muted",
         className,
       )}
-      style={{ color: color ? resolveColor(color) : undefined, ...sizeStyle(width), ...style }}
+      style={{
+        color: color ? resolveColor(color) : undefined,
+        ...widgetStyle({ width, height, aspectRatio, visible, style }),
+      }}
       {...rest}
     >
       {children ?? content}

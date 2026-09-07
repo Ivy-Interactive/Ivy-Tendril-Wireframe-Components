@@ -1,6 +1,6 @@
 import * as React from "react";
-import { cn, densityText, sizeStyle } from "@/lib/utils";
-import type { Densities, Sizing, WidgetBaseProps } from "@/lib/types";
+import { cn, densityText, widgetStyle } from "@/lib/utils";
+import type { WidgetBaseProps } from "@/lib/types";
 import { resolveColor, tint } from "@/sketch/colors";
 import { Icon } from "@/sketch/Icon";
 import { SketchFrame } from "@/sketch/SketchFrame";
@@ -19,9 +19,6 @@ export interface CalloutProps extends WidgetBaseProps {
   title?: string;
   children?: React.ReactNode;
   variant?: CalloutVariant;
-  density?: Densities;
-  width?: Sizing;
-  height?: Sizing;
   icon?: string;
   onClick?: React.MouseEventHandler<HTMLElement>;
 }
@@ -35,6 +32,8 @@ export const Callout = ({
   density = "Medium",
   width,
   height,
+  aspectRatio,
+  visible,
   icon,
   className,
   style,
@@ -55,7 +54,7 @@ export const Callout = ({
       onClick={onClick}
       className={cn("inline-block", onClick && "cursor-pointer", className)}
       contentClassName={cn("flex items-start gap-3 p-3", densityText(density))}
-      style={{ ...sizeStyle(width, height), ...style }}
+      style={widgetStyle({ width, height, aspectRatio, visible, style })}
       {...rest}
     >
       <Icon name={icon ?? tone.icon} color={tone.color} size={density === "Small" ? 14 : 18} className="mt-0.5" />

@@ -78,9 +78,18 @@ export interface InternalLink {
   appId: string;
 }
 
-/** Props every widget accepts on top of its own, mirroring `Ivy.WidgetBase`. */
+/**
+ * The props every Ivy widget inherits from `Ivy.WidgetBase`, so every Tendril
+ * component accepts them too.
+ */
 export interface WidgetBaseProps {
   id?: string;
+  width?: Sizing;
+  height?: Sizing;
+  aspectRatio?: number;
+  density?: Densities;
+  /** `false` hides the widget without unmounting it, matching Ivy's `Visible`. */
+  visible?: boolean;
   className?: string;
   style?: React.CSSProperties;
   "data-testid"?: string;

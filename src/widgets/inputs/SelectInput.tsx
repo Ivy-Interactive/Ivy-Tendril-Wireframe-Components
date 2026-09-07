@@ -1,6 +1,6 @@
 import * as React from "react";
 import * as PopoverPrimitive from "@radix-ui/react-popover";
-import { byDensity, cn, densityIconSize, densityText } from "@/lib/utils";
+import { byDensity, cn, densityIconSize, densityText, widgetStyle } from "@/lib/utils";
 import type { Densities, NullableSelectValue, Option } from "@/lib/types";
 import { INK, INK_FAINT, PAPER_RAISED } from "@/sketch/colors";
 import { Icon } from "@/sketch/Icon";
@@ -124,6 +124,9 @@ export const SelectInput = ({
   density = "Medium",
   ghost,
   width = "16rem",
+  height,
+  aspectRatio,
+  visible,
   autoFocus,
   prefix,
   suffix,
@@ -136,19 +139,19 @@ export const SelectInput = ({
   const selected = asArray(value);
   const iconSize = densityIconSize(density);
 
-  const visible = React.useMemo(
+  const matching = React.useMemo(
     () => options.filter((option) => matches(option, query, searchMode)),
     [options, query, searchMode],
   );
 
   const grouped = React.useMemo(() => {
     const groups = new Map<string, Option[]>();
-    visible.forEach((option) => {
+    matching.forEach((option) => {
       const key = option.group ?? "";
       groups.set(key, [...(groups.get(key) ?? []), option]);
     });
     return [...groups.entries()];
-  }, [visible]);
+  }, [matching]);
 
   const emit = (next: Array<string | number>) => {
     if (selectMany) return onChange?.(next as string[] | number[]);
@@ -179,10 +182,10 @@ export const SelectInput = ({
   if (variant === "Radio" || variant === "List") {
     const body = (
       <div role="listbox" className={cn("flex flex-col", variant === "Radio" && "gap-1")}>
-        {visible.length === 0 && (
+        {matching.length === 0 && (
           <span className={cn("text-ink-faint italic", inputPadding(density))}>{emptyMessage}</span>
         )}
-        {visible.map((option) =>
+        {matching.map((option) =>
           variant === "Radio" ? (
             <label
               key={option.value}
@@ -239,7 +242,7 @@ export const SelectInput = ({
       <div
         id={id}
         className={cn("inline-flex flex-col gap-1", densityText(density), className)}
-        style={{ width: typeof width === "string" ? width : undefined, ...style }}
+        style={widgetStyle({ width, height, aspectRatio, visible, style })}
       >
         {variant === "List" ? (
           <SketchFrame
@@ -265,7 +268,7 @@ export const SelectInput = ({
       <div
         id={id}
         className={cn("inline-flex flex-col gap-1", className)}
-        style={style}
+        style={widgetStyle({ width, height, aspectRatio, visible, style })}
         role="group"
       >
         <div className="flex flex-wrap gap-1.5">
@@ -293,7 +296,7 @@ export const SelectInput = ({
       <div
         id={id}
         className={cn("inline-flex flex-col gap-1", densityText(density), className)}
-        style={{ width: typeof width === "string" ? width : undefined, ...style }}
+        style={widgetStyle({ width, height, aspectRatio, visible, style })}
       >
         <SketchSlider
           seed={id ?? "select-slider"}
@@ -327,6 +330,9 @@ export const SelectInput = ({
             density={density}
             ghost={ghost}
             width={width}
+            height={height}
+            aspectRatio={aspectRatio}
+            visible={visible}
             focused={open}
             prefix={prefix}
             className={className}
@@ -383,7 +389,7 @@ export const SelectInput = ({
                 />
               </div>
             )}
-            {visible.length === 0 && (
+            {matching.length === 0 && (
               <span className={cn("block text-ink-faint italic", inputPadding(density))}>
                 {emptyMessage}
               </span>
@@ -454,6 +460,9 @@ export const AsyncSelectInput = ({
   density = "Medium",
   ghost,
   width = "16rem",
+  height,
+  aspectRatio,
+  visible,
   autoFocus,
   nullable,
   className,
@@ -476,6 +485,9 @@ export const AsyncSelectInput = ({
             density={density}
             ghost={ghost}
             width={width}
+            height={height}
+            aspectRatio={aspectRatio}
+            visible={visible}
             focused={open}
             className={className}
             style={style}
