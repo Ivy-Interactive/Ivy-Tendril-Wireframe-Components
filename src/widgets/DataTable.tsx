@@ -118,6 +118,9 @@ function renderCell(column: DataTableColumn, row: Record<string, unknown>): Reac
  * A sortable, filterable, paginated grid. Mirrors `Ivy.DataTable`; where the
  * Ivy widget streams from a `DataTableConnection`, this one takes `rows`
  * directly, which is what a wireframe needs.
+ *
+ * @tags grid sortable filterable paginated
+ * @example <DataTable columns={[{ name: "name", header: "Name" }]} rows={people} />
  */
 export const DataTable = ({
   id,

@@ -415,7 +415,12 @@ export interface FileInputProps extends BaseInputProps {
   onRemove?: (file: FileItem) => void;
 }
 
-/** File chooser with a drop-zone variant. Mirrors `Ivy.FileInput`. */
+/**
+ * File chooser with a drop-zone variant. Mirrors `Ivy.FileInput`.
+ *
+ * @tags upload attachment drop-zone
+ * @example <FileInput variant="Drop" accept=".png,.jpg" onChange={upload} />
+ */
 export const FileInput = ({
   id,
   value,

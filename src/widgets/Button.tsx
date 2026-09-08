@@ -68,6 +68,10 @@ const VARIANTS: Record<ButtonVariant, VariantStyle> = {
 /**
  * The workhorse control. Mirrors `Ivy.Button`, including its variant list,
  * icon placement, badge and shortcut hint.
+ *
+ * @tags action submit cta
+ * @example <Button title="Save" icon="Save" onClick={save} />
+ * @example <Button title="Delete" variant="Destructive" icon="Trash2" />
  */
 export const Button = React.forwardRef<HTMLElement, ButtonProps>(function Button(
   {

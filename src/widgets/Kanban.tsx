@@ -107,7 +107,12 @@ export interface KanbanProps extends WidgetBaseProps {
   onCardClick?: (task: KanbanTask) => void;
 }
 
-/** Drag-and-drop board. Mirrors `Ivy.Kanban`. */
+/**
+ * Drag-and-drop board. Mirrors `Ivy.Kanban`.
+ *
+ * @tags board drag-and-drop columns
+ * @example <Kanban columns={columns} tasks={tasks} onCardMove={move} />
+ */
 export const Kanban = ({
   id,
   columns = [],

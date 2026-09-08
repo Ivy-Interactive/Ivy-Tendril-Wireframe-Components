@@ -11,7 +11,12 @@ export interface TableProps extends WidgetBaseProps {
   layout?: "Auto" | "Fixed";
 }
 
-/** Grid of rows and cells. Mirrors `Ivy.Table`. */
+/**
+ * Grid of rows and cells. Mirrors `Ivy.Table`.
+ *
+ * @tags grid rows static
+ * @example <Table><tbody><TableRow><TableCell>Pencils</TableCell></TableRow></tbody></Table>
+ */
 export const Table = ({
   id,
   children,

@@ -138,6 +138,35 @@ geometry matches the rest of the sketch. Series props (`lines`, `bars`, `areas`,
 `scatters`, `pies`, `radars`, `funnels`), axis props and `colorScheme` keep their Ivy
 shapes.
 
+## Listing components from outside JavaScript
+
+`tendril.manifest.yaml` describes every component and every prop — types, enum members,
+defaults, which props are events, which come from `WidgetBase` — so an Ivy C# app or a
+code generator can enumerate the library without keeping its own copy of the API.
+
+```bash
+npm run manifest         # regenerate (part of `npm run build`)
+npm run manifest:check   # fail if the committed file is stale
+```
+
+Props are read from the TypeScript types by the compiler's own checker, so they cannot
+drift from the code. Prose — category, Ivy mapping, examples — comes from JSDoc tags in
+the component files:
+
+```tsx
+/**
+ * The workhorse control. Mirrors `Ivy.Button`.
+ *
+ * @tags action submit cta
+ * @example <Button title="Save" icon="Save" onClick={save} />
+ */
+export const Button = ...
+```
+
+Published as `@ivy/tendril/manifest.yaml`, with the same data at
+`@ivy/tendril/manifest.json`. See [MANIFEST.md](./MANIFEST.md) for the tag vocabulary and
+the file's shape.
+
 ## The sketch layer
 
 Everything is built on three pieces in `src/sketch`:
@@ -199,6 +228,7 @@ src/
 | `npm run build` | library bundle, stylesheet and `.d.ts` files into `dist/` |
 | `npm run build-storybook` | static Storybook into `storybook-static/` |
 | `npm run typecheck` | `tsc --noEmit` over `src` |
+| `npm run manifest` | regenerate `tendril.manifest.yaml` |
 
 The build emits `dist/index.js` (ESM), `dist/index.cjs`, `dist/tendril.css`,
 `dist/theme.css` and per-file `.d.ts` declarations.

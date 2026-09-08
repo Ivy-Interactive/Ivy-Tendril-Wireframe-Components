@@ -14,7 +14,12 @@ export interface ProgressProps extends WidgetBaseProps {
   indeterminate?: boolean;
 }
 
-/** A pencilled progress bar. Mirrors `Ivy.Progress`. */
+/**
+ * A pencilled progress bar. Mirrors `Ivy.Progress`.
+ *
+ * @tags loading percentage
+ * @example <Progress value={62} goal="Uploading" />
+ */
 export const Progress = ({
   id,
   value = 0,
@@ -109,7 +114,12 @@ export interface StackedProgressProps extends WidgetBaseProps {
   onSelect?: (index: number, segment: ProgressSegment) => void;
 }
 
-/** Several proportional segments in one bar. Mirrors `Ivy.StackedProgress`. */
+/**
+ * Several proportional segments in one bar. Mirrors `Ivy.StackedProgress`.
+ *
+ * @tags breakdown proportion
+ * @example <StackedProgress segments={[{ value: 40, label: "Done" }, { value: 60, label: "Todo" }]} />
+ */
 export const StackedProgress = ({
   id,
   segments = [],

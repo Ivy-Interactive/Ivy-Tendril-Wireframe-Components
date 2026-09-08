@@ -12,7 +12,12 @@ export interface ListProps extends WidgetBaseProps {
   children?: React.ReactNode;
 }
 
-/** A bordered stack of `ListItem`s. Mirrors `Ivy.List`. */
+/**
+ * A bordered stack of `ListItem`s. Mirrors `Ivy.List`.
+ *
+ * @tags collection rows
+ * @example <List><ListItem title="Inbox" badge="12" /></List>
+ */
 export const List = ({
   id,
   children,
@@ -51,7 +56,12 @@ export interface ListItemProps extends WidgetBaseProps {
   onClick?: React.MouseEventHandler<HTMLElement>;
 }
 
-/** One row of a list. Mirrors `Ivy.ListItem`. */
+/**
+ * One row of a list. Mirrors `Ivy.ListItem`.
+ *
+ * @tags row entry
+ * @example <ListItem title="Inbox" subtitle="12 unread" icon="Inbox" onClick={open} />
+ */
 export const ListItem = ({
   id,
   title,
@@ -108,7 +118,12 @@ export interface DetailsProps extends WidgetBaseProps {
   columns?: number;
 }
 
-/** Label/value read-out grid. Mirrors `Ivy.Details`. */
+/**
+ * Label/value read-out grid. Mirrors `Ivy.Details`.
+ *
+ * @tags key-value summary
+ * @example <Details><Detail label="Owner">Ada</Detail></Details>
+ */
 export const Details = ({
   id,
   children,
@@ -141,7 +156,12 @@ export interface DetailProps extends WidgetBaseProps {
   children?: React.ReactNode;
 }
 
-/** One label/value pair. Mirrors `Ivy.Detail`. */
+/**
+ * One label/value pair. Mirrors `Ivy.Detail`.
+ *
+ * @tags key-value row
+ * @example <Detail label="Status">Active</Detail>
+ */
 export const Detail = ({
   id,
   label,

@@ -60,7 +60,12 @@ export interface PieChartProps extends BaseChartProps {
   total?: { formattedValue: string; label: string };
 }
 
-/** Mirrors `Ivy.PieChart`. */
+/**
+ * Mirrors `Ivy.PieChart`.
+ *
+ * @tags chart proportion share donut
+ * @example <PieChart data={rows} pies={[{ dataKey: "value", nameKey: "name" }]} />
+ */
 export const PieChart = ({
   id,
   data = [],
@@ -489,7 +494,12 @@ export interface GaugeChartProps extends BaseChartProps {
   animated?: boolean;
 }
 
-/** Mirrors `Ivy.GaugeChart`. */
+/**
+ * Mirrors `Ivy.GaugeChart`.
+ *
+ * @tags chart dial meter single-value
+ * @example <GaugeChart value={72} label="Capacity" />
+ */
 export const GaugeChart = ({
   id,
   value = 0,

@@ -40,7 +40,12 @@ export interface CodeBlockProps extends WidgetBaseProps {
   wrapLines?: boolean;
 }
 
-/** Monospaced source listing on ruled paper. Mirrors `Ivy.CodeBlock`. */
+/**
+ * Monospaced source listing on ruled paper. Mirrors `Ivy.CodeBlock`.
+ *
+ * @tags code syntax listing
+ * @example <CodeBlock language="ts" content="export const x = 1;" />
+ */
 export const CodeBlock = ({
   id,
   content,
@@ -306,6 +311,9 @@ function renderInline(text: string, keyPrefix: string): React.ReactNode[] {
 /**
  * A deliberately small Markdown renderer — headings, lists, quotes, fences and
  * inline emphasis, which is all a wireframe needs. Mirrors `Ivy.Markdown`.
+ *
+ * @tags prose rich-text formatted
+ * @example <Markdown content="## Title\n\nSome **bold** copy." />
  */
 export const Markdown = ({
   id,

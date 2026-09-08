@@ -37,6 +37,8 @@ export interface InputShellProps extends BaseInputProps {
 /**
  * The bordered box every text-like input sits in: prefix, content, suffix,
  * clear button and the red squiggle for validation errors.
+ *
+ * @internal
  */
 export const InputShell = ({
   id,

@@ -16,7 +16,12 @@ export interface FieldProps extends WidgetBaseProps {
   children?: React.ReactNode;
 }
 
-/** Label, description and help around any input. Mirrors `Ivy.Field`. */
+/**
+ * Label, description and help around any input. Mirrors `Ivy.Field`.
+ *
+ * @tags label wrapper form
+ * @example <Field label="Email" required><TextInput value={email} /></Field>
+ */
 export const Field = ({
   id,
   label,
@@ -85,7 +90,12 @@ export interface FormProps extends WidgetBaseProps {
   onSubmit?: (event: React.FormEvent<HTMLFormElement>) => void;
 }
 
-/** Groups fields and captures submit. Mirrors `Ivy.Form`. */
+/**
+ * Groups fields and captures submit. Mirrors `Ivy.Form`.
+ *
+ * @tags form submit group
+ * @example <Form onSubmit={save}><Field label="Name"><TextInput /></Field></Form>
+ */
 export const Form = ({
   id,
   children,

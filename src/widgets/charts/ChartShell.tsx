@@ -18,6 +18,11 @@ export const LEGEND_ALIGN: Record<string, string> = {
   Right: "justify-end",
 };
 
+/**
+ * The series key drawn under (or over) a chart's plot area.
+ *
+ * @internal
+ */
 export const ChartLegend = ({
   entries,
   legend,
@@ -60,7 +65,11 @@ export interface ChartShellProps extends WidgetBaseProps {
   children: (size: { width: number; height: number }) => React.ReactNode;
 }
 
-/** Paper, border, legend and a measured drawing area for every chart. */
+/**
+ * Paper, border, legend and a measured drawing area for every chart.
+ *
+ * @internal
+ */
 export const ChartShell = ({
   id,
   width = "100%",
@@ -179,7 +188,11 @@ export interface AxesProps {
   seed: string;
 }
 
-/** Hand-drawn axes, ticks and grid lines shared by the cartesian charts. */
+/**
+ * Hand-drawn axes, ticks and grid lines shared by the cartesian charts.
+ *
+ * @internal
+ */
 export const Axes = ({ scales, data, categoryKey, grid, xAxis, yAxis, seed }: AxesProps) => {
   const { plot, ticks, xOf, yOf } = scales;
   const showHorizontal = grid?.horizontal !== false;

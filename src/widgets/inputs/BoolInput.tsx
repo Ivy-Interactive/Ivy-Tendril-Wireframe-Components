@@ -32,7 +32,12 @@ const SketchTick = ({ size, color }: { size: number; color: string }) => (
   </svg>
 );
 
-/** Checkbox, switch or toggle button. Mirrors `Ivy.BoolInput`. */
+/**
+ * Checkbox, switch or toggle button. Mirrors `Ivy.BoolInput`.
+ *
+ * @tags checkbox switch toggle boolean
+ * @example <BoolInput variant="Switch" label="Notify me" value={on} onChange={setOn} />
+ */
 export const BoolInput = ({
   id,
   value = false,

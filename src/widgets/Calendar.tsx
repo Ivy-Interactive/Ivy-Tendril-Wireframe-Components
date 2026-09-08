@@ -92,7 +92,12 @@ export interface CalendarProps extends WidgetBaseProps {
   onViewChange?: (view: CalendarView) => void;
 }
 
-/** Month, week, day and agenda views. Mirrors `Ivy.Calendar`. */
+/**
+ * Month, week, day and agenda views. Mirrors `Ivy.Calendar`.
+ *
+ * @tags schedule events month week
+ * @example <Calendar events={events} defaultView="Month" />
+ */
 export const Calendar = ({
   id,
   events = [],

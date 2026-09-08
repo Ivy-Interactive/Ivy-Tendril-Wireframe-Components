@@ -23,7 +23,12 @@ export interface CalloutProps extends WidgetBaseProps {
   onClick?: React.MouseEventHandler<HTMLElement>;
 }
 
-/** A boxed aside with an icon, in one of five tones. Mirrors `Ivy.Callout`. */
+/**
+ * A boxed aside with an icon, in one of five tones. Mirrors `Ivy.Callout`.
+ *
+ * @tags alert notice banner
+ * @example <Callout variant="Warning" title="Careful">This cannot be undone.</Callout>
+ */
 export const Callout = ({
   id,
   title,

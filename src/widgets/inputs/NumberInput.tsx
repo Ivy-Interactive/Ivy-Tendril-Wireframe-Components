@@ -66,7 +66,11 @@ export const TYPE_LIMITS: Record<string, { min: number; max: number }> = {
   ulong: { min: 0, max: Number.MAX_SAFE_INTEGER },
 };
 
-/** Slider track and thumb, drawn with rough.js. */
+/**
+ * Slider track and thumb, drawn with rough.js.
+ *
+ * @internal
+ */
 const SketchSlider = ({
   value,
   min,
@@ -148,7 +152,12 @@ export interface NumberInputProps extends BaseInputProps {
   onBlur?: () => void;
 }
 
-/** Numeric entry, as a field or a slider. Mirrors `Ivy.NumberInput`. */
+/**
+ * Numeric entry, as a field or a slider. Mirrors `Ivy.NumberInput`.
+ *
+ * @tags number currency slider numeric
+ * @example <NumberInput value={price} formatStyle="Currency" currency="EUR" onChange={setPrice} />
+ */
 export const NumberInput = ({
   id,
   value = null,

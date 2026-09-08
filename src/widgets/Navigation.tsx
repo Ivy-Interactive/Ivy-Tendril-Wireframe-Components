@@ -21,7 +21,12 @@ export interface BreadcrumbsProps extends WidgetBaseProps {
   onSelect?: (item: BreadcrumbItem, index: number) => void;
 }
 
-/** Trail of parent pages. Mirrors `Ivy.Breadcrumbs`. */
+/**
+ * Trail of parent pages. Mirrors `Ivy.Breadcrumbs`.
+ *
+ * @tags navigation trail path
+ * @example <Breadcrumbs items={[{ label: "Home", icon: "House" }, { label: "Projects" }]} />
+ */
 export const Breadcrumbs = ({
   id,
   items = [],
@@ -105,7 +110,12 @@ function pageRange(page: number, numPages: number, siblings: number, boundaries:
   return result;
 }
 
-/** Numbered page switcher. Mirrors `Ivy.Pagination`. */
+/**
+ * Numbered page switcher. Mirrors `Ivy.Pagination`.
+ *
+ * @tags paging navigation
+ * @example <Pagination page={page} numPages={12} onChange={setPage} />
+ */
 export const Pagination = ({
   id,
   page = 1,
@@ -207,7 +217,12 @@ export interface ExpandableProps extends WidgetBaseProps {
   onOpenChange?: (open: boolean) => void;
 }
 
-/** A disclosure panel. Mirrors `Ivy.Expandable`. */
+/**
+ * A disclosure panel. Mirrors `Ivy.Expandable`.
+ *
+ * @tags disclosure accordion collapse
+ * @example <Expandable header="Advanced">Hidden until opened.</Expandable>
+ */
 export const Expandable = ({
   id,
   header,

@@ -20,6 +20,11 @@ export interface CardProps extends WidgetBaseProps {
 /**
  * A sheet of paper with an optional header and footer. Mirrors `Ivy.Card`,
  * whose `Header` / `Content` / `Footer` slots become props here.
+ *
+ * @tags container panel surface
+ * @slot header Rendered above the title
+ * @slot footer Rendered below a dashed rule
+ * @example <Card title="Revenue" description="Last 30 days">£24,500</Card>
  */
 export const Card = ({
   id,

@@ -102,6 +102,9 @@ const OptionRow = ({
 /**
  * Every selection variant Ivy ships: dropdown, inline list, toggle group,
  * radio group and a stepped slider. Mirrors `Ivy.SelectInput`.
+ *
+ * @tags dropdown choice radio multi-select
+ * @example <SelectInput options={options} value={value} onChange={setValue} />
  */
 export const SelectInput = ({
   id,

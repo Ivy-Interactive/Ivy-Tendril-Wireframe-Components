@@ -85,7 +85,11 @@ export interface SketchLayerRenderProps extends SketchLayerProps {
   className?: string;
 }
 
-/** The pencil layer: absolutely positioned, behind content, never clickable. */
+/**
+ * The pencil layer: absolutely positioned, behind content, never clickable.
+ *
+ * @internal
+ */
 export const SketchLayer = ({
   width,
   height,

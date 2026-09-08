@@ -12,7 +12,12 @@ export interface WireframeNoteProps extends WidgetBaseProps {
   children?: React.ReactNode;
 }
 
-/** A sticky note pinned to the wireframe. Mirrors `Ivy.WireframeNote`. */
+/**
+ * A sticky note pinned to the wireframe. Mirrors `Ivy.WireframeNote`.
+ *
+ * @tags annotation sticky comment
+ * @example <WireframeNote text="Copy still to be written." />
+ */
 export const WireframeNote = ({
   id,
   text,
@@ -54,7 +59,12 @@ export interface WireframeCalloutProps extends WidgetBaseProps {
   children?: React.ReactNode;
 }
 
-/** A numbered marker for annotating a wireframe. Mirrors `Ivy.WireframeCallout`. */
+/**
+ * A numbered marker for annotating a wireframe. Mirrors `Ivy.WireframeCallout`.
+ *
+ * @tags annotation marker numbered
+ * @example <WireframeCallout label="1" leader={60}>Primary action</WireframeCallout>
+ */
 export const WireframeCallout = ({
   id,
   label = "1",

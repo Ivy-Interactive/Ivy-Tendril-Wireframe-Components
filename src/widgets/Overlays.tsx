@@ -20,7 +20,12 @@ export interface DialogProps extends WidgetBaseProps {
   onClose?: () => void;
 }
 
-/** Modal window. Mirrors `Ivy.Dialog`. */
+/**
+ * Modal window. Mirrors `Ivy.Dialog`.
+ *
+ * @tags modal overlay confirm
+ * @example <Dialog open={open} onOpenChange={setOpen}><DialogHeader title="Delete?" /></Dialog>
+ */
 export const Dialog = ({
   id,
   open,
@@ -191,7 +196,12 @@ const SHEET_POSITION: Record<SheetSide, string> = {
   Bottom: "inset-x-0 bottom-0",
 };
 
-/** Panel that slides in from an edge. Mirrors `Ivy.Sheet`. */
+/**
+ * Panel that slides in from an edge. Mirrors `Ivy.Sheet`.
+ *
+ * @tags drawer panel overlay
+ * @example <Sheet open={open} onOpenChange={setOpen} title="Filters" side="Right" />
+ */
 export const Sheet = ({
   id,
   open,

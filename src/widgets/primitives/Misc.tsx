@@ -40,7 +40,12 @@ export interface AvatarProps extends WidgetBaseProps {
   color?: string;
 }
 
-/** A circled portrait or set of initials. Mirrors `Ivy.Avatar`. */
+/**
+ * A circled portrait or set of initials. Mirrors `Ivy.Avatar`.
+ *
+ * @tags user portrait initials
+ * @example <Avatar fallback="AL" color="Blue" />
+ */
 export const Avatar = ({
   id,
   image,
@@ -147,7 +152,12 @@ export interface StepperProps extends WidgetBaseProps {
   onSelect?: (index: number) => void;
 }
 
-/** Numbered progress through a flow. Mirrors `Ivy.Stepper`. */
+/**
+ * Numbered progress through a flow. Mirrors `Ivy.Stepper`.
+ *
+ * @tags wizard progress steps
+ * @example <Stepper items={[{ label: "Pick" }, { label: "Pay" }]} selectedIndex={0} />
+ */
 export const Stepper = ({
   id,
   items = [],

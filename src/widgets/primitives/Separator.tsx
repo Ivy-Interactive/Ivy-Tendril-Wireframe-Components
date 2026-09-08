@@ -10,7 +10,12 @@ export interface SeparatorProps extends WidgetBaseProps {
   textAlign?: TextAlignment;
 }
 
-/** A hand-drawn rule, optionally with a label. Mirrors `Ivy.Separator`. */
+/**
+ * A hand-drawn rule, optionally with a label. Mirrors `Ivy.Separator`.
+ *
+ * @tags divider rule spacing
+ * @example <Separator text="Or" />
+ */
 export const Separator = ({
   id,
   orientation = "Horizontal",

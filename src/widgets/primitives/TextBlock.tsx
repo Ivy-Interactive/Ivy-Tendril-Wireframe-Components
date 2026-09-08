@@ -87,7 +87,12 @@ const VARIANT_CLASS: Record<TextBlockVariant, string> = {
   Display: "text-5xl font-bold tracking-tight -rotate-[0.4deg]",
 };
 
-/** Every piece of static text in the wireframe. Mirrors `Ivy.TextBlock`. */
+/**
+ * Every piece of static text in the wireframe. Mirrors `Ivy.TextBlock`.
+ *
+ * @tags text heading paragraph copy
+ * @example <TextBlock variant="H2" content="Section title" />
+ */
 export const TextBlock = ({
   id,
   content,

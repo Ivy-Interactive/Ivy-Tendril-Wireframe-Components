@@ -37,7 +37,12 @@ export interface DateTimeInputProps extends BaseInputProps {
   onChange?: (value: string | null) => void;
 }
 
-/** Date, time and month pickers. Mirrors `Ivy.DateTimeInput`. */
+/**
+ * Date, time and month pickers. Mirrors `Ivy.DateTimeInput`.
+ *
+ * @tags date time calendar picker
+ * @example <DateTimeInput value={date} onChange={setDate} />
+ */
 export const DateTimeInput = ({
   id,
   value,

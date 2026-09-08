@@ -120,7 +120,12 @@ export interface ChatProps extends WidgetBaseProps {
   onSend?: (message: string) => void;
 }
 
-/** A transcript with a composer at the bottom. Mirrors `Ivy.Chat`. */
+/**
+ * A transcript with a composer at the bottom. Mirrors `Ivy.Chat`.
+ *
+ * @tags conversation messages assistant
+ * @example <Chat onSend={send}><ChatMessage sender="User">Hello</ChatMessage></Chat>
+ */
 export const Chat = ({
   id,
   children,

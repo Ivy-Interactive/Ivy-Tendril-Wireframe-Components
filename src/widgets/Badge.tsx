@@ -34,7 +34,12 @@ export interface BadgeProps extends WidgetBaseProps {
   onClick?: React.MouseEventHandler<HTMLElement>;
 }
 
-/** A small status pill. Mirrors `Ivy.Badge`. */
+/**
+ * A small status pill. Mirrors `Ivy.Badge`.
+ *
+ * @tags status label chip pill
+ * @example <Badge title="Active" variant="Success" />
+ */
 export const Badge = ({
   id,
   title,

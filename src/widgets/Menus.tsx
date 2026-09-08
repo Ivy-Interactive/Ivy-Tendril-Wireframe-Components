@@ -119,7 +119,13 @@ export interface DropDownMenuProps extends WidgetBaseProps {
   onSelect?: (item: MenuItem) => void;
 }
 
-/** A menu anchored to a trigger. Mirrors `Ivy.DropDownMenu`. */
+/**
+ * A menu anchored to a trigger. Mirrors `Ivy.DropDownMenu`.
+ *
+ * @tags menu contextual actions
+ * @slot trigger The element the menu hangs off
+ * @example <DropDownMenu items={items} trigger={<Button title="Actions" />} />
+ */
 export const DropDownMenu = ({
   id,
   items = [],
@@ -192,7 +198,12 @@ export interface ToolbarProps extends WidgetBaseProps {
   onSelect?: (item: MenuItem) => void;
 }
 
-/** A row of icon buttons and dropdowns. Mirrors `Ivy.Toolbar`. */
+/**
+ * A row of icon buttons and dropdowns. Mirrors `Ivy.Toolbar`.
+ *
+ * @tags actions formatting
+ * @example <Toolbar items={[{ label: "Bold", icon: "Bold", checked: true }]} />
+ */
 export const Toolbar = ({
   id,
   items = [],
@@ -296,7 +307,12 @@ export interface TooltipProps extends WidgetBaseProps {
   side?: "Top" | "Right" | "Bottom" | "Left";
 }
 
-/** Hover hint on a sticky-note. Mirrors `Ivy.Tooltip`. */
+/**
+ * Hover hint on a sticky-note. Mirrors `Ivy.Tooltip`.
+ *
+ * @tags hint help hover
+ * @example <Tooltip content="Saves immediately" trigger={<Button title="Save" />} />
+ */
 export const Tooltip = ({
   id,
   trigger,
@@ -452,7 +468,12 @@ const TreeNode = ({
   );
 };
 
-/** Nested, collapsible rows. Mirrors `Ivy.Tree`. */
+/**
+ * Nested, collapsible rows. Mirrors `Ivy.Tree`.
+ *
+ * @tags hierarchy files nested
+ * @example <Tree items={[{ label: "src", icon: "Folder", children: [{ label: "index.ts" }] }]} />
+ */
 export const Tree = ({
   id,
   items = [],

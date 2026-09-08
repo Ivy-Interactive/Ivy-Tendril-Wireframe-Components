@@ -36,7 +36,11 @@ export interface MonthGridProps {
   fixedWidth?: boolean;
 }
 
-/** A hand-drawn month, shared by the date inputs and the calendar widget. */
+/**
+ * A hand-drawn month, shared by the date inputs and the calendar widget.
+ *
+ * @internal
+ */
 export const MonthGrid = ({
   month,
   onMonthChange,

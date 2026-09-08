@@ -56,7 +56,12 @@ export interface EmptyProps extends WidgetBaseProps {
   children?: React.ReactNode;
 }
 
-/** Placeholder for "there is nothing here yet". Mirrors `Ivy.Empty`. */
+/**
+ * Placeholder for "there is nothing here yet". Mirrors `Ivy.Empty`.
+ *
+ * @tags placeholder no-results zero-state
+ * @example <Empty title="No results" description="Try another filter" />
+ */
 export const Empty = ({
   id,
   title = "Nothing here",

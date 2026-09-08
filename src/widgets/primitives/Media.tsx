@@ -35,6 +35,9 @@ const OBJECT_FIT: Record<NonNullable<ImageProps["objectFit"]>, string> = {
 /**
  * When there is no `src` this renders the classic wireframe placeholder: a box
  * with a cross through it. Mirrors `Ivy.Image`.
+ *
+ * @tags picture placeholder media
+ * @example <Image alt="Hero image" width="20rem" height="12rem" />
  */
 export const Image = ({
   id,

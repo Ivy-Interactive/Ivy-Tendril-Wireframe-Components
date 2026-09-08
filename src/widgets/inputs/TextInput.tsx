@@ -44,7 +44,13 @@ const NATIVE_TYPE: Record<TextInputVariant, string> = {
   Search: "search",
 };
 
-/** Single-line and multi-line text entry. Mirrors `Ivy.TextInput`. */
+/**
+ * Single-line and multi-line text entry. Mirrors `Ivy.TextInput`.
+ *
+ * @tags text field entry search password
+ * @example <TextInput value={name} onChange={setName} placeholder="Your name" />
+ * @example <TextInput variant="Textarea" rows={4} value={notes} onChange={setNotes} />
+ */
 export const TextInput = ({
   id,
   value = "",

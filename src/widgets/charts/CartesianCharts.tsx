@@ -43,7 +43,12 @@ export interface LineChartProps extends CartesianChartProps {
   lines?: LineSeries[];
 }
 
-/** Mirrors `Ivy.LineChart`. */
+/**
+ * Mirrors `Ivy.LineChart`.
+ *
+ * @tags chart trend series time
+ * @example <LineChart data={rows} xAxis={[{ dataKey: "month" }]} lines={[{ dataKey: "revenue" }]} />
+ */
 export const LineChart = ({
   id,
   data = [],
@@ -270,7 +275,12 @@ export interface BarChartProps extends CartesianChartProps {
   stackOffset?: StackOffset;
 }
 
-/** Mirrors `Ivy.BarChart`, including grouped, stacked and horizontal layouts. */
+/**
+ * Mirrors `Ivy.BarChart`, including grouped, stacked and horizontal layouts.
+ *
+ * @tags chart comparison categories
+ * @example <BarChart data={rows} xAxis={[{ dataKey: "month" }]} bars={[{ dataKey: "sales" }]} />
+ */
 export const BarChart = ({
   id,
   data = [],
