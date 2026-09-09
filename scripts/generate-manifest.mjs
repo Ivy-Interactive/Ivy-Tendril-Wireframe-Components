@@ -40,9 +40,18 @@ const byName = (a, b) => (a < b ? -1 : a > b ? 1 : 0);
 /** Props that exist for React's sake rather than the component's. */
 const PLUMBING = new Set(["className", "style", "children", "key", "ref"]);
 
+/**
+ * Doc comments come back from the compiler exactly as they appear in the source
+ * file, so on a CRLF checkout every line of prose carries a trailing carriage
+ * return, which YAML then escapes into the output as a literal \r. That would
+ * make the manifest depend on the checkout's line endings, and --check
+ * byte-compares it. Prose is normalised here, once, on the way in.
+ */
+const prose = (text) => text.replace(/\r\n?/g, "\n").trim();
+
 function tagText(tag) {
-  if (typeof tag.comment === "string") return tag.comment.trim();
-  if (Array.isArray(tag.comment)) return tag.comment.map((part) => part.text).join("").trim();
+  if (typeof tag.comment === "string") return prose(tag.comment);
+  if (Array.isArray(tag.comment)) return prose(tag.comment.map((part) => part.text).join(""));
   return "";
 }
 
@@ -190,7 +199,7 @@ for (const exported of exports) {
   const propSymbols = checker.getPropertiesOfType(propsType);
   if (!propSymbols.length) continue;
 
-  const description = ts.displayPartsToString(symbol.getDocumentationComment(checker)).trim();
+  const description = prose(ts.displayPartsToString(symbol.getDocumentationComment(checker)));
   const tags = readTags(symbol);
   const defaults = readDefaults(declaration);
 
@@ -232,12 +241,12 @@ for (const exported of exports) {
         .getJsDocTags(checker)
         .find((tag) => tag.name === "default");
       if (declared) {
-        const text = ts.displayPartsToString(declared.text ?? []).trim();
+        const text = prose(ts.displayPartsToString(declared.text ?? []));
         if (text) entryProp.default = text.replace(/^["'`]|["'`]$/g, "");
       }
     }
 
-    const propDoc = ts.displayPartsToString(propSymbol.getDocumentationComment(checker)).trim();
+    const propDoc = prose(ts.displayPartsToString(propSymbol.getDocumentationComment(checker)));
     if (propDoc) entryProp.description = propDoc;
 
     const from = declaringInterface(propSymbol);
