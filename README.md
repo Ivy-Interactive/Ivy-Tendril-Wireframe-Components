@@ -19,8 +19,8 @@ Everything except React is a normal dependency and stays external in the build, 
 get one copy of Radix, lucide and rough.js — not a second set bundled inside the library.
 
 ```tsx
-import "@ivy/tendril/styles.css";
-import { SketchProvider, Button, Card, TextInput, Field } from "@ivy/tendril";
+import "tendril-wireframes/styles.css";
+import { SketchProvider, Button, Card, TextInput, Field } from "tendril-wireframes";
 
 export function App() {
   return (
@@ -49,7 +49,7 @@ applies the handwriting font and ink colour; put it on whatever wraps your app.
 its own reset and every class the components need:
 
 ```ts
-import "@ivy/tendril/styles.css";
+import "tendril-wireframes/styles.css";
 ```
 
 **You already use Tailwind v4** — import the tokens instead of the full sheet, and point
@@ -59,8 +59,8 @@ This avoids shipping Tailwind's preflight twice, and lets you write `text-ink` o
 
 ```css
 @import "tailwindcss";
-@import "@ivy/tendril/theme.css";
-@source "../node_modules/@ivy/tendril/dist";
+@import "tendril-wireframes/theme.css";
+@source "../node_modules/tendril-wireframes/dist";
 ```
 
 ### Two things worth knowing
@@ -166,8 +166,8 @@ component files:
 export const Button = ...
 ```
 
-Published as `@ivy/tendril/manifest.yaml`, with the same data at
-`@ivy/tendril/manifest.json`. See [MANIFEST.md](./MANIFEST.md) for the tag vocabulary and
+Published as `tendril-wireframes/manifest.yaml`, with the same data at
+`tendril-wireframes/manifest.json`. See [MANIFEST.md](./MANIFEST.md) for the tag vocabulary and
 the file's shape.
 
 ## The sketch layer

@@ -16,7 +16,7 @@ const meta = {
   args: {
     width: "22rem",
     lines: [
-      { content: "npm install @ivy/tendril", isCommand: true },
+      { content: "npm install tendril-wireframes", isCommand: true },
       { content: "added 12 packages in 3s" },
     ],
   },

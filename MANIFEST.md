@@ -12,8 +12,8 @@ npm run manifest:check   # fail if the committed file is stale — use this in C
 The file is committed at the repo root and published in the package:
 
 ```
-@ivy/tendril/manifest.yaml    dist/tendril.manifest.yaml
-@ivy/tendril/manifest.json    dist/tendril.manifest.json   (same data, if YAML is inconvenient)
+tendril-wireframes/manifest.yaml    dist/tendril.manifest.yaml
+tendril-wireframes/manifest.json    dist/tendril.manifest.json   (same data, if YAML is inconvenient)
 ```
 
 ## Where the data comes from
@@ -67,7 +67,7 @@ export interface ButtonProps extends WidgetBaseProps {
 ## Shape of the file
 
 ```yaml
-name: "@ivy/tendril"
+name: "tendril-wireframes"
 version: 0.1.0
 componentCount: 98
 categories:

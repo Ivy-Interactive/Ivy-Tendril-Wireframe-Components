@@ -142,9 +142,9 @@ manifest:check` fails the build if you forget.
 The package ships both a prebuilt stylesheet and a tokens-only sheet, and picking the
 wrong one is the most common integration mistake:
 
-- **No Tailwind** → `import "@ivy/tendril/styles.css"`. Self-contained.
-- **Tailwind v4** → `@import "@ivy/tendril/theme.css"` plus
-  `@source "../node_modules/@ivy/tendril/dist"`.
+- **No Tailwind** → `import "tendril-wireframes/styles.css"`. Self-contained.
+- **Tailwind v4** → `@import "tendril-wireframes/theme.css"` plus
+  `@source "../node_modules/tendril-wireframes/dist"`.
 
 Importing the prebuilt sheet in a Tailwind app ships preflight twice, and — the part that
 actually bites — compiles none of the consuming app's own utility classes. There is a
