@@ -6,11 +6,11 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Ivy-Interactive/Ivy-Tendril-Wireframe-Components-.git"
+    "url": "git+https://github.com/Ivy-Interactive/Ivy-Tendril-Wireframe-Components.git"
   },
-  "homepage": "https://github.com/Ivy-Interactive/Ivy-Tendril-Wireframe-Components-#readme",
+  "homepage": "https://github.com/Ivy-Interactive/Ivy-Tendril-Wireframe-Components#readme",
   "bugs": {
-    "url": "https://github.com/Ivy-Interactive/Ivy-Tendril-Wireframe-Components-/issues"
+    "url": "https://github.com/Ivy-Interactive/Ivy-Tendril-Wireframe-Components/issues"
   },
   "publishConfig": {
     "access": "public",
