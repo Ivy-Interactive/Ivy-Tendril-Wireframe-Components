@@ -1,6 +1,15 @@
 import { clsx, type ClassValue } from "clsx";
 import { twMerge } from "tailwind-merge";
-import type { Align, Densities, Orientation, Overflow, Sizing, TextAlignment } from "./types";
+import type {
+  Align,
+  Densities,
+  Orientation,
+  Overflow,
+  Scroll,
+  Sizing,
+  TextAlignment,
+  Thickness,
+} from "./types";
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
@@ -46,6 +55,30 @@ export function sizeStyle(width?: Sizing, height?: Sizing): React.CSSProperties 
   if (h) style.height = h;
   return style;
 }
+
+/** Resolves an `Ivy.Thickness` — or a uniform number — into per-edge lengths. */
+export function thicknessStyle(
+  value: Sizing | Thickness | undefined,
+  property: "padding" | "margin" = "padding",
+): React.CSSProperties {
+  if (value === undefined || value === null || value === "") return {};
+  if (typeof value !== "object") return { [property]: toCssSize(value) };
+  return {
+    [`${property}Left`]: toCssSize(value.left),
+    [`${property}Top`]: toCssSize(value.top),
+    [`${property}Right`]: toCssSize(value.right),
+    [`${property}Bottom`]: toCssSize(value.bottom),
+  };
+}
+
+export const scrollClass = (scroll?: Scroll) =>
+  ({
+    None: "overflow-hidden",
+    Auto: "overflow-auto",
+    Vertical: "overflow-x-hidden overflow-y-auto",
+    Horizontal: "overflow-x-auto overflow-y-hidden",
+    Both: "overflow-scroll",
+  })[scroll ?? "Auto"];
 
 const DENSITY_ORDER: Densities[] = ["Small", "Medium", "Large"];
 

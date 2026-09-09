@@ -121,7 +121,7 @@ export const TableCell = ({
   aspectRatio,
   visible,
   multiline,
-  density,
+  density = "Medium",
   colSpan,
   rowSpan,
   children,

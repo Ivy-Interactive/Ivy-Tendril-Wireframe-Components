@@ -62,7 +62,7 @@ export const LineChart = ({
   height,
   aspectRatio,
   visible,
-  density,
+  density = "Medium",
   className,
   style,
   referenceLines,
@@ -183,7 +183,7 @@ export const AreaChart = ({
   height,
   aspectRatio,
   visible,
-  density,
+  density = "Medium",
   className,
   style,
 }: AreaChartProps) => {
@@ -298,7 +298,7 @@ export const BarChart = ({
   height,
   aspectRatio,
   visible,
-  density,
+  density = "Medium",
   className,
   style,
 }: BarChartProps) => {
@@ -534,7 +534,7 @@ export const ScatterChart = ({
   height,
   aspectRatio,
   visible,
-  density,
+  density = "Medium",
   className,
   style,
 }: ScatterChartProps) => {

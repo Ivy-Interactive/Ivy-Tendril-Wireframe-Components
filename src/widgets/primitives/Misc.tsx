@@ -21,7 +21,7 @@ export const Icon = ({
   height,
   aspectRatio,
   visible,
-  density,
+  density = "Medium",
   className,
   style,
 }: IconProps) => (
@@ -106,7 +106,7 @@ export const Kbd = ({
   id,
   content,
   ghost,
-  density,
+  density = "Medium",
   width,
   height,
   aspectRatio,

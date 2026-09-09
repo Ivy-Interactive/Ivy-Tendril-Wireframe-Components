@@ -31,7 +31,7 @@ const MenuRow = ({
       disabled={item.disabled}
       onClick={() => onSelect(item)}
       className={cn(
-        "flex w-full items-center gap-2 text-left whitespace-nowrap",
+        "flex w-full items-center gap-2 rounded-sm text-left whitespace-nowrap",
         itemPadding(density),
         item.disabled ? "cursor-not-allowed opacity-45" : "cursor-pointer hover:bg-highlight",
       )}
@@ -176,7 +176,7 @@ export const DropDownMenu = ({
             fill={PAPER_RAISED}
             fillStyle="solid"
             className={cn("tendril min-w-44", densityText(density))}
-            contentClassName="py-1"
+            contentClassName="overflow-hidden px-1 py-1"
             style={widgetStyle({ width, height })}
           >
             {header && (
@@ -250,7 +250,7 @@ export const Toolbar = ({
             }}
             aria-pressed={item.variant === "Checkbox" ? item.checked : undefined}
             className={cn(
-              "flex items-center gap-1.5",
+              "flex items-center gap-1.5 rounded-sm",
               itemPadding(density),
               item.checked && "bg-highlight font-bold",
               disabled || item.disabled
@@ -260,8 +260,16 @@ export const Toolbar = ({
             style={{ color: item.color ? resolveColor(item.color) : undefined }}
           >
             {item.icon && <Icon name={item.icon} size={iconSize} />}
-            {item.label && !item.icon && <span>{item.label}</span>}
-            {item.icon && item.label && <span className="hidden sm:inline">{item.label}</span>}
+            {item.label && !item.icon && (
+              <span className="steady-bold" data-label={item.label}>
+                <span>{item.label}</span>
+              </span>
+            )}
+            {item.icon && item.label && (
+              <span className="steady-bold hidden sm:inline" data-label={item.label}>
+                <span>{item.label}</span>
+              </span>
+            )}
           </button>
         );
 
@@ -402,6 +410,7 @@ const TreeNode = ({
         className={cn(
           "group flex items-center gap-1.5",
           itemPadding(density),
+          "rounded-sm",
           item.disabled ? "cursor-not-allowed opacity-45" : "cursor-pointer hover:bg-highlight",
         )}
         style={{ paddingLeft: 8 + depth * 16 }}

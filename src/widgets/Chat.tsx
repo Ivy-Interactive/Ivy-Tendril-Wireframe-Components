@@ -4,7 +4,7 @@ import type { WidgetBaseProps } from "@/lib/types";
 import { INK_FAINT, PAPER_RAISED, SURFACE } from "@/sketch/colors";
 import { Icon } from "@/sketch/Icon";
 import { SketchFrame } from "@/sketch/SketchFrame";
-import { ContentInput } from "./inputs/SpecialInputs";
+import { nativeInputClass } from "./inputs/InputShell";
 
 export interface ChatMessageProps extends WidgetBaseProps {
   sender?: "User" | "Assistant";
@@ -170,18 +170,42 @@ export const Chat = ({
         {streaming && <ChatLoading />}
       </div>
       <div className="border-t border-dashed border-ink-faint p-2">
-        <ContentInput
-          id={`${id}-composer`}
-          value={draft}
-          rows={2}
-          width="100%"
-          density={density}
-          placeholder={placeholder}
-          disabled={streaming}
-          shortcutKey="⌘↵"
-          onChange={(value) => setDraft(value ?? "")}
-          onSubmit={send}
-        />
+        <SketchFrame
+          seed={`${id}-composer`}
+          corner="rounded"
+          stroke={INK_FAINT}
+          fill={PAPER_RAISED}
+          fillStyle="solid"
+          className="block w-full"
+          contentClassName="flex items-end gap-2 px-2.5 py-2"
+        >
+          <textarea
+            id={`${id}-composer`}
+            rows={2}
+            value={draft}
+            placeholder={placeholder}
+            disabled={streaming}
+            onChange={(event) => setDraft(event.target.value)}
+            onKeyDown={(event) => {
+              // Enter sends, Shift+Enter breaks the line — the convention every
+              // chat box already trained people on.
+              if (event.key === "Enter" && !event.shiftKey) {
+                event.preventDefault();
+                send(draft);
+              }
+            }}
+            className={cn(nativeInputClass, "flex-1 resize-none", densityText(density))}
+          />
+          <button
+            type="button"
+            aria-label="Send"
+            disabled={streaming || !draft.trim()}
+            onClick={() => send(draft)}
+            className="shrink-0 cursor-pointer p-1 text-ink-muted hover:text-ink disabled:cursor-not-allowed disabled:opacity-40"
+          >
+            <Icon name="SendHorizontal" size={16} />
+          </button>
+        </SketchFrame>
       </div>
     </SketchFrame>
   );

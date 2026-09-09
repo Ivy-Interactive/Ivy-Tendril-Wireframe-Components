@@ -247,7 +247,9 @@ export const ReadOnlyInput = ({
       }
       {...rest}
     >
-      <span className={cn("block truncate", !text && "text-ink-faint italic")}>{text || "—"}</span>
+      <span className={cn("block truncate text-ink-muted", !text && "text-ink-faint italic")}>
+        {text || "—"}
+      </span>
     </InputShell>
   );
 };

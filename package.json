@@ -4,6 +4,18 @@
   "description": "Hand-drawn (Balsamiq-style) React component library mirroring the Ivy Framework widget set.",
   "type": "module",
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Ivy-Interactive/Ivy-Tendril-Wireframe-Components-.git"
+  },
+  "homepage": "https://github.com/Ivy-Interactive/Ivy-Tendril-Wireframe-Components-#readme",
+  "bugs": {
+    "url": "https://github.com/Ivy-Interactive/Ivy-Tendril-Wireframe-Components-/issues"
+  },
+  "publishConfig": {
+    "access": "public",
+    "provenance": true
+  },
   "main": "./dist/index.cjs",
   "module": "./dist/index.js",
   "types": "./dist/index.d.ts",

@@ -9,6 +9,13 @@ export interface RoughPath {
   stroke: string;
   strokeWidth: number;
   fill: string;
+  /**
+   * rough.js applies `strokeLineDash` when it renders to the DOM itself, and
+   * drops it on the way through `toPaths`. Since the sketch layer renders the
+   * paths declaratively, the dash is re-attached here for callers to spread
+   * onto the element as `stroke-dasharray`.
+   */
+  strokeLineDash?: number[];
 }
 
 const generator = new RoughGenerator();
@@ -69,7 +76,15 @@ export function roughPaths(shape: SketchShape, options: RoughOptions): RoughPath
     return [];
   }
   const drawable = draw(shape, options);
-  return generator.toPaths(drawable) as RoughPath[];
+  const paths = generator.toPaths(drawable) as RoughPath[];
+
+  const dash = options.strokeLineDash;
+  if (!dash?.length) return paths;
+  // Only the outline is dashed. A hachure fill comes back as stroked paths too,
+  // but drawn in the fill colour — dashing those would fray the fill instead.
+  return paths.map((path) =>
+    path.fill === "none" && path.stroke === options.stroke ? { ...path, strokeLineDash: dash } : path,
+  );
 }
 
 export function useRoughPaths(shape: SketchShape | null, options: RoughOptions): RoughPath[] {

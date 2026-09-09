@@ -93,6 +93,7 @@ export const RoughShape = ({
           stroke={path.stroke}
           strokeWidth={path.strokeWidth}
           fill={path.fill ?? "none"}
+          strokeDasharray={path.strokeLineDash?.join(" ")}
           strokeLinecap="round"
           strokeLinejoin="round"
         />

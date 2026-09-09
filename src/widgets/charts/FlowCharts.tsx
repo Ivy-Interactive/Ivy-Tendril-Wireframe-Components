@@ -109,7 +109,7 @@ export const SankeyChart = ({
   height,
   aspectRatio,
   visible,
-  density,
+  density = "Medium",
   className,
   style,
 }: SankeyChartProps) => {
@@ -254,7 +254,7 @@ export const ChordChart = ({
   height,
   aspectRatio,
   visible,
-  density,
+  density = "Medium",
   className,
   style,
 }: ChordChartProps) => {

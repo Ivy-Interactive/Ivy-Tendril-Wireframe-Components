@@ -77,7 +77,7 @@ export const PieChart = ({
   height,
   aspectRatio,
   visible,
-  density,
+  density = "Medium",
   className,
   style,
 }: PieChartProps) => {
@@ -206,7 +206,7 @@ export const RadarChart = ({
   height,
   aspectRatio,
   visible,
-  density,
+  density = "Medium",
   className,
   style,
 }: RadarChartProps) => {
@@ -391,7 +391,7 @@ export const FunnelChart = ({
   height,
   aspectRatio,
   visible,
-  density,
+  density = "Medium",
   className,
   style,
 }: FunnelChartProps) => {
@@ -515,7 +515,7 @@ export const GaugeChart = ({
   height,
   aspectRatio,
   visible,
-  density,
+  density = "Medium",
   className,
   style,
 }: GaugeChartProps) => {
