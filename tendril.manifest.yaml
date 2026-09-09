@@ -1,4 +1,4 @@
-name: "@ivy/tendril"
+name: tendril-wireframes
 version: 0.1.0
 generated: Do not edit. Run `npm run manifest` — props come from the TypeScript types, prose from
   JSDoc tags in the component files.
@@ -6,9 +6,10 @@ componentCount: 98
 categories:
   Charts: 13
   Foundations: 5
-  Inputs: 23
-  Primitives: 25
-  Widgets: 39
+  Inputs: 22
+  Layouts: 7
+  Primitives: 18
+  Widgets: 40
 types:
   Align:
     - TopLeft
@@ -24,41 +25,24 @@ types:
     - SpaceBetween
     - SpaceAround
     - SpaceEvenly
-  AnimationEasing:
-    - EaseIn
-    - EaseOut
-    - EaseInOut
-    - Linear
-    - CircIn
-    - CircOut
-    - CircInOut
-    - BackIn
-    - BackOut
-    - BackInOut
-    - Anticipate
-    - AnticipateOut
-    - BounceIn
-    - BounceOut
-    - BounceInOut
-    - ElasticIn
-    - ElasticOut
-    - ElasticInOut
-  AnimationType:
-    - Rotate
-    - SlideIn
-    - FadeIn
-    - ZoomIn
-    - SlideOut
-    - FadeOut
-    - ZoomOut
-    - Bounce
-    - Shake
-    - Flip
-    - Stagger
-    - Wave
-    - Pulse
-    - Spring
-    - Hover
+  ArrowBend:
+    - None
+    - Left
+    - Right
+  ArrowDirection:
+    - Right
+    - Left
+    - Up
+    - Down
+    - UpLeft
+    - UpRight
+    - DownLeft
+    - DownRight
+  ArrowHeads:
+    - None
+    - Start
+    - End
+    - Both
   BadgeVariant:
     - Primary
     - Destructive
@@ -89,11 +73,6 @@ types:
     - Link
     - Inline
     - Ai
-  CalendarView:
-    - Month
-    - Week
-    - Day
-    - Agenda
   CalloutVariant:
     - Info
     - Success
@@ -109,6 +88,9 @@ types:
   ColorScheme:
     - Default
     - Rainbow
+  CurlyBraceVariant:
+    - Horizontal
+    - Vertical
   DateTimeVariant:
     - Date
     - DateTime
@@ -138,6 +120,14 @@ types:
     - Pointer
     - PointerAndTranslate
     - Shadow
+  MockupVariant:
+    - Mobile
+    - Website
+    - Tablet
+    - Desktop
+  Orientation:
+    - Horizontal
+    - Vertical
   Overflow:
     - Clip
     - Ellipsis
@@ -147,6 +137,12 @@ types:
   SankeyAlign:
     - Justify
     - Left
+  Scroll:
+    - None
+    - Auto
+    - Vertical
+    - Horizontal
+    - Both
   SearchMode:
     - CaseInsensitive
     - CaseSensitive
@@ -185,6 +181,9 @@ types:
     - Expand
     - Wiggle
     - Silhouette
+  TabsVariant:
+    - Tabs
+    - Content
   TextAlignment:
     - Left
     - Center
@@ -225,6 +224,16 @@ types:
     - Success
     - Warning
     - Error
+  TransformOrigin:
+    - Center
+    - TopLeft
+    - Top
+    - TopRight
+    - Left
+    - Right
+    - BottomLeft
+    - Bottom
+    - BottomRight
   WeekDay:
     - 0
     - 1
@@ -285,6 +294,11 @@ components:
           - Small
           - Medium
           - Large
+        default: Medium
+        description: |-
+          Sizing and spacing scale. Everything that reads it goes through
+          `byDensity`, which falls back to `Medium`, so `Medium` is the default
+          everywhere the prop is left off.
         inherited: WidgetBaseProps
       - name: height
         type: Sizing
@@ -439,6 +453,11 @@ components:
           - Small
           - Medium
           - Large
+        default: Medium
+        description: |-
+          Sizing and spacing scale. Everything that reads it goes through
+          `byDensity`, which falls back to `Medium`, so `Medium` is the default
+          everywhere the prop is left off.
         inherited: WidgetBaseProps
       - name: height
         type: Sizing
@@ -537,6 +556,11 @@ components:
           - Small
           - Medium
           - Large
+        default: Medium
+        description: |-
+          Sizing and spacing scale. Everything that reads it goes through
+          `byDensity`, which falls back to `Medium`, so `Medium` is the default
+          everywhere the prop is left off.
         inherited: WidgetBaseProps
       - name: height
         type: Sizing
@@ -598,6 +622,11 @@ components:
           - Small
           - Medium
           - Large
+        default: Medium
+        description: |-
+          Sizing and spacing scale. Everything that reads it goes through
+          `byDensity`, which falls back to `Medium`, so `Medium` is the default
+          everywhere the prop is left off.
         inherited: WidgetBaseProps
       - name: height
         type: Sizing
@@ -682,6 +711,11 @@ components:
           - Small
           - Medium
           - Large
+        default: Medium
+        description: |-
+          Sizing and spacing scale. Everything that reads it goes through
+          `byDensity`, which falls back to `Medium`, so `Medium` is the default
+          everywhere the prop is left off.
         inherited: WidgetBaseProps
       - name: height
         type: Sizing
@@ -781,6 +815,11 @@ components:
           - Small
           - Medium
           - Large
+        default: Medium
+        description: |-
+          Sizing and spacing scale. Everything that reads it goes through
+          `byDensity`, which falls back to `Medium`, so `Medium` is the default
+          everywhere the prop is left off.
         inherited: WidgetBaseProps
       - name: height
         type: Sizing
@@ -859,6 +898,11 @@ components:
           - Small
           - Medium
           - Large
+        default: Medium
+        description: |-
+          Sizing and spacing scale. Everything that reads it goes through
+          `byDensity`, which falls back to `Medium`, so `Medium` is the default
+          everywhere the prop is left off.
         inherited: WidgetBaseProps
       - name: height
         type: Sizing
@@ -963,6 +1007,11 @@ components:
           - Small
           - Medium
           - Large
+        default: Medium
+        description: |-
+          Sizing and spacing scale. Everything that reads it goes through
+          `byDensity`, which falls back to `Medium`, so `Medium` is the default
+          everywhere the prop is left off.
         inherited: WidgetBaseProps
       - name: height
         type: Sizing
@@ -1066,6 +1115,11 @@ components:
           - Small
           - Medium
           - Large
+        default: Medium
+        description: |-
+          Sizing and spacing scale. Everything that reads it goes through
+          `byDensity`, which falls back to `Medium`, so `Medium` is the default
+          everywhere the prop is left off.
         inherited: WidgetBaseProps
       - name: height
         type: Sizing
@@ -1149,6 +1203,11 @@ components:
           - Small
           - Medium
           - Large
+        default: Medium
+        description: |-
+          Sizing and spacing scale. Everything that reads it goes through
+          `byDensity`, which falls back to `Medium`, so `Medium` is the default
+          everywhere the prop is left off.
         inherited: WidgetBaseProps
       - name: height
         type: Sizing
@@ -1223,6 +1282,11 @@ components:
           - Small
           - Medium
           - Large
+        default: Medium
+        description: |-
+          Sizing and spacing scale. Everything that reads it goes through
+          `byDensity`, which falls back to `Medium`, so `Medium` is the default
+          everywhere the prop is left off.
         inherited: WidgetBaseProps
       - name: height
         type: Sizing
@@ -3335,9 +3399,9 @@ components:
   - name: SketchIcon
     category: Foundations
     file: src/sketch/Icon.tsx
-    description: |-
-      Lucide icons, pushed through a turbulence filter so they read as sketched
-      rather than vector-crisp.
+    description: "Lucide icons, pushed through a turbulence filter so they read as sketched\r
+
+      rather than vector-crisp."
     props:
       - name: absoluteStrokeWidth
         type: boolean
@@ -5812,9 +5876,9 @@ components:
   - name: SketchProvider
     category: Foundations
     file: src/sketch/SketchProvider.tsx
-    description: |-
-      Wrap the app once. Supplies the pencil settings every widget draws with and
-      mounts the shared SVG filter definitions.
+    description: "Wrap the app once. Supplies the pencil settings every widget draws with and\r
+
+      mounts the shared SVG filter definitions."
     props:
       - name: bowing
         type: number
@@ -5885,6 +5949,10 @@ components:
           - Medium
           - Large
         default: Medium
+        description: |-
+          Sizing and spacing scale. Everything that reads it goes through
+          `byDensity`, which falls back to `Medium`, so `Medium` is the default
+          everywhere the prop is left off.
         inherited: WidgetBaseProps
       - name: disabled
         type: boolean
@@ -5984,6 +6052,10 @@ components:
           - Medium
           - Large
         default: Medium
+        description: |-
+          Sizing and spacing scale. Everything that reads it goes through
+          `byDensity`, which falls back to `Medium`, so `Medium` is the default
+          everywhere the prop is left off.
         inherited: WidgetBaseProps
       - name: disabled
         type: boolean
@@ -6096,6 +6168,10 @@ components:
           - Medium
           - Large
         default: Medium
+        description: |-
+          Sizing and spacing scale. Everything that reads it goes through
+          `byDensity`, which falls back to `Medium`, so `Medium` is the default
+          everywhere the prop is left off.
         inherited: WidgetBaseProps
       - name: disabled
         type: boolean
@@ -6195,6 +6271,10 @@ components:
           - Medium
           - Large
         default: Medium
+        description: |-
+          Sizing and spacing scale. Everything that reads it goes through
+          `byDensity`, which falls back to `Medium`, so `Medium` is the default
+          everywhere the prop is left off.
         inherited: WidgetBaseProps
       - name: disabled
         type: boolean
@@ -6295,6 +6375,10 @@ components:
           - Medium
           - Large
         default: Medium
+        description: |-
+          Sizing and spacing scale. Everything that reads it goes through
+          `byDensity`, which falls back to `Medium`, so `Medium` is the default
+          everywhere the prop is left off.
         inherited: WidgetBaseProps
       - name: disabled
         type: boolean
@@ -6397,6 +6481,10 @@ components:
           - Medium
           - Large
         default: Medium
+        description: |-
+          Sizing and spacing scale. Everything that reads it goes through
+          `byDensity`, which falls back to `Medium`, so `Medium` is the default
+          everywhere the prop is left off.
         inherited: WidgetBaseProps
       - name: disabled
         type: boolean
@@ -6448,128 +6536,6 @@ components:
         type: Sizing
         required: false
         default: 12rem
-        inherited: WidgetBaseProps
-  - name: ContentInput
-    category: Inputs
-    file: src/widgets/inputs/SpecialInputs.tsx
-    ivy: Ivy.ContentInput
-    description: |-
-      Composer for a message plus its attachments — the input at the bottom of a
-      chat. Mirrors `Ivy.ContentInput`.
-    props:
-      - name: accept
-        type: string
-        required: false
-      - name: files
-        type: FileItem[]
-        required: false
-        default: "[]"
-      - name: maxFiles
-        type: number
-        required: false
-      - name: maxFileSize
-        type: number
-        required: false
-      - name: maxLength
-        type: number
-        required: false
-      - name: onAttach
-        type: "((files: File[]) => void)"
-        required: false
-        kind: event
-      - name: onChange
-        type: "((value: string | null) => void)"
-        required: false
-        kind: event
-      - name: onSubmit
-        type: "((value: string) => void)"
-        required: false
-        kind: event
-      - name: rows
-        type: number
-        required: false
-        default: "3"
-      - name: shortcutKey
-        type: string
-        required: false
-      - name: uploadUrl
-        type: string
-        required: false
-      - name: value
-        type: string
-        required: false
-        default: ""
-      - name: aspectRatio
-        type: number
-        required: false
-        inherited: WidgetBaseProps
-      - name: autoFocus
-        type: boolean
-        required: false
-        inherited: BaseInputProps
-      - name: data-testid
-        type: string
-        required: false
-        inherited: WidgetBaseProps
-      - name: density
-        type: Densities
-        required: false
-        values:
-          - Small
-          - Medium
-          - Large
-        default: Medium
-        inherited: WidgetBaseProps
-      - name: disabled
-        type: boolean
-        required: false
-        inherited: BaseInputProps
-      - name: ghost
-        type: boolean
-        required: false
-        description: Renders the field without its border, for embedding in toolbars.
-        inherited: BaseInputProps
-      - name: height
-        type: Sizing
-        required: false
-        inherited: WidgetBaseProps
-      - name: id
-        type: string
-        required: false
-        inherited: WidgetBaseProps
-      - name: invalid
-        type: string
-        required: false
-        description: Validation message. Any non-empty string marks the field invalid.
-        inherited: BaseInputProps
-      - name: nullable
-        type: boolean
-        required: false
-        inherited: BaseInputProps
-      - name: placeholder
-        type: string
-        required: false
-        default: Write something…
-        inherited: BaseInputProps
-      - name: prefix
-        type: React.ReactNode
-        required: false
-        kind: slot
-        inherited: BaseInputProps
-      - name: suffix
-        type: React.ReactNode
-        required: false
-        kind: slot
-        inherited: BaseInputProps
-      - name: visible
-        type: boolean
-        required: false
-        description: "`false` hides the widget without unmounting it, matching Ivy's `Visible`."
-        inherited: WidgetBaseProps
-      - name: width
-        type: Sizing
-        required: false
-        default: 28rem
         inherited: WidgetBaseProps
   - name: DateRangeInput
     category: Inputs
@@ -6633,6 +6599,10 @@ components:
           - Medium
           - Large
         default: Medium
+        description: |-
+          Sizing and spacing scale. Everything that reads it goes through
+          `byDensity`, which falls back to `Medium`, so `Medium` is the default
+          everywhere the prop is left off.
         inherited: WidgetBaseProps
       - name: disabled
         type: boolean
@@ -6760,6 +6730,10 @@ components:
           - Medium
           - Large
         default: Medium
+        description: |-
+          Sizing and spacing scale. Everything that reads it goes through
+          `byDensity`, which falls back to `Medium`, so `Medium` is the default
+          everywhere the prop is left off.
         inherited: WidgetBaseProps
       - name: disabled
         type: boolean
@@ -6860,6 +6834,10 @@ components:
           - Medium
           - Large
         default: Medium
+        description: |-
+          Sizing and spacing scale. Everything that reads it goes through
+          `byDensity`, which falls back to `Medium`, so `Medium` is the default
+          everywhere the prop is left off.
         inherited: WidgetBaseProps
       - name: disabled
         type: boolean
@@ -6963,6 +6941,10 @@ components:
           - Medium
           - Large
         default: Medium
+        description: |-
+          Sizing and spacing scale. Everything that reads it goes through
+          `byDensity`, which falls back to `Medium`, so `Medium` is the default
+          everywhere the prop is left off.
         inherited: WidgetBaseProps
       - name: height
         type: Sizing
@@ -7050,6 +7032,10 @@ components:
           - Medium
           - Large
         default: Medium
+        description: |-
+          Sizing and spacing scale. Everything that reads it goes through
+          `byDensity`, which falls back to `Medium`, so `Medium` is the default
+          everywhere the prop is left off.
         inherited: WidgetBaseProps
       - name: disabled
         type: boolean
@@ -7133,6 +7119,11 @@ components:
           - Small
           - Medium
           - Large
+        default: Medium
+        description: |-
+          Sizing and spacing scale. Everything that reads it goes through
+          `byDensity`, which falls back to `Medium`, so `Medium` is the default
+          everywhere the prop is left off.
         inherited: WidgetBaseProps
       - name: height
         type: Sizing
@@ -7185,6 +7176,10 @@ components:
           - Medium
           - Large
         default: Medium
+        description: |-
+          Sizing and spacing scale. Everything that reads it goes through
+          `byDensity`, which falls back to `Medium`, so `Medium` is the default
+          everywhere the prop is left off.
         inherited: WidgetBaseProps
       - name: disabled
         type: boolean
@@ -7241,9 +7236,9 @@ components:
     category: Inputs
     file: src/widgets/inputs/InputShell.tsx
     internal: true
-    description: |-
-      The bordered box every text-like input sits in: prefix, content, suffix,
-      clear button and the red squiggle for validation errors.
+    description: "The bordered box every text-like input sits in: prefix, content, suffix,\r
+
+      clear button and the red squiggle for validation errors."
     props:
       - name: contentClassName
         type: string
@@ -7291,6 +7286,10 @@ components:
           - Medium
           - Large
         default: Medium
+        description: |-
+          Sizing and spacing scale. Everything that reads it goes through
+          `byDensity`, which falls back to `Medium`, so `Medium` is the default
+          everywhere the prop is left off.
         inherited: WidgetBaseProps
       - name: disabled
         type: boolean
@@ -7489,6 +7488,10 @@ components:
           - Medium
           - Large
         default: Medium
+        description: |-
+          Sizing and spacing scale. Everything that reads it goes through
+          `byDensity`, which falls back to `Medium`, so `Medium` is the default
+          everywhere the prop is left off.
         inherited: WidgetBaseProps
       - name: disabled
         type: boolean
@@ -7615,6 +7618,10 @@ components:
           - Medium
           - Large
         default: Medium
+        description: |-
+          Sizing and spacing scale. Everything that reads it goes through
+          `byDensity`, which falls back to `Medium`, so `Medium` is the default
+          everywhere the prop is left off.
         inherited: WidgetBaseProps
       - name: disabled
         type: boolean
@@ -7698,6 +7705,10 @@ components:
           - Medium
           - Large
         default: Medium
+        description: |-
+          Sizing and spacing scale. Everything that reads it goes through
+          `byDensity`, which falls back to `Medium`, so `Medium` is the default
+          everywhere the prop is left off.
         inherited: WidgetBaseProps
       - name: disabled
         type: boolean
@@ -7841,6 +7852,10 @@ components:
           - Medium
           - Large
         default: Medium
+        description: |-
+          Sizing and spacing scale. Everything that reads it goes through
+          `byDensity`, which falls back to `Medium`, so `Medium` is the default
+          everywhere the prop is left off.
         inherited: WidgetBaseProps
       - name: disabled
         type: boolean
@@ -7946,6 +7961,10 @@ components:
           - Medium
           - Large
         default: Medium
+        description: |-
+          Sizing and spacing scale. Everything that reads it goes through
+          `byDensity`, which falls back to `Medium`, so `Medium` is the default
+          everywhere the prop is left off.
         inherited: WidgetBaseProps
       - name: disabled
         type: boolean
@@ -8129,6 +8148,10 @@ components:
           - Medium
           - Large
         default: Medium
+        description: |-
+          Sizing and spacing scale. Everything that reads it goes through
+          `byDensity`, which falls back to `Medium`, so `Medium` is the default
+          everywhere the prop is left off.
         inherited: WidgetBaseProps
       - name: disabled
         type: boolean
@@ -8180,6 +8203,596 @@ components:
         required: false
         default: 16rem
         inherited: WidgetBaseProps
+  - name: FloatingPanel
+    category: Layouts
+    file: src/widgets/layouts/FloatingPanel.tsx
+    ivy: Ivy.FloatingPanel
+    description: |-
+      A panel floating above everything else — a tool palette, a floating action
+      button, a status pill. Mirrors `Ivy.FloatingPanel`.
+    tags:
+      - overlay
+      - palette
+      - fab
+      - sticky
+    slots:
+      - name: children
+        description: The single child the panel floats
+    examples:
+      - <FloatingPanel><Button title="New" icon="Plus" /></FloatingPanel>
+      - '<FloatingPanel alignSelf="TopCenter" offset={{ top: 8 }}>Saving…</FloatingPanel>'
+    props:
+      - name: alignSelf
+        type: Align
+        required: false
+        values:
+          - TopLeft
+          - TopRight
+          - TopCenter
+          - BottomLeft
+          - BottomRight
+          - BottomCenter
+          - Left
+          - Right
+          - Center
+          - Stretch
+          - SpaceBetween
+          - SpaceAround
+          - SpaceEvenly
+        default: BottomRight
+        description: Which corner or edge the panel sits against.
+      - name: contained
+        type: boolean
+        required: false
+        description: |-
+          Floats within the nearest positioned ancestor instead of the viewport.
+          Give that ancestor `relative` for it to have anything to hold on to.
+      - name: offset
+        type: Sizing | Thickness
+        required: false
+        description: Nudges the panel off that anchor, per edge.
+      - name: aspectRatio
+        type: number
+        required: false
+        inherited: WidgetBaseProps
+      - name: data-testid
+        type: string
+        required: false
+        inherited: WidgetBaseProps
+      - name: density
+        type: Densities
+        required: false
+        values:
+          - Small
+          - Medium
+          - Large
+        default: Medium
+        description: |-
+          Sizing and spacing scale. Everything that reads it goes through
+          `byDensity`, which falls back to `Medium`, so `Medium` is the default
+          everywhere the prop is left off.
+        inherited: WidgetBaseProps
+      - name: height
+        type: Sizing
+        required: false
+        inherited: WidgetBaseProps
+      - name: id
+        type: string
+        required: false
+        inherited: WidgetBaseProps
+      - name: visible
+        type: boolean
+        required: false
+        description: "`false` hides the widget without unmounting it, matching Ivy's `Visible`."
+        inherited: WidgetBaseProps
+      - name: width
+        type: Sizing
+        required: false
+        inherited: WidgetBaseProps
+  - name: ResizablePanel
+    category: Layouts
+    file: src/widgets/layouts/Resizable.tsx
+    ivy: Ivy.ResizablePanel
+    description: |-
+      One panel inside a `ResizablePanelGroup`. Mirrors `Ivy.ResizablePanel`.
+
+      The group reads `defaultSize` off the element and owns the sizing from then
+      on, so a panel only ever renders its own content.
+    tags:
+      - panel
+      - split
+      - pane
+    examples:
+      - <ResizablePanel defaultSize={30}>Navigator</ResizablePanel>
+    props:
+      - name: defaultSize
+        type: Sizing
+        required: false
+        description: |-
+          Share of the group this panel starts at, as a percentage or a `"1/3"`
+          fraction. Panels without one split whatever is left evenly.
+      - name: aspectRatio
+        type: number
+        required: false
+        inherited: WidgetBaseProps
+      - name: data-testid
+        type: string
+        required: false
+        inherited: WidgetBaseProps
+      - name: density
+        type: Densities
+        required: false
+        values:
+          - Small
+          - Medium
+          - Large
+        default: Medium
+        description: |-
+          Sizing and spacing scale. Everything that reads it goes through
+          `byDensity`, which falls back to `Medium`, so `Medium` is the default
+          everywhere the prop is left off.
+        inherited: WidgetBaseProps
+      - name: height
+        type: Sizing
+        required: false
+        inherited: WidgetBaseProps
+      - name: id
+        type: string
+        required: false
+        inherited: WidgetBaseProps
+      - name: visible
+        type: boolean
+        required: false
+        description: "`false` hides the widget without unmounting it, matching Ivy's `Visible`."
+        inherited: WidgetBaseProps
+      - name: width
+        type: Sizing
+        required: false
+        inherited: WidgetBaseProps
+  - name: ResizablePanelGroup
+    category: Layouts
+    file: src/widgets/layouts/Resizable.tsx
+    ivy: Ivy.ResizablePanelGroup
+    description: |-
+      Panels that can be dragged to resize against each other.
+      Mirrors `Ivy.ResizablePanelGroup`.
+    tags:
+      - split
+      - pane
+      - resize
+      - columns
+    slots:
+      - name: children
+        description: The `ResizablePanel` elements to lay out
+    examples:
+      - <ResizablePanelGroup><ResizablePanel
+        defaultSize={30}>Tree</ResizablePanel><ResizablePanel>Editor</ResizablePanel></ResizablePanelGroup>
+    props:
+      - name: direction
+        type: Orientation
+        required: false
+        values:
+          - Horizontal
+          - Vertical
+        default: Horizontal
+      - name: onResize
+        type: "((sizes: number[]) => void)"
+        required: false
+        kind: event
+        description: Fires with the new percentage split once a drag settles.
+      - name: showHandle
+        type: boolean
+        required: false
+        default: "true"
+        description: Draws the grab handle on each divider.
+      - name: aspectRatio
+        type: number
+        required: false
+        inherited: WidgetBaseProps
+      - name: data-testid
+        type: string
+        required: false
+        inherited: WidgetBaseProps
+      - name: density
+        type: Densities
+        required: false
+        values:
+          - Small
+          - Medium
+          - Large
+        default: Medium
+        description: |-
+          Sizing and spacing scale. Everything that reads it goes through
+          `byDensity`, which falls back to `Medium`, so `Medium` is the default
+          everywhere the prop is left off.
+        inherited: WidgetBaseProps
+      - name: height
+        type: Sizing
+        required: false
+        default: 100%
+        inherited: WidgetBaseProps
+      - name: id
+        type: string
+        required: false
+        inherited: WidgetBaseProps
+      - name: visible
+        type: boolean
+        required: false
+        description: "`false` hides the widget without unmounting it, matching Ivy's `Visible`."
+        inherited: WidgetBaseProps
+      - name: width
+        type: Sizing
+        required: false
+        default: 100%
+        inherited: WidgetBaseProps
+  - name: SidebarLayout
+    category: Layouts
+    file: src/widgets/layouts/Sidebar.tsx
+    ivy: Ivy.SidebarLayout
+    description: |-
+      The application shell: a collapsible sidebar beside a main content area.
+      Mirrors `Ivy.SidebarLayout`.
+    tags:
+      - shell
+      - navigation
+      - app
+      - frame
+    slots:
+      - name: mainContent
+        description: The main content area
+      - name: sidebarContent
+        description: The body of the sidebar
+      - name: sidebarHeader
+        description: Rendered above the sidebar content
+      - name: sidebarFooter
+        description: Rendered below the sidebar content
+      - name: sidebarHeaderCollapsed
+        description: Stands in for the header when collapsed
+      - name: sidebarFooterCollapsed
+        description: Stands in for the footer when collapsed
+    examples:
+      - <SidebarLayout mainContent={<Page />} sidebarContent={<SidebarMenu items={items} />} />
+    props:
+      - name: defaultOpen
+        type: boolean
+        required: false
+        default: "true"
+      - name: mainAppSidebar
+        type: boolean
+        required: false
+        description: Marks this as the application's own sidebar rather than a nested one.
+      - name: mainContent
+        type: React.ReactNode
+        required: false
+        kind: slot
+        description: The main content area, filling whatever the sidebar leaves.
+      - name: mainContentPadding
+        type: Sizing
+        required: false
+        default: "8"
+      - name: onOpenChange
+        type: "((open: boolean) => void)"
+        required: false
+        kind: event
+      - name: open
+        type: boolean
+        required: false
+        description: Controlled open state. Leave undefined for uncontrolled.
+      - name: resizable
+        type: boolean
+        required: false
+        description: Lets the divider be dragged to resize the sidebar, between 200px and 600px.
+      - name: sidebarContent
+        type: React.ReactNode
+        required: false
+        kind: slot
+        description: The body of the sidebar — usually a `SidebarMenu`.
+      - name: sidebarContentScroll
+        type: Scroll
+        required: false
+        values:
+          - None
+          - Auto
+          - Vertical
+          - Horizontal
+          - Both
+        default: Auto
+      - name: sidebarFooter
+        type: React.ReactNode
+        required: false
+        kind: slot
+      - name: sidebarFooterCollapsed
+        type: React.ReactNode
+        required: false
+        kind: slot
+        description: Stands in for the footer once the sidebar is collapsed.
+      - name: sidebarHeader
+        type: React.ReactNode
+        required: false
+        kind: slot
+      - name: sidebarHeaderCollapsed
+        type: React.ReactNode
+        required: false
+        kind: slot
+        description: Stands in for the header once the sidebar is collapsed.
+      - name: aspectRatio
+        type: number
+        required: false
+        inherited: WidgetBaseProps
+      - name: data-testid
+        type: string
+        required: false
+        inherited: WidgetBaseProps
+      - name: density
+        type: Densities
+        required: false
+        values:
+          - Small
+          - Medium
+          - Large
+        default: Medium
+        description: |-
+          Sizing and spacing scale. Everything that reads it goes through
+          `byDensity`, which falls back to `Medium`, so `Medium` is the default
+          everywhere the prop is left off.
+        inherited: WidgetBaseProps
+      - name: height
+        type: Sizing
+        required: false
+        default: 100%
+        inherited: WidgetBaseProps
+      - name: id
+        type: string
+        required: false
+        inherited: WidgetBaseProps
+      - name: visible
+        type: boolean
+        required: false
+        description: "`false` hides the widget without unmounting it, matching Ivy's `Visible`."
+        inherited: WidgetBaseProps
+      - name: width
+        type: Sizing
+        required: false
+        default: 16rem
+        inherited: WidgetBaseProps
+  - name: SidebarMenu
+    category: Layouts
+    file: src/widgets/layouts/Sidebar.tsx
+    ivy: Ivy.SidebarMenu
+    description: |-
+      The navigation menu that usually fills a `SidebarLayout`'s sidebar.
+      Mirrors `Ivy.SidebarMenu`.
+    tags:
+      - navigation
+      - menu
+      - sidebar
+    examples:
+      - <SidebarMenu items={items} searchActive onSelect={go} />
+    props:
+      - name: items
+        type: MenuItem[]
+        required: false
+        default: "[]"
+      - name: onSelect
+        type: "((item: MenuItem) => void)"
+        required: false
+        kind: event
+      - name: searchActive
+        type: boolean
+        required: false
+        description: Shows a filter box above the menu.
+      - name: selected
+        type: string
+        required: false
+        description: The path of the item drawn as current.
+      - name: aspectRatio
+        type: number
+        required: false
+        inherited: WidgetBaseProps
+      - name: data-testid
+        type: string
+        required: false
+        inherited: WidgetBaseProps
+      - name: density
+        type: Densities
+        required: false
+        values:
+          - Small
+          - Medium
+          - Large
+        default: Medium
+        description: |-
+          Sizing and spacing scale. Everything that reads it goes through
+          `byDensity`, which falls back to `Medium`, so `Medium` is the default
+          everywhere the prop is left off.
+        inherited: WidgetBaseProps
+      - name: height
+        type: Sizing
+        required: false
+        inherited: WidgetBaseProps
+      - name: id
+        type: string
+        required: false
+        inherited: WidgetBaseProps
+      - name: visible
+        type: boolean
+        required: false
+        description: "`false` hides the widget without unmounting it, matching Ivy's `Visible`."
+        inherited: WidgetBaseProps
+      - name: width
+        type: Sizing
+        required: false
+        inherited: WidgetBaseProps
+  - name: Tab
+    category: Layouts
+    file: src/widgets/layouts/Tabs.tsx
+    ivy: Ivy.Tab
+    description: |-
+      One tab inside a `TabsLayout`. Mirrors `Ivy.Tab`.
+
+      The element carries the tab's title, icon and badge; `TabsLayout` reads them
+      off and renders the strip itself, so a `Tab` only ever renders its own body.
+    tags:
+      - tab
+      - page
+      - section
+    examples:
+      - <Tab title="Overview" icon="House">Content</Tab>
+    props:
+      - name: title
+        type: string
+        required: true
+      - name: badge
+        type: string
+        required: false
+      - name: icon
+        type: string
+        required: false
+      - name: aspectRatio
+        type: number
+        required: false
+        inherited: WidgetBaseProps
+      - name: data-testid
+        type: string
+        required: false
+        inherited: WidgetBaseProps
+      - name: density
+        type: Densities
+        required: false
+        values:
+          - Small
+          - Medium
+          - Large
+        default: Medium
+        description: |-
+          Sizing and spacing scale. Everything that reads it goes through
+          `byDensity`, which falls back to `Medium`, so `Medium` is the default
+          everywhere the prop is left off.
+        inherited: WidgetBaseProps
+      - name: height
+        type: Sizing
+        required: false
+        inherited: WidgetBaseProps
+      - name: id
+        type: string
+        required: false
+        inherited: WidgetBaseProps
+      - name: visible
+        type: boolean
+        required: false
+        description: "`false` hides the widget without unmounting it, matching Ivy's `Visible`."
+        inherited: WidgetBaseProps
+      - name: width
+        type: Sizing
+        required: false
+        inherited: WidgetBaseProps
+  - name: TabsLayout
+    category: Layouts
+    file: src/widgets/layouts/Tabs.tsx
+    ivy: Ivy.TabsLayout
+    description: |-
+      Organizes content into separate views reached through a strip of tabs.
+      Mirrors `Ivy.TabsLayout`.
+    tags:
+      - tabs
+      - sections
+      - navigation
+    slots:
+      - name: children
+        description: The `Tab` elements making up the strip
+    examples:
+      - <TabsLayout><Tab title="Overview">…</Tab><Tab title="Settings">…</Tab></TabsLayout>
+      - <TabsLayout variant="Tabs" onClose={close} onReorder={reorder}>{tabs}</TabsLayout>
+    props:
+      - name: addButtonText
+        type: string
+        required: false
+        description: Shows a trailing add button with this label.
+      - name: defaultSelectedIndex
+        type: number
+        required: false
+        default: "0"
+      - name: onAddButtonClick
+        type: (() => void)
+        required: false
+        kind: event
+      - name: onClose
+        type: "((index: number) => void)"
+        required: false
+        kind: event
+        description: Given, every tab gets a close button.
+      - name: onRefresh
+        type: "((index: number) => void)"
+        required: false
+        kind: event
+        description: Given, the selected tab gets a refresh button.
+      - name: onReorder
+        type: "((order: number[]) => void)"
+        required: false
+        kind: event
+        description: Given, tabs can be dragged into a new order. Receives the new arrangement.
+      - name: onSelect
+        type: "((index: number) => void)"
+        required: false
+        kind: event
+      - name: padding
+        type: Sizing | Thickness
+        required: false
+        default: "4"
+        description: Padding around the tab body.
+      - name: removeParentPadding
+        type: boolean
+        required: false
+        description: Cancels the padding of whatever contains the layout.
+      - name: selectedIndex
+        type: number
+        required: false
+        description: Controlled selection. Leave undefined for uncontrolled.
+      - name: variant
+        type: TabsVariant
+        required: false
+        values:
+          - Tabs
+          - Content
+        default: Content
+      - name: aspectRatio
+        type: number
+        required: false
+        inherited: WidgetBaseProps
+      - name: data-testid
+        type: string
+        required: false
+        inherited: WidgetBaseProps
+      - name: density
+        type: Densities
+        required: false
+        values:
+          - Small
+          - Medium
+          - Large
+        default: Medium
+        description: |-
+          Sizing and spacing scale. Everything that reads it goes through
+          `byDensity`, which falls back to `Medium`, so `Medium` is the default
+          everywhere the prop is left off.
+        inherited: WidgetBaseProps
+      - name: height
+        type: Sizing
+        required: false
+        inherited: WidgetBaseProps
+      - name: id
+        type: string
+        required: false
+        inherited: WidgetBaseProps
+      - name: visible
+        type: boolean
+        required: false
+        description: "`false` hides the widget without unmounting it, matching Ivy's `Visible`."
+        inherited: WidgetBaseProps
+      - name: width
+        type: Sizing
+        required: false
+        inherited: WidgetBaseProps
   - name: AudioPlayer
     category: Primitives
     file: src/widgets/primitives/Media.tsx
@@ -8225,6 +8838,11 @@ components:
           - Small
           - Medium
           - Large
+        default: Medium
+        description: |-
+          Sizing and spacing scale. Everything that reads it goes through
+          `byDensity`, which falls back to `Medium`, so `Medium` is the default
+          everywhere the prop is left off.
         inherited: WidgetBaseProps
       - name: height
         type: Sizing
@@ -8282,6 +8900,10 @@ components:
           - Medium
           - Large
         default: Medium
+        description: |-
+          Sizing and spacing scale. Everything that reads it goes through
+          `byDensity`, which falls back to `Medium`, so `Medium` is the default
+          everywhere the prop is left off.
         inherited: WidgetBaseProps
       - name: height
         type: Sizing
@@ -8391,6 +9013,11 @@ components:
           - Small
           - Medium
           - Large
+        default: Medium
+        description: |-
+          Sizing and spacing scale. Everything that reads it goes through
+          `byDensity`, which falls back to `Medium`, so `Medium` is the default
+          everywhere the prop is left off.
         inherited: WidgetBaseProps
       - name: height
         type: Sizing
@@ -8457,6 +9084,10 @@ components:
           - Medium
           - Large
         default: Medium
+        description: |-
+          Sizing and spacing scale. Everything that reads it goes through
+          `byDensity`, which falls back to `Medium`, so `Medium` is the default
+          everywhere the prop is left off.
         inherited: WidgetBaseProps
       - name: height
         type: Sizing
@@ -8527,6 +9158,10 @@ components:
           - Medium
           - Large
         default: Medium
+        description: |-
+          Sizing and spacing scale. Everything that reads it goes through
+          `byDensity`, which falls back to `Medium`, so `Medium` is the default
+          everywhere the prop is left off.
         inherited: WidgetBaseProps
       - name: height
         type: Sizing
@@ -8571,6 +9206,11 @@ components:
           - Small
           - Medium
           - Large
+        default: Medium
+        description: |-
+          Sizing and spacing scale. Everything that reads it goes through
+          `byDensity`, which falls back to `Medium`, so `Medium` is the default
+          everywhere the prop is left off.
         inherited: WidgetBaseProps
       - name: height
         type: Sizing
@@ -8589,159 +9229,6 @@ components:
         type: Sizing
         required: false
         default: 24rem
-        inherited: WidgetBaseProps
-  - name: Empty
-    category: Primitives
-    file: src/widgets/primitives/Feedback.tsx
-    ivy: Ivy.Empty
-    description: Placeholder for "there is nothing here yet". Mirrors `Ivy.Empty`.
-    tags:
-      - placeholder
-      - no-results
-      - zero-state
-    examples:
-      - <Empty title="No results" description="Try another filter" />
-    props:
-      - name: description
-        type: string
-        required: false
-      - name: icon
-        type: string
-        required: false
-        default: Inbox
-      - name: title
-        type: string
-        required: false
-        default: Nothing here
-      - name: aspectRatio
-        type: number
-        required: false
-        inherited: WidgetBaseProps
-      - name: data-testid
-        type: string
-        required: false
-        inherited: WidgetBaseProps
-      - name: density
-        type: Densities
-        required: false
-        values:
-          - Small
-          - Medium
-          - Large
-        inherited: WidgetBaseProps
-      - name: height
-        type: Sizing
-        required: false
-        inherited: WidgetBaseProps
-      - name: id
-        type: string
-        required: false
-        inherited: WidgetBaseProps
-      - name: visible
-        type: boolean
-        required: false
-        description: "`false` hides the widget without unmounting it, matching Ivy's `Visible`."
-        inherited: WidgetBaseProps
-      - name: width
-        type: Sizing
-        required: false
-        inherited: WidgetBaseProps
-  - name: ErrorPanel
-    category: Primitives
-    file: src/widgets/primitives/Feedback.tsx
-    ivy: Ivy.Error
-    description: The red-pencil error panel. Mirrors `Ivy.Error`.
-    props:
-      - name: aspectRatio
-        type: number
-        required: false
-        inherited: WidgetBaseProps
-      - name: data-testid
-        type: string
-        required: false
-        inherited: WidgetBaseProps
-      - name: density
-        type: Densities
-        required: false
-        values:
-          - Small
-          - Medium
-          - Large
-        inherited: WidgetBaseProps
-      - name: height
-        type: Sizing
-        required: false
-        inherited: WidgetBaseProps
-      - name: id
-        type: string
-        required: false
-        inherited: WidgetBaseProps
-      - name: message
-        type: string | null
-        required: false
-        inherited: ErrorProps
-      - name: stackTrace
-        type: string | null
-        required: false
-        inherited: ErrorProps
-      - name: title
-        type: string | null
-        required: false
-        inherited: ErrorProps
-      - name: visible
-        type: boolean
-        required: false
-        description: "`false` hides the widget without unmounting it, matching Ivy's `Visible`."
-        inherited: WidgetBaseProps
-      - name: width
-        type: Sizing
-        required: false
-        inherited: WidgetBaseProps
-  - name: Html
-    category: Primitives
-    file: src/widgets/primitives/Code.tsx
-    ivy: Ivy.Html
-    description: Renders raw HTML inside the wireframe. Mirrors `Ivy.Html`.
-    props:
-      - name: content
-        type: string
-        required: true
-      - name: dangerouslyAllowScripts
-        type: boolean
-        required: false
-        description: "Ivy's escape hatch: keeps `<script>` tags in the markup instead of stripping them."
-      - name: aspectRatio
-        type: number
-        required: false
-        inherited: WidgetBaseProps
-      - name: data-testid
-        type: string
-        required: false
-        inherited: WidgetBaseProps
-      - name: density
-        type: Densities
-        required: false
-        values:
-          - Small
-          - Medium
-          - Large
-        inherited: WidgetBaseProps
-      - name: height
-        type: Sizing
-        required: false
-        inherited: WidgetBaseProps
-      - name: id
-        type: string
-        required: false
-        inherited: WidgetBaseProps
-      - name: visible
-        type: boolean
-        required: false
-        description: "`false` hides the widget without unmounting it, matching Ivy's `Visible`."
-        inherited: WidgetBaseProps
-      - name: width
-        type: Sizing
-        required: false
         inherited: WidgetBaseProps
   - name: Icon
     category: Primitives
@@ -8770,6 +9257,11 @@ components:
           - Small
           - Medium
           - Large
+        default: Medium
+        description: |-
+          Sizing and spacing scale. Everything that reads it goes through
+          `byDensity`, which falls back to `Medium`, so `Medium` is the default
+          everywhere the prop is left off.
         inherited: WidgetBaseProps
       - name: height
         type: Sizing
@@ -8787,179 +9279,6 @@ components:
       - name: width
         type: Sizing
         required: false
-        inherited: WidgetBaseProps
-  - name: Iframe
-    category: Primitives
-    file: src/widgets/primitives/Media.tsx
-    ivy: Ivy.Iframe
-    description: Mirrors `Ivy.Iframe`.
-    props:
-      - name: src
-        type: string
-        required: true
-      - name: outboundMessageToken
-        type: string
-        required: false
-      - name: outboundMessageType
-        type: string
-        required: false
-        description: Posted into the frame whenever `outboundMessageToken` changes.
-      - name: refreshToken
-        type: number
-        required: false
-      - name: title
-        type: string
-        required: false
-        default: Embedded content
-      - name: aspectRatio
-        type: number
-        required: false
-        inherited: WidgetBaseProps
-      - name: data-testid
-        type: string
-        required: false
-        inherited: WidgetBaseProps
-      - name: density
-        type: Densities
-        required: false
-        values:
-          - Small
-          - Medium
-          - Large
-        inherited: WidgetBaseProps
-      - name: height
-        type: Sizing
-        required: false
-        default: 24rem
-        inherited: WidgetBaseProps
-      - name: id
-        type: string
-        required: false
-        inherited: WidgetBaseProps
-      - name: visible
-        type: boolean
-        required: false
-        description: "`false` hides the widget without unmounting it, matching Ivy's `Visible`."
-        inherited: WidgetBaseProps
-      - name: width
-        type: Sizing
-        required: false
-        default: 100%
-        inherited: WidgetBaseProps
-  - name: Image
-    category: Primitives
-    file: src/widgets/primitives/Media.tsx
-    ivy: Ivy.Image
-    description: |-
-      When there is no `src` this renders the classic wireframe placeholder: a box
-      with a cross through it. Mirrors `Ivy.Image`.
-    tags:
-      - picture
-      - placeholder
-      - media
-    examples:
-      - <Image alt="Hero image" width="20rem" height="12rem" />
-    props:
-      - name: alt
-        type: string
-        required: false
-        default: ""
-      - name: borderColor
-        type: string
-        required: false
-      - name: borderOpacity
-        type: number
-        required: false
-      - name: borderRadius
-        type: BorderRadius
-        required: false
-        values:
-          - None
-          - Rounded
-          - Full
-        default: Rounded
-      - name: borderStyle
-        type: BorderStyle
-        required: false
-        values:
-          - None
-          - Solid
-          - Dashed
-          - Dotted
-        default: Solid
-      - name: borderThickness
-        type: Sizing
-        required: false
-        default: "1"
-      - name: caption
-        type: string
-        required: false
-      - name: hoverVariant
-        type: HoverEffect
-        required: false
-        values:
-          - None
-          - Pointer
-          - PointerAndTranslate
-          - Shadow
-        default: None
-      - name: link
-        type: string
-        required: false
-      - name: objectFit
-        type: '"None" | "Cover" | "Contain" | "Fill" | "ScaleDown"'
-        required: false
-        values:
-          - None
-          - Cover
-          - Contain
-          - Fill
-          - ScaleDown
-        default: Cover
-      - name: onClick
-        type: React.MouseEventHandler<HTMLElement>
-        required: false
-        kind: event
-      - name: overlay
-        type: boolean
-        required: false
-      - name: src
-        type: string | null
-        required: false
-      - name: aspectRatio
-        type: number
-        required: false
-        inherited: WidgetBaseProps
-      - name: data-testid
-        type: string
-        required: false
-        inherited: WidgetBaseProps
-      - name: density
-        type: Densities
-        required: false
-        values:
-          - Small
-          - Medium
-          - Large
-        inherited: WidgetBaseProps
-      - name: height
-        type: Sizing
-        required: false
-        default: 10rem
-        inherited: WidgetBaseProps
-      - name: id
-        type: string
-        required: false
-        inherited: WidgetBaseProps
-      - name: visible
-        type: boolean
-        required: false
-        description: "`false` hides the widget without unmounting it, matching Ivy's `Visible`."
-        inherited: WidgetBaseProps
-      - name: width
-        type: Sizing
-        required: false
-        default: 16rem
         inherited: WidgetBaseProps
   - name: Json
     category: Primitives
@@ -8988,6 +9307,11 @@ components:
           - Small
           - Medium
           - Large
+        default: Medium
+        description: |-
+          Sizing and spacing scale. Everything that reads it goes through
+          `byDensity`, which falls back to `Medium`, so `Medium` is the default
+          everywhere the prop is left off.
         inherited: WidgetBaseProps
       - name: height
         type: Sizing
@@ -9033,6 +9357,11 @@ components:
           - Small
           - Medium
           - Large
+        default: Medium
+        description: |-
+          Sizing and spacing scale. Everything that reads it goes through
+          `byDensity`, which falls back to `Medium`, so `Medium` is the default
+          everywhere the prop is left off.
         inherited: WidgetBaseProps
       - name: height
         type: Sizing
@@ -9082,6 +9411,11 @@ components:
           - Small
           - Medium
           - Large
+        default: Medium
+        description: |-
+          Sizing and spacing scale. Everything that reads it goes through
+          `byDensity`, which falls back to `Medium`, so `Medium` is the default
+          everywhere the prop is left off.
         inherited: WidgetBaseProps
       - name: height
         type: Sizing
@@ -9148,6 +9482,11 @@ components:
           - Small
           - Medium
           - Large
+        default: Medium
+        description: |-
+          Sizing and spacing scale. Everything that reads it goes through
+          `byDensity`, which falls back to `Medium`, so `Medium` is the default
+          everywhere the prop is left off.
         inherited: WidgetBaseProps
       - name: height
         type: Sizing
@@ -9212,6 +9551,11 @@ components:
           - Small
           - Medium
           - Large
+        default: Medium
+        description: |-
+          Sizing and spacing scale. Everything that reads it goes through
+          `byDensity`, which falls back to `Medium`, so `Medium` is the default
+          everywhere the prop is left off.
         inherited: WidgetBaseProps
       - name: height
         type: Sizing
@@ -9256,6 +9600,11 @@ components:
           - Small
           - Medium
           - Large
+        default: Medium
+        description: |-
+          Sizing and spacing scale. Everything that reads it goes through
+          `byDensity`, which falls back to `Medium`, so `Medium` is the default
+          everywhere the prop is left off.
         inherited: WidgetBaseProps
       - name: height
         type: Sizing
@@ -9275,45 +9624,6 @@ components:
         type: Sizing
         required: false
         default: 100%
-        inherited: WidgetBaseProps
-  - name: Spacer
-    category: Primitives
-    file: src/widgets/primitives/Feedback.tsx
-    ivy: Ivy.Spacer
-    description: Blank space. Mirrors `Ivy.Spacer`.
-    props:
-      - name: aspectRatio
-        type: number
-        required: false
-        inherited: WidgetBaseProps
-      - name: data-testid
-        type: string
-        required: false
-        inherited: WidgetBaseProps
-      - name: density
-        type: Densities
-        required: false
-        values:
-          - Small
-          - Medium
-          - Large
-        inherited: WidgetBaseProps
-      - name: height
-        type: Sizing
-        required: false
-        inherited: WidgetBaseProps
-      - name: id
-        type: string
-        required: false
-        inherited: WidgetBaseProps
-      - name: visible
-        type: boolean
-        required: false
-        description: "`false` hides the widget without unmounting it, matching Ivy's `Visible`."
-        inherited: WidgetBaseProps
-      - name: width
-        type: Sizing
-        required: false
         inherited: WidgetBaseProps
   - name: Stepper
     category: Primitives
@@ -9362,48 +9672,10 @@ components:
           - Medium
           - Large
         default: Medium
-        inherited: WidgetBaseProps
-      - name: height
-        type: Sizing
-        required: false
-        inherited: WidgetBaseProps
-      - name: id
-        type: string
-        required: false
-        inherited: WidgetBaseProps
-      - name: visible
-        type: boolean
-        required: false
-        description: "`false` hides the widget without unmounting it, matching Ivy's `Visible`."
-        inherited: WidgetBaseProps
-      - name: width
-        type: Sizing
-        required: false
-        inherited: WidgetBaseProps
-  - name: Svg
-    category: Primitives
-    file: src/widgets/primitives/Media.tsx
-    ivy: Ivy.Svg
-    description: Inline SVG markup, wobbled to match the rest of the sheet. Mirrors `Ivy.Svg`.
-    props:
-      - name: content
-        type: string
-        required: true
-      - name: aspectRatio
-        type: number
-        required: false
-        inherited: WidgetBaseProps
-      - name: data-testid
-        type: string
-        required: false
-        inherited: WidgetBaseProps
-      - name: density
-        type: Densities
-        required: false
-        values:
-          - Small
-          - Medium
-          - Large
+        description: |-
+          Sizing and spacing scale. Everything that reads it goes through
+          `byDensity`, which falls back to `Medium`, so `Medium` is the default
+          everywhere the prop is left off.
         inherited: WidgetBaseProps
       - name: height
         type: Sizing
@@ -9459,6 +9731,11 @@ components:
           - Small
           - Medium
           - Large
+        default: Medium
+        description: |-
+          Sizing and spacing scale. Everything that reads it goes through
+          `byDensity`, which falls back to `Medium`, so `Medium` is the default
+          everywhere the prop is left off.
         inherited: WidgetBaseProps
       - name: height
         type: Sizing
@@ -9502,13 +9779,6 @@ components:
       - name: content
         type: string
         required: false
-      - name: density
-        type: Densities
-        required: false
-        values:
-          - Small
-          - Medium
-          - Large
       - name: italic
         type: boolean
         required: false
@@ -9570,6 +9840,19 @@ components:
       - name: data-testid
         type: string
         required: false
+        inherited: WidgetBaseProps
+      - name: density
+        type: Densities
+        required: false
+        values:
+          - Small
+          - Medium
+          - Large
+        default: Medium
+        description: |-
+          Sizing and spacing scale. Everything that reads it goes through
+          `byDensity`, which falls back to `Medium`, so `Medium` is the default
+          everywhere the prop is left off.
         inherited: WidgetBaseProps
       - name: height
         type: Sizing
@@ -9663,6 +9946,11 @@ components:
           - Small
           - Medium
           - Large
+        default: Medium
+        description: |-
+          Sizing and spacing scale. Everything that reads it goes through
+          `byDensity`, which falls back to `Medium`, so `Medium` is the default
+          everywhere the prop is left off.
         inherited: WidgetBaseProps
       - name: height
         type: Sizing
@@ -9710,6 +9998,11 @@ components:
           - Small
           - Medium
           - Large
+        default: Medium
+        description: |-
+          Sizing and spacing scale. Everything that reads it goes through
+          `byDensity`, which falls back to `Medium`, so `Medium` is the default
+          everywhere the prop is left off.
         inherited: WidgetBaseProps
       - name: height
         type: Sizing
@@ -9722,130 +10015,6 @@ components:
       - name: visible
         type: boolean
         required: false
-        description: "`false` hides the widget without unmounting it, matching Ivy's `Visible`."
-        inherited: WidgetBaseProps
-      - name: width
-        type: Sizing
-        required: false
-        inherited: WidgetBaseProps
-  - name: Animation
-    category: Widgets
-    file: src/widgets/Wireframe.tsx
-    ivy: Ivy.Animation
-    description: |-
-      Wraps children in a CSS animation. Mirrors `Ivy.Animation`; the easing enum
-      maps onto CSS timing functions rather than a physics engine.
-    props:
-      - name: delay
-        type: number
-        required: false
-        default: "0"
-      - name: direction
-        type: '"Left" | "Right" | "Up" | "Down"'
-        required: false
-        values:
-          - Left
-          - Right
-          - Up
-          - Down
-      - name: distance
-        type: number
-        required: false
-      - name: duration
-        type: number
-        required: false
-        default: "0.6"
-      - name: easing
-        type: AnimationEasing
-        required: false
-        values:
-          - EaseIn
-          - EaseOut
-          - EaseInOut
-          - Linear
-          - CircIn
-          - CircOut
-          - CircInOut
-          - BackIn
-          - BackOut
-          - BackInOut
-          - Anticipate
-          - AnticipateOut
-          - BounceIn
-          - BounceOut
-          - BounceInOut
-          - ElasticIn
-          - ElasticOut
-          - ElasticInOut
-        default: Linear
-      - name: intensity
-        type: number
-        required: false
-        default: "1"
-      - name: repeat
-        type: number | null
-        required: false
-        default: "0"
-      - name: repeatDelay
-        type: number
-        required: false
-        default: "0"
-      - name: trigger
-        type: '"Auto" | "Hover" | "Click"'
-        required: false
-        values:
-          - Auto
-          - Hover
-          - Click
-        default: Auto
-      - name: type
-        type: AnimationType
-        required: false
-        values:
-          - Rotate
-          - SlideIn
-          - FadeIn
-          - ZoomIn
-          - SlideOut
-          - FadeOut
-          - ZoomOut
-          - Bounce
-          - Shake
-          - Flip
-          - Stagger
-          - Wave
-          - Pulse
-          - Spring
-          - Hover
-        default: FadeIn
-      - name: aspectRatio
-        type: number
-        required: false
-        inherited: WidgetBaseProps
-      - name: data-testid
-        type: string
-        required: false
-        inherited: WidgetBaseProps
-      - name: density
-        type: Densities
-        required: false
-        values:
-          - Small
-          - Medium
-          - Large
-        inherited: WidgetBaseProps
-      - name: height
-        type: Sizing
-        required: false
-        inherited: WidgetBaseProps
-      - name: id
-        type: string
-        required: false
-        inherited: WidgetBaseProps
-      - name: visible
-        type: boolean
-        required: false
-        default: "true"
         description: "`false` hides the widget without unmounting it, matching Ivy's `Visible`."
         inherited: WidgetBaseProps
       - name: width
@@ -9913,105 +10082,10 @@ components:
           - Medium
           - Large
         default: Medium
-        inherited: WidgetBaseProps
-      - name: height
-        type: Sizing
-        required: false
-        inherited: WidgetBaseProps
-      - name: id
-        type: string
-        required: false
-        inherited: WidgetBaseProps
-      - name: visible
-        type: boolean
-        required: false
-        description: "`false` hides the widget without unmounting it, matching Ivy's `Visible`."
-        inherited: WidgetBaseProps
-      - name: width
-        type: Sizing
-        required: false
-        inherited: WidgetBaseProps
-  - name: Blade
-    category: Widgets
-    file: src/widgets/Overlays.tsx
-    ivy: Ivy.Blade
-    description: One panel inside a `BladeContainer`. Mirrors `Ivy.Blade`.
-    props:
-      - name: header
-        type: React.ReactNode
-        required: false
-        kind: slot
-      - name: index
-        type: number
-        required: false
-        default: "0"
-      - name: onClose
-        type: (() => void)
-        required: false
-        kind: event
-      - name: onRefresh
-        type: (() => void)
-        required: false
-        kind: event
-      - name: title
-        type: string
-        required: false
-      - name: aspectRatio
-        type: number
-        required: false
-        inherited: WidgetBaseProps
-      - name: data-testid
-        type: string
-        required: false
-        inherited: WidgetBaseProps
-      - name: density
-        type: Densities
-        required: false
-        values:
-          - Small
-          - Medium
-          - Large
-        inherited: WidgetBaseProps
-      - name: height
-        type: Sizing
-        required: false
-        default: 100%
-        inherited: WidgetBaseProps
-      - name: id
-        type: string
-        required: false
-        inherited: WidgetBaseProps
-      - name: visible
-        type: boolean
-        required: false
-        description: "`false` hides the widget without unmounting it, matching Ivy's `Visible`."
-        inherited: WidgetBaseProps
-      - name: width
-        type: Sizing
-        required: false
-        default: 22rem
-        inherited: WidgetBaseProps
-  - name: BladeContainer
-    category: Widgets
-    file: src/widgets/Overlays.tsx
-    ivy: Ivy.BladeContainer
-    description: Horizontal stack of drill-down blades. Mirrors `Ivy.BladeContainer`.
-    props:
-      - name: aspectRatio
-        type: number
-        required: false
-        inherited: WidgetBaseProps
-      - name: data-testid
-        type: string
-        required: false
-        inherited: WidgetBaseProps
-      - name: density
-        type: Densities
-        required: false
-        values:
-          - Small
-          - Medium
-          - Large
+        description: |-
+          Sizing and spacing scale. Everything that reads it goes through
+          `byDensity`, which falls back to `Medium`, so `Medium` is the default
+          everywhere the prop is left off.
         inherited: WidgetBaseProps
       - name: height
         type: Sizing
@@ -10073,6 +10147,10 @@ components:
           - Medium
           - Large
         default: Medium
+        description: |-
+          Sizing and spacing scale. Everything that reads it goes through
+          `byDensity`, which falls back to `Medium`, so `Medium` is the default
+          everywhere the prop is left off.
         inherited: WidgetBaseProps
       - name: height
         type: Sizing
@@ -10095,9 +10173,9 @@ components:
     category: Widgets
     file: src/widgets/Button.tsx
     ivy: Ivy.Button
-    description: |-
-      The workhorse control. Mirrors `Ivy.Button`, including its variant list,
-      icon placement, badge and shortcut hint.
+    description: "The workhorse control. Mirrors `Ivy.Button`, including its variant list,\r
+
+      icon placement, badge and shortcut hint."
     tags:
       - action
       - submit
@@ -10195,6 +10273,10 @@ components:
           - Medium
           - Large
         default: Medium
+        description: |-
+          Sizing and spacing scale. Everything that reads it goes through
+          `byDensity`, which falls back to `Medium`, so `Medium` is the default
+          everywhere the prop is left off.
         inherited: WidgetBaseProps
       - name: height
         type: Sizing
@@ -10204,180 +10286,6 @@ components:
         type: string
         required: false
         inherited: WidgetBaseProps
-      - name: visible
-        type: boolean
-        required: false
-        description: "`false` hides the widget without unmounting it, matching Ivy's `Visible`."
-        inherited: WidgetBaseProps
-      - name: width
-        type: Sizing
-        required: false
-        inherited: WidgetBaseProps
-  - name: Calendar
-    category: Widgets
-    file: src/widgets/Calendar.tsx
-    ivy: Ivy.Calendar
-    description: Month, week, day and agenda views. Mirrors `Ivy.Calendar`.
-    tags:
-      - schedule
-      - events
-      - month
-      - week
-    examples:
-      - <Calendar events={events} defaultView="Month" />
-    props:
-      - name: defaultDate
-        type: string
-        required: false
-        description: ISO date the calendar opens on. Ivy calls this `Date`.
-      - name: defaultView
-        type: CalendarView
-        required: false
-        values:
-          - Month
-          - Week
-          - Day
-          - Agenda
-        default: Month
-      - name: enableDragDrop
-        type: boolean
-        required: false
-      - name: events
-        type: CalendarEvent[]
-        required: false
-        default: "[]"
-      - name: firstDayOfWeek
-        type: WeekDay
-        required: false
-        values:
-          - 0
-          - 1
-          - 2
-          - 3
-          - 4
-          - 5
-          - 6
-        default: "1"
-      - name: maxDate
-        type: string
-        required: false
-      - name: minDate
-        type: string
-        required: false
-        description: ISO dates bounding what can be selected.
-      - name: onEventClick
-        type: "((event: CalendarEvent) => void)"
-        required: false
-        kind: event
-      - name: onEventMove
-        type: "((eventId: string, start: string, end: string | undefined) => void)"
-        required: false
-        kind: event
-      - name: onSelectSlot
-        type: "((start: string, end: string) => void)"
-        required: false
-        kind: event
-      - name: onViewChange
-        type: "((view: CalendarView) => void)"
-        required: false
-        kind: event
-      - name: showToolbar
-        type: boolean
-        required: false
-        default: "true"
-      - name: aspectRatio
-        type: number
-        required: false
-        inherited: WidgetBaseProps
-      - name: data-testid
-        type: string
-        required: false
-        inherited: WidgetBaseProps
-      - name: density
-        type: Densities
-        required: false
-        values:
-          - Small
-          - Medium
-          - Large
-        default: Medium
-        inherited: WidgetBaseProps
-      - name: height
-        type: Sizing
-        required: false
-        default: 32rem
-        inherited: WidgetBaseProps
-      - name: id
-        type: string
-        required: false
-        inherited: WidgetBaseProps
-      - name: visible
-        type: boolean
-        required: false
-        description: "`false` hides the widget without unmounting it, matching Ivy's `Visible`."
-        inherited: WidgetBaseProps
-      - name: width
-        type: Sizing
-        required: false
-        default: 100%
-        inherited: WidgetBaseProps
-  - name: CalendarEventWidget
-    category: Widgets
-    file: src/widgets/Calendar.tsx
-    ivy: Ivy.CalendarEvent
-    description: |-
-      Declarative event definition. Mirrors `Ivy.CalendarEvent`; it renders
-      nothing on its own — pass events to `Calendar` via the `events` prop.
-    props:
-      - name: eventId
-        type: string
-        required: true
-        inherited: CalendarEvent
-      - name: start
-        type: string
-        required: true
-        description: ISO 8601 date-time.
-        inherited: CalendarEvent
-      - name: allDay
-        type: boolean
-        required: false
-        inherited: CalendarEvent
-      - name: aspectRatio
-        type: number
-        required: false
-        inherited: WidgetBaseProps
-      - name: color
-        type: string
-        required: false
-        inherited: CalendarEvent
-      - name: data-testid
-        type: string
-        required: false
-        inherited: WidgetBaseProps
-      - name: density
-        type: Densities
-        required: false
-        values:
-          - Small
-          - Medium
-          - Large
-        inherited: WidgetBaseProps
-      - name: end
-        type: string
-        required: false
-        inherited: CalendarEvent
-      - name: height
-        type: Sizing
-        required: false
-        inherited: WidgetBaseProps
-      - name: id
-        type: string
-        required: false
-        inherited: WidgetBaseProps
-      - name: title
-        type: string
-        required: false
-        inherited: CalendarEvent
       - name: visible
         type: boolean
         required: false
@@ -10391,9 +10299,9 @@ components:
     category: Widgets
     file: src/widgets/Card.tsx
     ivy: Ivy.Card
-    description: |-
-      A sheet of paper with an optional header and footer. Mirrors `Ivy.Card`,
-      whose `Header` / `Content` / `Footer` slots become props here.
+    description: "A sheet of paper with an optional header and footer. Mirrors `Ivy.Card`,\r
+
+      whose `Header` / `Content` / `Footer` slots become props here."
     tags:
       - container
       - panel
@@ -10453,6 +10361,10 @@ components:
           - Medium
           - Large
         default: Medium
+        description: |-
+          Sizing and spacing scale. Everything that reads it goes through
+          `byDensity`, which falls back to `Medium`, so `Medium` is the default
+          everywhere the prop is left off.
         inherited: WidgetBaseProps
       - name: height
         type: Sizing
@@ -10511,6 +10423,10 @@ components:
           - Medium
           - Large
         default: Medium
+        description: |-
+          Sizing and spacing scale. Everything that reads it goes through
+          `byDensity`, which falls back to `Medium`, so `Medium` is the default
+          everywhere the prop is left off.
         inherited: WidgetBaseProps
       - name: height
         type: Sizing
@@ -10552,6 +10468,11 @@ components:
           - Small
           - Medium
           - Large
+        default: Medium
+        description: |-
+          Sizing and spacing scale. Everything that reads it goes through
+          `byDensity`, which falls back to `Medium`, so `Medium` is the default
+          everywhere the prop is left off.
         inherited: WidgetBaseProps
       - name: height
         type: Sizing
@@ -10599,6 +10520,10 @@ components:
           - Medium
           - Large
         default: Medium
+        description: |-
+          Sizing and spacing scale. Everything that reads it goes through
+          `byDensity`, which falls back to `Medium`, so `Medium` is the default
+          everywhere the prop is left off.
         inherited: WidgetBaseProps
       - name: height
         type: Sizing
@@ -10641,58 +10566,11 @@ components:
           - Small
           - Medium
           - Large
-        inherited: WidgetBaseProps
-      - name: height
-        type: Sizing
-        required: false
-        inherited: WidgetBaseProps
-      - name: id
-        type: string
-        required: false
-        inherited: WidgetBaseProps
-      - name: visible
-        type: boolean
-        required: false
-        description: "`false` hides the widget without unmounting it, matching Ivy's `Visible`."
-        inherited: WidgetBaseProps
-      - name: width
-        type: Sizing
-        required: false
-        inherited: WidgetBaseProps
-  - name: Confetti
-    category: Widgets
-    file: src/widgets/Wireframe.tsx
-    ivy: Ivy.Confetti
-    description: Hand-torn paper confetti. Mirrors `Ivy.Confetti`.
-    props:
-      - name: count
-        type: number
-        required: false
-        default: "24"
-        description: Number of scraps thrown.
-      - name: trigger
-        type: '"Auto" | "Hover" | "Click"'
-        required: false
-        values:
-          - Auto
-          - Hover
-          - Click
-        default: Auto
-      - name: aspectRatio
-        type: number
-        required: false
-        inherited: WidgetBaseProps
-      - name: data-testid
-        type: string
-        required: false
-        inherited: WidgetBaseProps
-      - name: density
-        type: Densities
-        required: false
-        values:
-          - Small
-          - Medium
-          - Large
+        default: Medium
+        description: |-
+          Sizing and spacing scale. Everything that reads it goes through
+          `byDensity`, which falls back to `Medium`, so `Medium` is the default
+          everywhere the prop is left off.
         inherited: WidgetBaseProps
       - name: height
         type: Sizing
@@ -10785,6 +10663,10 @@ components:
           - Medium
           - Large
         default: Medium
+        description: |-
+          Sizing and spacing scale. Everything that reads it goes through
+          `byDensity`, which falls back to `Medium`, so `Medium` is the default
+          everywhere the prop is left off.
         inherited: WidgetBaseProps
       - name: height
         type: Sizing
@@ -10836,6 +10718,11 @@ components:
           - Small
           - Medium
           - Large
+        default: Medium
+        description: |-
+          Sizing and spacing scale. Everything that reads it goes through
+          `byDensity`, which falls back to `Medium`, so `Medium` is the default
+          everywhere the prop is left off.
         inherited: WidgetBaseProps
       - name: height
         type: Sizing
@@ -10886,6 +10773,10 @@ components:
           - Medium
           - Large
         default: Medium
+        description: |-
+          Sizing and spacing scale. Everything that reads it goes through
+          `byDensity`, which falls back to `Medium`, so `Medium` is the default
+          everywhere the prop is left off.
         inherited: WidgetBaseProps
       - name: height
         type: Sizing
@@ -10950,6 +10841,11 @@ components:
           - Small
           - Medium
           - Large
+        default: Medium
+        description: |-
+          Sizing and spacing scale. Everything that reads it goes through
+          `byDensity`, which falls back to `Medium`, so `Medium` is the default
+          everywhere the prop is left off.
         inherited: WidgetBaseProps
       - name: height
         type: Sizing
@@ -10990,6 +10886,11 @@ components:
           - Small
           - Medium
           - Large
+        default: Medium
+        description: |-
+          Sizing and spacing scale. Everything that reads it goes through
+          `byDensity`, which falls back to `Medium`, so `Medium` is the default
+          everywhere the prop is left off.
         inherited: WidgetBaseProps
       - name: height
         type: Sizing
@@ -11029,6 +10930,11 @@ components:
           - Small
           - Medium
           - Large
+        default: Medium
+        description: |-
+          Sizing and spacing scale. Everything that reads it goes through
+          `byDensity`, which falls back to `Medium`, so `Medium` is the default
+          everywhere the prop is left off.
         inherited: WidgetBaseProps
       - name: height
         type: Sizing
@@ -11077,6 +10983,11 @@ components:
           - Small
           - Medium
           - Large
+        default: Medium
+        description: |-
+          Sizing and spacing scale. Everything that reads it goes through
+          `byDensity`, which falls back to `Medium`, so `Medium` is the default
+          everywhere the prop is left off.
         inherited: WidgetBaseProps
       - name: height
         type: Sizing
@@ -11168,6 +11079,10 @@ components:
           - Medium
           - Large
         default: Medium
+        description: |-
+          Sizing and spacing scale. Everything that reads it goes through
+          `byDensity`, which falls back to `Medium`, so `Medium` is the default
+          everywhere the prop is left off.
         inherited: WidgetBaseProps
       - name: height
         type: Sizing
@@ -11239,6 +11154,10 @@ components:
           - Medium
           - Large
         default: Medium
+        description: |-
+          Sizing and spacing scale. Everything that reads it goes through
+          `byDensity`, which falls back to `Medium`, so `Medium` is the default
+          everywhere the prop is left off.
         inherited: WidgetBaseProps
       - name: height
         type: Sizing
@@ -11314,6 +11233,10 @@ components:
           - Medium
           - Large
         default: Medium
+        description: |-
+          Sizing and spacing scale. Everything that reads it goes through
+          `byDensity`, which falls back to `Medium`, so `Medium` is the default
+          everywhere the prop is left off.
         inherited: WidgetBaseProps
       - name: height
         type: Sizing
@@ -11392,6 +11315,10 @@ components:
           - Medium
           - Large
         default: Medium
+        description: |-
+          Sizing and spacing scale. Everything that reads it goes through
+          `byDensity`, which falls back to `Medium`, so `Medium` is the default
+          everywhere the prop is left off.
         inherited: WidgetBaseProps
       - name: height
         type: Sizing
@@ -11437,6 +11364,10 @@ components:
           - Medium
           - Large
         default: Medium
+        description: |-
+          Sizing and spacing scale. Everything that reads it goes through
+          `byDensity`, which falls back to `Medium`, so `Medium` is the default
+          everywhere the prop is left off.
         inherited: WidgetBaseProps
       - name: height
         type: Sizing
@@ -11500,6 +11431,11 @@ components:
           - Small
           - Medium
           - Large
+        default: Medium
+        description: |-
+          Sizing and spacing scale. Everything that reads it goes through
+          `byDensity`, which falls back to `Medium`, so `Medium` is the default
+          everywhere the prop is left off.
         inherited: WidgetBaseProps
       - name: height
         type: Sizing
@@ -11569,6 +11505,10 @@ components:
           - Medium
           - Large
         default: Medium
+        description: |-
+          Sizing and spacing scale. Everything that reads it goes through
+          `byDensity`, which falls back to `Medium`, so `Medium` is the default
+          everywhere the prop is left off.
         inherited: WidgetBaseProps
       - name: height
         type: Sizing
@@ -11629,6 +11569,10 @@ components:
           - Medium
           - Large
         default: Medium
+        description: |-
+          Sizing and spacing scale. Everything that reads it goes through
+          `byDensity`, which falls back to `Medium`, so `Medium` is the default
+          everywhere the prop is left off.
         inherited: WidgetBaseProps
       - name: height
         type: Sizing
@@ -11711,6 +11655,11 @@ components:
           - Small
           - Medium
           - Large
+        default: Medium
+        description: |-
+          Sizing and spacing scale. Everything that reads it goes through
+          `byDensity`, which falls back to `Medium`, so `Medium` is the default
+          everywhere the prop is left off.
         inherited: WidgetBaseProps
       - name: height
         type: Sizing
@@ -11781,6 +11730,10 @@ components:
           - Medium
           - Large
         default: Medium
+        description: |-
+          Sizing and spacing scale. Everything that reads it goes through
+          `byDensity`, which falls back to `Medium`, so `Medium` is the default
+          everywhere the prop is left off.
         inherited: WidgetBaseProps
       - name: height
         type: Sizing
@@ -11835,6 +11788,10 @@ components:
           - Medium
           - Large
         default: Medium
+        description: |-
+          Sizing and spacing scale. Everything that reads it goes through
+          `byDensity`, which falls back to `Medium`, so `Medium` is the default
+          everywhere the prop is left off.
         inherited: WidgetBaseProps
       - name: height
         type: Sizing
@@ -11908,6 +11865,11 @@ components:
           - Small
           - Medium
           - Large
+        default: Medium
+        description: |-
+          Sizing and spacing scale. Everything that reads it goes through
+          `byDensity`, which falls back to `Medium`, so `Medium` is the default
+          everywhere the prop is left off.
         inherited: WidgetBaseProps
       - name: height
         type: Sizing
@@ -11957,6 +11919,11 @@ components:
           - Small
           - Medium
           - Large
+        default: Medium
+        description: |-
+          Sizing and spacing scale. Everything that reads it goes through
+          `byDensity`, which falls back to `Medium`, so `Medium` is the default
+          everywhere the prop is left off.
         inherited: WidgetBaseProps
       - name: height
         type: Sizing
@@ -12013,6 +11980,10 @@ components:
           - Medium
           - Large
         default: Medium
+        description: |-
+          Sizing and spacing scale. Everything that reads it goes through
+          `byDensity`, which falls back to `Medium`, so `Medium` is the default
+          everywhere the prop is left off.
         inherited: WidgetBaseProps
       - name: height
         type: Sizing
@@ -12098,6 +12069,10 @@ components:
           - Medium
           - Large
         default: Medium
+        description: |-
+          Sizing and spacing scale. Everything that reads it goes through
+          `byDensity`, which falls back to `Medium`, so `Medium` is the default
+          everywhere the prop is left off.
         inherited: WidgetBaseProps
       - name: height
         type: Sizing
@@ -12159,6 +12134,10 @@ components:
           - Medium
           - Large
         default: Medium
+        description: |-
+          Sizing and spacing scale. Everything that reads it goes through
+          `byDensity`, which falls back to `Medium`, so `Medium` is the default
+          everywhere the prop is left off.
         inherited: WidgetBaseProps
       - name: height
         type: Sizing
@@ -12177,9 +12156,105 @@ components:
         type: Sizing
         required: false
         inherited: WidgetBaseProps
+  - name: WireframeArrow
+    category: Widgets
+    file: src/widgets/wireframe/Arrow.tsx
+    ivy: Ivy.WireframeArrow
+    description: |-
+      A drawn-on arrow, for pointing one part of a sketch at another.
+      Mirrors `Ivy.WireframeArrow`.
+    tags:
+      - annotation
+      - pointer
+      - connector
+      - leader
+    examples:
+      - <WireframeArrow direction="Right" />
+      - <WireframeArrow direction="DownRight" bend="Left" heads="Both" dashed />
+    props:
+      - name: bend
+        type: ArrowBend
+        required: false
+        values:
+          - None
+          - Left
+          - Right
+        default: None
+        description: Bows the shaft off the straight line, to either side.
+      - name: color
+        type: string
+        required: false
+        default: Black
+      - name: dashed
+        type: boolean
+        required: false
+      - name: direction
+        type: ArrowDirection
+        required: false
+        values:
+          - Right
+          - Left
+          - Up
+          - Down
+          - UpLeft
+          - UpRight
+          - DownLeft
+          - DownRight
+        default: Right
+        description: Which way the shaft runs across the box.
+      - name: heads
+        type: ArrowHeads
+        required: false
+        values:
+          - None
+          - Start
+          - End
+          - Both
+        default: End
+        description: Which end (or both) gets a head.
+      - name: aspectRatio
+        type: number
+        required: false
+        inherited: WidgetBaseProps
+      - name: data-testid
+        type: string
+        required: false
+        inherited: WidgetBaseProps
+      - name: density
+        type: Densities
+        required: false
+        values:
+          - Small
+          - Medium
+          - Large
+        default: Medium
+        description: |-
+          Sizing and spacing scale. Everything that reads it goes through
+          `byDensity`, which falls back to `Medium`, so `Medium` is the default
+          everywhere the prop is left off.
+        inherited: WidgetBaseProps
+      - name: height
+        type: Sizing
+        required: false
+        default: "15"
+        inherited: WidgetBaseProps
+      - name: id
+        type: string
+        required: false
+        inherited: WidgetBaseProps
+      - name: visible
+        type: boolean
+        required: false
+        description: "`false` hides the widget without unmounting it, matching Ivy's `Visible`."
+        inherited: WidgetBaseProps
+      - name: width
+        type: Sizing
+        required: false
+        default: "40"
+        inherited: WidgetBaseProps
   - name: WireframeCallout
     category: Widgets
-    file: src/widgets/Wireframe.tsx
+    file: src/widgets/wireframe/Annotations.tsx
     ivy: Ivy.WireframeCallout
     description: A numbered marker for annotating a wireframe. Mirrors `Ivy.WireframeCallout`.
     tags:
@@ -12217,6 +12292,156 @@ components:
           - Small
           - Medium
           - Large
+        default: Medium
+        description: |-
+          Sizing and spacing scale. Everything that reads it goes through
+          `byDensity`, which falls back to `Medium`, so `Medium` is the default
+          everywhere the prop is left off.
+        inherited: WidgetBaseProps
+      - name: height
+        type: Sizing
+        required: false
+        inherited: WidgetBaseProps
+      - name: id
+        type: string
+        required: false
+        inherited: WidgetBaseProps
+      - name: visible
+        type: boolean
+        required: false
+        description: "`false` hides the widget without unmounting it, matching Ivy's `Visible`."
+        inherited: WidgetBaseProps
+      - name: width
+        type: Sizing
+        required: false
+        inherited: WidgetBaseProps
+  - name: WireframeCurlyBrace
+    category: Widgets
+    file: src/widgets/wireframe/CurlyBrace.tsx
+    ivy: Ivy.WireframeCurlyBrace
+    description: |-
+      A brace gathering a run of the sketch together, to be labelled as one thing.
+      Mirrors `Ivy.WireframeCurlyBrace`.
+    tags:
+      - annotation
+      - group
+      - span
+      - bracket
+    examples:
+      - <WireframeCurlyBrace height="12rem" />
+      - <WireframeCurlyBrace variant="Vertical" width="16rem" />
+    props:
+      - name: color
+        type: string
+        required: false
+        default: Black
+      - name: variant
+        type: CurlyBraceVariant
+        required: false
+        values:
+          - Horizontal
+          - Vertical
+        default: Horizontal
+        description: Direction the centre nub points, not the direction of the span.
+      - name: aspectRatio
+        type: number
+        required: false
+        inherited: WidgetBaseProps
+      - name: data-testid
+        type: string
+        required: false
+        inherited: WidgetBaseProps
+      - name: density
+        type: Densities
+        required: false
+        values:
+          - Small
+          - Medium
+          - Large
+        default: Medium
+        description: |-
+          Sizing and spacing scale. Everything that reads it goes through
+          `byDensity`, which falls back to `Medium`, so `Medium` is the default
+          everywhere the prop is left off.
+        inherited: WidgetBaseProps
+      - name: height
+        type: Sizing
+        required: false
+        inherited: WidgetBaseProps
+      - name: id
+        type: string
+        required: false
+        inherited: WidgetBaseProps
+      - name: visible
+        type: boolean
+        required: false
+        description: "`false` hides the widget without unmounting it, matching Ivy's `Visible`."
+        inherited: WidgetBaseProps
+      - name: width
+        type: Sizing
+        required: false
+        inherited: WidgetBaseProps
+  - name: WireframeMockup
+    category: Widgets
+    file: src/widgets/wireframe/Mockup.tsx
+    ivy: Ivy.WireframeMockup
+    description: |-
+      A hand-drawn device or browser frame wrapped around real content.
+      Mirrors `Ivy.WireframeMockup`.
+    tags:
+      - device
+      - phone
+      - browser
+      - frame
+      - chrome
+    slots:
+      - name: children
+        description: Laid out inside the frame's screen area
+    examples:
+      - <WireframeMockup variant="Mobile"><Card title="Inbox" /></WireframeMockup>
+      - <WireframeMockup variant="Website" url="app.example.com" width="42rem" />
+    props:
+      - name: color
+        type: string
+        required: false
+        default: Black
+      - name: title
+        type: string
+        required: false
+        description: Window title on the `Desktop` variant. Ignored by the other variants.
+      - name: url
+        type: string
+        required: false
+        description: Address bar text on the `Website` variant. Ignored by the other variants.
+      - name: variant
+        type: MockupVariant
+        required: false
+        values:
+          - Mobile
+          - Website
+          - Tablet
+          - Desktop
+        default: Mobile
+      - name: aspectRatio
+        type: number
+        required: false
+        inherited: WidgetBaseProps
+      - name: data-testid
+        type: string
+        required: false
+        inherited: WidgetBaseProps
+      - name: density
+        type: Densities
+        required: false
+        values:
+          - Small
+          - Medium
+          - Large
+        default: Medium
+        description: |-
+          Sizing and spacing scale. Everything that reads it goes through
+          `byDensity`, which falls back to `Medium`, so `Medium` is the default
+          everywhere the prop is left off.
         inherited: WidgetBaseProps
       - name: height
         type: Sizing
@@ -12237,7 +12462,7 @@ components:
         inherited: WidgetBaseProps
   - name: WireframeNote
     category: Widgets
-    file: src/widgets/Wireframe.tsx
+    file: src/widgets/wireframe/Annotations.tsx
     ivy: Ivy.WireframeNote
     description: A sticky note pinned to the wireframe. Mirrors `Ivy.WireframeNote`.
     tags:
@@ -12269,6 +12494,11 @@ components:
           - Small
           - Medium
           - Large
+        default: Medium
+        description: |-
+          Sizing and spacing scale. Everything that reads it goes through
+          `byDensity`, which falls back to `Medium`, so `Medium` is the default
+          everywhere the prop is left off.
         inherited: WidgetBaseProps
       - name: height
         type: Sizing
@@ -12287,4 +12517,317 @@ components:
         type: Sizing
         required: false
         default: 12rem
+        inherited: WidgetBaseProps
+  - name: WireframePlaceholder
+    category: Widgets
+    file: src/widgets/wireframe/Marks.tsx
+    ivy: Ivy.WireframePlaceholder
+    description: |-
+      The crossed box that stands in for content nobody has drawn yet.
+      Mirrors `Ivy.WireframePlaceholder`.
+    tags:
+      - annotation
+      - stub
+      - todo
+      - empty
+    examples:
+      - <WireframePlaceholder text="Hero image" />
+      - <WireframePlaceholder text="Chart goes here" color="Sky" width="20rem" />
+    props:
+      - name: color
+        type: string
+        required: false
+        default: Violet
+      - name: text
+        type: string
+        required: false
+        description: Label drawn across the middle, breaking the diagonals.
+      - name: aspectRatio
+        type: number
+        required: false
+        inherited: WidgetBaseProps
+      - name: data-testid
+        type: string
+        required: false
+        inherited: WidgetBaseProps
+      - name: density
+        type: Densities
+        required: false
+        values:
+          - Small
+          - Medium
+          - Large
+        default: Medium
+        description: |-
+          Sizing and spacing scale. Everything that reads it goes through
+          `byDensity`, which falls back to `Medium`, so `Medium` is the default
+          everywhere the prop is left off.
+        inherited: WidgetBaseProps
+      - name: height
+        type: Sizing
+        required: false
+        default: "35"
+        inherited: WidgetBaseProps
+      - name: id
+        type: string
+        required: false
+        inherited: WidgetBaseProps
+      - name: visible
+        type: boolean
+        required: false
+        description: "`false` hides the widget without unmounting it, matching Ivy's `Visible`."
+        inherited: WidgetBaseProps
+      - name: width
+        type: Sizing
+        required: false
+        default: "60"
+        inherited: WidgetBaseProps
+  - name: WireframeRedX
+    category: Widgets
+    file: src/widgets/wireframe/Marks.tsx
+    ivy: Ivy.WireframeRedX
+    description: |-
+      A marker X struck over a region — this part is wrong, or cut.
+      Mirrors `Ivy.WireframeRedX`.
+    tags:
+      - annotation
+      - reject
+      - cross-out
+    examples:
+      - <WireframeRedX width="12rem" height="6rem" />
+    props:
+      - name: color
+        type: string
+        required: false
+        default: Red
+      - name: aspectRatio
+        type: number
+        required: false
+        inherited: WidgetBaseProps
+      - name: data-testid
+        type: string
+        required: false
+        inherited: WidgetBaseProps
+      - name: density
+        type: Densities
+        required: false
+        values:
+          - Small
+          - Medium
+          - Large
+        default: Medium
+        description: |-
+          Sizing and spacing scale. Everything that reads it goes through
+          `byDensity`, which falls back to `Medium`, so `Medium` is the default
+          everywhere the prop is left off.
+        inherited: WidgetBaseProps
+      - name: height
+        type: Sizing
+        required: false
+        default: "25"
+        inherited: WidgetBaseProps
+      - name: id
+        type: string
+        required: false
+        inherited: WidgetBaseProps
+      - name: visible
+        type: boolean
+        required: false
+        description: "`false` hides the widget without unmounting it, matching Ivy's `Visible`."
+        inherited: WidgetBaseProps
+      - name: width
+        type: Sizing
+        required: false
+        default: "50"
+        inherited: WidgetBaseProps
+  - name: WireframeScratchOut
+    category: Widgets
+    file: src/widgets/wireframe/Marks.tsx
+    ivy: Ivy.WireframeScratchOut
+    description: |-
+      A scribbled-over region — struck through, but still legible underneath.
+      Mirrors `Ivy.WireframeScratchOut`.
+    tags:
+      - annotation
+      - strike
+      - delete
+      - scribble
+    examples:
+      - <WireframeScratchOut width="14rem" height="4rem" />
+    props:
+      - name: color
+        type: string
+        required: false
+        default: Black
+      - name: aspectRatio
+        type: number
+        required: false
+        inherited: WidgetBaseProps
+      - name: data-testid
+        type: string
+        required: false
+        inherited: WidgetBaseProps
+      - name: density
+        type: Densities
+        required: false
+        values:
+          - Small
+          - Medium
+          - Large
+        default: Medium
+        description: |-
+          Sizing and spacing scale. Everything that reads it goes through
+          `byDensity`, which falls back to `Medium`, so `Medium` is the default
+          everywhere the prop is left off.
+        inherited: WidgetBaseProps
+      - name: height
+        type: Sizing
+        required: false
+        default: "25"
+        inherited: WidgetBaseProps
+      - name: id
+        type: string
+        required: false
+        inherited: WidgetBaseProps
+      - name: visible
+        type: boolean
+        required: false
+        description: "`false` hides the widget without unmounting it, matching Ivy's `Visible`."
+        inherited: WidgetBaseProps
+      - name: width
+        type: Sizing
+        required: false
+        default: "50"
+        inherited: WidgetBaseProps
+  - name: WireframeTransform
+    category: Widgets
+    file: src/widgets/wireframe/Transform.tsx
+    ivy: Ivy.WireframeTransform
+    description: |-
+      Renders its children under a transform: rotated, scaled, skewed, flipped or
+      nudged. The transform is visual only — children keep the layout box they
+      started with, so a rotated child does not push its neighbours around. Turn
+      `fit` on when the transformed bounds should take up room.
+      Mirrors `Ivy.WireframeTransform`.
+    tags:
+      - rotate
+      - scale
+      - skew
+      - flip
+      - tilt
+    slots:
+      - name: children
+        description: The subtree the transform applies to
+    examples:
+      - <WireframeTransform rotate={-2}><Card title="Pinned up crooked" /></WireframeTransform>
+      - <WireframeTransform scale={0.5} fit><WireframeMockup variant="Mobile" /></WireframeTransform>
+    props:
+      - name: fit
+        type: boolean
+        required: false
+        description: |-
+          Shrinks the widget's own layout box to the transformed bounds, so a scaled
+          or rotated child takes up the room it visually occupies instead of the room
+          it started with. Off by default, which is the plain CSS behaviour. When on,
+          `origin` no longer affects the result — the bounds are recentred either way.
+      - name: flipHorizontal
+        type: boolean
+        required: false
+      - name: flipVertical
+        type: boolean
+        required: false
+      - name: offsetX
+        type: number
+        required: false
+        default: "0"
+        description: Horizontal nudge in pixels.
+      - name: offsetY
+        type: number
+        required: false
+        default: "0"
+        description: Vertical nudge in pixels.
+      - name: opacity
+        type: number
+        required: false
+        default: "1"
+        description: Fades the children. 1 is opaque.
+      - name: origin
+        type: TransformOrigin
+        required: false
+        values:
+          - Center
+          - TopLeft
+          - Top
+          - TopRight
+          - Left
+          - Right
+          - BottomLeft
+          - Bottom
+          - BottomRight
+        default: Center
+      - name: rotate
+        type: number
+        required: false
+        default: "0"
+        description: Clockwise rotation in degrees.
+      - name: scale
+        type: number
+        required: false
+        default: "1"
+        description: Uniform scale factor. 1 is unchanged.
+      - name: scaleX
+        type: number
+        required: false
+        description: Horizontal scale, overriding `scale` on that axis.
+      - name: scaleY
+        type: number
+        required: false
+        description: Vertical scale, overriding `scale` on that axis.
+      - name: skewX
+        type: number
+        required: false
+        default: "0"
+        description: Horizontal skew in degrees.
+      - name: skewY
+        type: number
+        required: false
+        default: "0"
+        description: Vertical skew in degrees.
+      - name: aspectRatio
+        type: number
+        required: false
+        inherited: WidgetBaseProps
+      - name: data-testid
+        type: string
+        required: false
+        inherited: WidgetBaseProps
+      - name: density
+        type: Densities
+        required: false
+        values:
+          - Small
+          - Medium
+          - Large
+        default: Medium
+        description: |-
+          Sizing and spacing scale. Everything that reads it goes through
+          `byDensity`, which falls back to `Medium`, so `Medium` is the default
+          everywhere the prop is left off.
+        inherited: WidgetBaseProps
+      - name: height
+        type: Sizing
+        required: false
+        inherited: WidgetBaseProps
+      - name: id
+        type: string
+        required: false
+        inherited: WidgetBaseProps
+      - name: visible
+        type: boolean
+        required: false
+        description: "`false` hides the widget without unmounting it, matching Ivy's `Visible`."
+        inherited: WidgetBaseProps
+      - name: width
+        type: Sizing
+        required: false
         inherited: WidgetBaseProps

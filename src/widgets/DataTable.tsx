@@ -8,7 +8,6 @@ import { formatNumber, type FormatStyle } from "./inputs/NumberInput";
 import { InputShell, nativeInputClass } from "./inputs/InputShell";
 import { Badge } from "./Badge";
 import { DropDownMenu } from "./Menus";
-import { Empty } from "./primitives/Feedback";
 import { Pagination } from "./Navigation";
 
 export type ColType =
@@ -289,7 +288,11 @@ export const DataTable = ({
             {paged.length === 0 && (
               <tr>
                 <td colSpan={visibleColumns.length + (selectable ? 1 : 0) + (rowActions ? 1 : 0)}>
-                  {emptyView ?? <Empty title="No rows" description="Nothing matches this filter" />}
+                  {emptyView ?? (
+                    <span className="block py-6 text-center text-ink-muted">
+                      Nothing matches this filter
+                    </span>
+                  )}
                 </td>
               </tr>
             )}

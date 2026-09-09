@@ -1,6 +1,6 @@
 import * as React from "react";
 import { cn, densityText, overflowClass, textAlignClass, widgetStyle } from "@/lib/utils";
-import type { Densities, Overflow, TextAlignment, WidgetBaseProps } from "@/lib/types";
+import type { Overflow, TextAlignment, WidgetBaseProps } from "@/lib/types";
 import { resolveColor } from "@/sketch/colors";
 
 export type TextBlockVariant =
@@ -35,7 +35,6 @@ export interface TextBlockProps extends WidgetBaseProps {
   bold?: boolean;
   italic?: boolean;
   muted?: boolean;
-  density?: Densities;
   textAlignment?: TextAlignment;
   anchor?: string;
   children?: React.ReactNode;
@@ -108,7 +107,7 @@ export const TextBlock = ({
   bold,
   italic,
   muted,
-  density,
+  density = "Medium",
   textAlignment,
   anchor,
   className,

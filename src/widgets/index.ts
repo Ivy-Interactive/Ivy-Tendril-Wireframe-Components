@@ -1,9 +1,10 @@
 export * from "./primitives";
 export * from "./inputs";
 export * from "./charts";
+export * from "./layouts";
+export * from "./wireframe";
 export * from "./Badge";
 export * from "./Button";
-export * from "./Calendar";
 export * from "./Card";
 export * from "./Chat";
 export * from "./DataTable";
@@ -14,4 +15,3 @@ export * from "./Navigation";
 export * from "./Overlays";
 export * from "./Progress";
 export * from "./Table";
-export * from "./Wireframe";

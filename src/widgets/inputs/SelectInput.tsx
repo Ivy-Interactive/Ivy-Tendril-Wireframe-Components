@@ -74,7 +74,7 @@ const OptionRow = ({
     disabled={option.disabled}
     onClick={onSelect}
     className={cn(
-      "flex w-full items-center gap-2 text-left",
+      "flex w-full items-center gap-2 rounded-sm text-left",
       inputPadding(density),
       option.disabled ? "cursor-not-allowed opacity-45" : "cursor-pointer hover:bg-highlight",
       selected && "bg-highlight",
@@ -254,7 +254,7 @@ export const SelectInput = ({
             fill={PAPER_RAISED}
             fillStyle="solid"
             className="block w-full"
-            contentClassName="block max-h-64 overflow-auto py-1"
+            contentClassName="block max-h-64 overflow-auto px-1 py-1"
           >
             {body}
           </SketchFrame>
@@ -325,7 +325,7 @@ export const SelectInput = ({
   return (
     <PopoverPrimitive.Root open={open} onOpenChange={setOpen}>
       <PopoverPrimitive.Trigger asChild disabled={disabled}>
-        <div>
+        <div className="w-fit max-w-full">
           <InputShell
             id={id}
             disabled={disabled}
@@ -376,8 +376,8 @@ export const SelectInput = ({
             seed={`${id}-options`}
             fill={PAPER_RAISED}
             fillStyle="solid"
-            className={cn("tendril min-w-52", densityText(density))}
-            contentClassName="block max-h-72 overflow-auto py-1"
+            className={cn("tendril min-w-52 max-w-[calc(100vw-2rem)]", densityText(density))}
+            contentClassName="block max-h-72 overflow-auto px-1 py-1"
             style={{ width: "var(--radix-popover-trigger-width)" }}
           >
             {searchable !== false && options.length > 6 && (
@@ -480,7 +480,7 @@ export const AsyncSelectInput = ({
   return (
     <PopoverPrimitive.Root open={open} onOpenChange={setOpen}>
       <PopoverPrimitive.Trigger asChild disabled={disabled}>
-        <div>
+        <div className="w-fit max-w-full">
           <InputShell
             id={id}
             disabled={disabled}
@@ -523,8 +523,8 @@ export const AsyncSelectInput = ({
             seed={`${id}-async`}
             fill={PAPER_RAISED}
             fillStyle="solid"
-            className={cn("tendril min-w-52", densityText(density))}
-            contentClassName="block max-h-72 overflow-auto py-1"
+            className={cn("tendril min-w-52 max-w-[calc(100vw-2rem)]", densityText(density))}
+            contentClassName="block max-h-72 overflow-auto px-1 py-1"
             style={{ width: "var(--radix-popover-trigger-width)" }}
           >
             <div className={cn("flex items-center gap-2 border-b border-dashed border-ink-faint", inputPadding(density))}>

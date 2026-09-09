@@ -1,0 +1,84 @@
+name: Publish to npm
+
+# Publishing is driven by GitHub Releases, so the tag, the release notes and the
+# published version are always the same event. Draft a release, publish it, and
+# this runs.
+#
+# `workflow_dispatch` is the rehearsal: it runs every gate and then does a
+# `--dry-run` publish, so the pipeline can be exercised without burning a
+# version number.
+on:
+  release:
+    types: [published]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  # Required for npm provenance, which signs the package with a link back to
+  # this workflow run. Only works from a public repository — if this repo is
+  # private, drop `provenance` from `publishConfig` in package.json.
+  id-token: write
+
+jobs:
+  publish:
+    name: Build, verify and publish
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+          registry-url: https://registry.npmjs.org
+
+      - name: Install
+        run: npm ci
+
+      - name: Typecheck
+        run: npm run typecheck
+
+      # Before the build, not after: `npm run build` regenerates the manifest as
+      # its last step, so checking afterwards would only ever compare the file
+      # to itself. This catches a manifest that was not committed with the props
+      # it describes.
+      - name: Check the committed manifest is current
+        run: npm run manifest:check
+
+      - name: Build
+        run: npm run build
+
+      - name: Check the release tag matches package.json
+        if: github.event_name == 'release'
+        run: |
+          tag="${GITHUB_REF_NAME#v}"
+          pkg="$(node -p "require('./package.json').version")"
+          if [ "$tag" != "$pkg" ]; then
+            echo "::error::Release tag ${GITHUB_REF_NAME} does not match package.json version ${pkg}."
+            echo "Bump the version in package.json and re-tag, or retag the release as v${pkg}."
+            exit 1
+          fi
+          echo "Publishing ${pkg} from ${GITHUB_REF_NAME}."
+
+      - name: Check this version is not already on npm
+        if: github.event_name == 'release'
+        run: |
+          pkg="$(node -p "require('./package.json').version")"
+          name="$(node -p "require('./package.json').name")"
+          if npm view "${name}@${pkg}" version >/dev/null 2>&1; then
+            echo "::error::${name}@${pkg} is already published. npm versions are immutable — bump the version."
+            exit 1
+          fi
+
+      - name: Publish
+        if: github.event_name == 'release'
+        run: npm publish
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+
+      - name: Dry run
+        if: github.event_name == 'workflow_dispatch'
+        run: npm publish --dry-run
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}

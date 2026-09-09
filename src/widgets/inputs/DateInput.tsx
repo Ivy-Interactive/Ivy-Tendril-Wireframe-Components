@@ -147,7 +147,7 @@ export const DateTimeInput = ({
   return (
     <PopoverPrimitive.Root open={open} onOpenChange={setOpen}>
       <PopoverPrimitive.Trigger asChild disabled={disabled}>
-        <div>
+        <div className="w-fit max-w-full">
           <InputShell
             id={id}
             disabled={disabled}
@@ -292,7 +292,7 @@ export const DateRangeInput = ({
   return (
     <PopoverPrimitive.Root open={open} onOpenChange={setOpen}>
       <PopoverPrimitive.Trigger asChild disabled={disabled}>
-        <div>
+        <div className="w-fit max-w-full">
           <InputShell
             id={id}
             disabled={disabled}

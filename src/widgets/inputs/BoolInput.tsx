@@ -108,7 +108,11 @@ export const BoolInput = ({
         ) : (
           icon && <Icon name={icon} size={iconSize} />
         )}
-        {label && <span className={cn(value && "font-bold")}>{label}</span>}
+        {label && (
+          <span className={cn("steady-bold", value && "font-bold")} data-label={label}>
+            <span>{label}</span>
+          </span>
+        )}
       </SketchFrame>
     );
   }

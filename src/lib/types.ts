@@ -26,11 +26,25 @@ export type BorderRadius = "None" | "Rounded" | "Full";
 
 export type Overflow = "Clip" | "Ellipsis" | "Auto" | "Visible" | "Scroll";
 
+/** Which axes a container scrolls on, mirroring `Ivy.Scroll`. */
+export type Scroll = "None" | "Auto" | "Vertical" | "Horizontal" | "Both";
+
 export type TextAlignment = "Left" | "Center" | "Right" | "Justify";
 
 export type HoverEffect = "None" | "Pointer" | "PointerAndTranslate" | "Shadow";
 
 export type Sizing = number | string;
+
+/**
+ * Per-edge spacing, mirroring `Ivy.Thickness`. A bare number is uniform on all
+ * four edges; both go through `toCssSize`, so a number means Ivy's 0.25rem unit.
+ */
+export interface Thickness {
+  left?: Sizing;
+  top?: Sizing;
+  right?: Sizing;
+  bottom?: Sizing;
+}
 
 /** Item shared by `DropDownMenu`, `Toolbar`, `Tree` and every row-action surface. */
 export interface MenuItem {
@@ -87,6 +101,13 @@ export interface WidgetBaseProps {
   width?: Sizing;
   height?: Sizing;
   aspectRatio?: number;
+  /**
+   * Sizing and spacing scale. Everything that reads it goes through
+   * `byDensity`, which falls back to `Medium`, so `Medium` is the default
+   * everywhere the prop is left off.
+   *
+   * @default "Medium"
+   */
   density?: Densities;
   /** `false` hides the widget without unmounting it, matching Ivy's `Visible`. */
   visible?: boolean;

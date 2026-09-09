@@ -1,91 +1,8 @@
-import * as React from "react";
 import { cn, widgetStyle } from "@/lib/utils";
 import type { WidgetBaseProps } from "@/lib/types";
-import { INK_FAINT, INK_MUTED, STROKE, resolveColor, tint } from "@/sketch/colors";
-import { Icon } from "@/sketch/Icon";
-import { SketchFrame } from "@/sketch/SketchFrame";
+import { INK_FAINT, INK_MUTED, STROKE } from "@/sketch/colors";
 import { RoughShape } from "@/sketch/RoughShape";
 import { useMeasuredSize } from "@/sketch/useRough";
-
-export interface ErrorProps extends WidgetBaseProps {
-  title?: string | null;
-  message?: string | null;
-  stackTrace?: string | null;
-}
-
-/** The red-pencil error panel. Mirrors `Ivy.Error`. */
-export const ErrorPanel = ({
-  id,
-  title,
-  message,
-  stackTrace,
-  width,
-  height,
-  aspectRatio,
-  visible,
-  className,
-  style,
-}: ErrorProps) => (
-  <SketchFrame
-    id={id}
-    seed={id ?? "error"}
-    stroke={resolveColor("Destructive")}
-    fill={tint(resolveColor("Destructive"), 0.9)}
-    fillStyle="solid"
-    className={cn("inline-block max-w-full", className)}
-    contentClassName="flex items-start gap-3 p-4"
-    style={widgetStyle({ width, height, aspectRatio, visible, style })}
-  >
-    <Icon name="OctagonAlert" color="Destructive" size={20} className="mt-0.5" />
-    <span className="block min-w-0 flex-1">
-      <span className="block font-bold text-destructive">{title ?? "Something went wrong"}</span>
-      {message && <span className="mt-1 block text-sm">{message}</span>}
-      {stackTrace && (
-        <pre className="mt-2 max-h-56 overflow-auto rounded-none bg-paper-sunken p-2 font-sketch-mono text-xs whitespace-pre-wrap text-ink-muted">
-          {stackTrace}
-        </pre>
-      )}
-    </span>
-  </SketchFrame>
-);
-
-export interface EmptyProps extends WidgetBaseProps {
-  title?: string;
-  description?: string;
-  icon?: string;
-  children?: React.ReactNode;
-}
-
-/**
- * Placeholder for "there is nothing here yet". Mirrors `Ivy.Empty`.
- *
- * @tags placeholder no-results zero-state
- * @example <Empty title="No results" description="Try another filter" />
- */
-export const Empty = ({
-  id,
-  title = "Nothing here",
-  description,
-  icon = "Inbox",
-  children,
-  width,
-  height,
-  aspectRatio,
-  visible,
-  className,
-  style,
-}: EmptyProps) => (
-  <div
-    id={id}
-    className={cn("flex flex-col items-center justify-center gap-2 p-8 text-center", className)}
-    style={widgetStyle({ width, height, aspectRatio, visible, style })}
-  >
-    <Icon name={icon} size={36} color={INK_FAINT} />
-    <span className="font-bold text-ink-muted">{title}</span>
-    {description && <span className="max-w-xs text-sm text-ink-faint">{description}</span>}
-    {children}
-  </div>
-);
 
 export interface SkeletonProps extends WidgetBaseProps {
   /** Number of stacked placeholder lines. */
@@ -188,15 +105,3 @@ export const Loading = ({
     </div>
   );
 };
-
-export type SpacerProps = WidgetBaseProps;
-
-/** Blank space. Mirrors `Ivy.Spacer`. */
-export const Spacer = ({ id, width, height, aspectRatio, visible, className, style }: SpacerProps) => (
-  <div
-    id={id}
-    aria-hidden="true"
-    className={cn(!width && !height && "flex-1", className)}
-    style={widgetStyle({ width, height, aspectRatio, visible, style })}
-  />
-);

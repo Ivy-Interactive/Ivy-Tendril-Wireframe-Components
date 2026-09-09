@@ -24,6 +24,7 @@ const CATEGORY_BY_PATH = [
   [/src\/widgets\/primitives\//, "Primitives"],
   [/src\/widgets\/inputs\//, "Inputs"],
   [/src\/widgets\/charts\//, "Charts"],
+  [/src\/widgets\/layouts\//, "Layouts"],
   [/src\/sketch\//, "Foundations"],
   [/src\/widgets\//, "Widgets"],
 ];
@@ -214,7 +215,19 @@ for (const exported of exports) {
       if (named) sharedTypes[named] = values;
     }
 
+    // A destructuring default is the most direct evidence; failing that, a
+    // `@default` tag on the prop declaration states one for the components
+    // that only inherit it and never destructure it themselves.
     if (defaults[name] !== undefined) entryProp.default = defaults[name];
+    else {
+      const declared = propSymbol
+        .getJsDocTags(checker)
+        .find((tag) => tag.name === "default");
+      if (declared) {
+        const text = ts.displayPartsToString(declared.text ?? []).trim();
+        if (text) entryProp.default = text.replace(/^["'`]|["'`]$/g, "");
+      }
+    }
 
     const propDoc = ts.displayPartsToString(propSymbol.getDocumentationComment(checker)).trim();
     if (propDoc) entryProp.description = propDoc;

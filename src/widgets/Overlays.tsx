@@ -2,7 +2,7 @@ import * as React from "react";
 import * as DialogPrimitive from "@radix-ui/react-dialog";
 import { cn, sizeStyle, widgetStyle } from "@/lib/utils";
 import type { WidgetBaseProps } from "@/lib/types";
-import { INK_FAINT, PAPER_RAISED, STROKE } from "@/sketch/colors";
+import { PAPER_RAISED, STROKE } from "@/sketch/colors";
 import { Icon } from "@/sketch/Icon";
 import { SketchFrame } from "@/sketch/SketchFrame";
 
@@ -279,81 +279,3 @@ export const Sheet = ({
     </DialogPrimitive.Root>
   );
 };
-
-export interface BladeContainerProps extends WidgetBaseProps {
-  children?: React.ReactNode;
-}
-
-/** Horizontal stack of drill-down blades. Mirrors `Ivy.BladeContainer`. */
-export const BladeContainer = ({
-  id,
-  children,
-  width,
-  height,
-  aspectRatio,
-  visible,
-  className,
-  style,
-}: BladeContainerProps) => (
-  <div
-    id={id}
-    className={cn("flex h-full items-stretch gap-3 overflow-x-auto", className)}
-    style={widgetStyle({ width, height, aspectRatio, visible, style })}
-  >
-    {children}
-  </div>
-);
-
-export interface BladeProps extends WidgetBaseProps {
-  title?: string;
-  index?: number;
-  header?: React.ReactNode;
-  children?: React.ReactNode;
-  onClose?: () => void;
-  onRefresh?: () => void;
-}
-
-/** One panel inside a `BladeContainer`. Mirrors `Ivy.Blade`. */
-export const Blade = ({
-  id,
-  title,
-  width = "22rem",
-  height = "100%",
-  aspectRatio,
-  visible,
-  index = 0,
-  header,
-  children,
-  className,
-  style,
-  onClose,
-  onRefresh,
-}: BladeProps) => (
-  <SketchFrame
-    id={id}
-    seed={id ?? `blade-${index}`}
-    corner="rounded"
-    stroke={INK_FAINT}
-    fill={PAPER_RAISED}
-    fillStyle="solid"
-    className={cn("block shrink-0", className)}
-    contentClassName="flex h-full flex-col overflow-hidden"
-    style={widgetStyle({ width, height, aspectRatio, visible, style })}
-  >
-    <div className="flex items-center gap-2 border-b border-dashed border-ink-faint px-4 py-2.5">
-      <span className="min-w-0 flex-1 truncate font-bold">{title}</span>
-      {header}
-      {onRefresh && (
-        <button type="button" aria-label="Refresh" onClick={onRefresh} className="cursor-pointer p-1 text-ink-muted hover:text-ink">
-          <Icon name="RefreshCw" size={14} />
-        </button>
-      )}
-      {onClose && index > 0 && (
-        <button type="button" aria-label="Close blade" onClick={onClose} className="cursor-pointer p-1 text-ink-muted hover:text-ink">
-          <Icon name="X" size={14} />
-        </button>
-      )}
-    </div>
-    <div className="flex-1 overflow-auto p-4">{children}</div>
-  </SketchFrame>
-);

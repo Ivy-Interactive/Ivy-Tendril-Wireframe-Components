@@ -7,6 +7,7 @@ import { INK, INK_FAINT, PAPER_RAISED, STROKE, SURFACE, resolveColor } from "@/s
 import { Icon } from "@/sketch/Icon";
 import { RoughShape } from "@/sketch/RoughShape";
 import { SketchFrame } from "@/sketch/SketchFrame";
+import { CODE_COLORS, tokenize } from "@/sketch/syntax";
 import { useMeasuredSize } from "@/sketch/useRough";
 import { BaseInputProps, InputShell, inputPadding, nativeInputClass } from "./InputShell";
 
@@ -210,7 +211,7 @@ export const IconInput = ({
   return (
     <PopoverPrimitive.Root open={open} onOpenChange={setOpen}>
       <PopoverPrimitive.Trigger asChild disabled={disabled}>
-        <div>
+        <div className="w-fit max-w-full">
           <InputShell
             id={id}
             disabled={disabled}
@@ -391,7 +392,7 @@ export const FeedbackInput = ({
               name={half ? "StarHalf" : "Star"}
               size={size}
               color={filled || half ? resolveColor("Amber") : INK_FAINT}
-              className={cn(filled && "fill-current")}
+              fill={filled || half ? resolveColor("Amber") : "none"}
             />
           </button>
         );
@@ -712,7 +713,11 @@ export const CodeInput = ({
   onChange,
 }: CodeInputProps) => {
   const [copied, setCopied] = React.useState(false);
-  const lineCount = value.split("\n").length;
+  const scrollRef = React.useRef<HTMLPreElement | null>(null);
+  const lines = React.useMemo(() => tokenize(value, language), [value, language]);
+  // The gutter, the highlighted layer and the textarea all share one type
+  // scale — the moment they disagree, the colours slide off the characters.
+  const codeText = byDensity(density, ["text-[11px]", "text-xs", "text-sm"]);
 
   return (
     <div
@@ -726,7 +731,7 @@ export const CodeInput = ({
         fill={SURFACE.code}
         fillStyle="solid"
         className="relative block w-full"
-        contentClassName="flex overflow-hidden"
+        contentClassName="flex h-full overflow-hidden"
         style={widgetStyle({ height })}
       >
         {showCopyButton && (
@@ -748,161 +753,67 @@ export const CodeInput = ({
           </button>
         )}
         {variant !== "Ghost" && (
-          <span className="shrink-0 border-r border-dashed border-ink-faint px-2 py-2 text-right font-sketch-mono text-xs text-ink-faint select-none">
-            {Array.from({ length: lineCount }).map((_, index) => (
+          <span
+            className={cn(
+              "shrink-0 border-r border-dashed border-ink-faint px-2 py-2 text-right font-sketch-mono text-ink-faint select-none",
+              codeText,
+            )}
+          >
+            {lines.map((_, index) => (
               <span key={index} className="block leading-relaxed">
                 {index + 1}
               </span>
             ))}
           </span>
         )}
-        <textarea
-          id={id}
-          value={value}
-          placeholder={placeholder}
-          disabled={disabled}
-          autoFocus={autoFocus}
-          spellCheck={false}
-          data-language={language}
-          className={cn(
-            nativeInputClass,
-            "h-full flex-1 resize-none px-2 py-2 font-sketch-mono text-xs leading-relaxed",
-            densityText(density),
-          )}
-          onChange={(event) => onChange?.(nullable && !event.target.value ? null : event.target.value)}
-        />
-      </SketchFrame>
-      {invalid && <span className="mt-1 block text-xs text-destructive">{invalid}</span>}
-    </div>
-  );
-};
-
-export interface ContentInputProps extends BaseInputProps {
-  value?: string;
-  maxLength?: number;
-  rows?: number;
-  files?: FileItem[];
-  accept?: string;
-  maxFiles?: number;
-  maxFileSize?: number;
-  uploadUrl?: string;
-  shortcutKey?: string;
-  onChange?: (value: string | null) => void;
-  onAttach?: (files: File[]) => void;
-  onSubmit?: (value: string) => void;
-}
-
-/**
- * Composer for a message plus its attachments — the input at the bottom of a
- * chat. Mirrors `Ivy.ContentInput`.
- */
-export const ContentInput = ({
-  id,
-  value = "",
-  maxLength,
-  rows = 3,
-  files = [],
-  accept,
-  maxFiles,
-  maxFileSize,
-  uploadUrl,
-  shortcutKey,
-  placeholder = "Write something…",
-  disabled,
-  invalid,
-  density = "Medium",
-  width = "28rem",
-  height,
-  aspectRatio,
-  visible,
-  autoFocus,
-  className,
-  style,
-  onChange,
-  onAttach,
-  onSubmit,
-}: ContentInputProps) => {
-  const fileRef = React.useRef<HTMLInputElement>(null);
-
-  return (
-    <div
-      className={cn("inline-block", className)}
-      style={widgetStyle({ width, height, aspectRatio, visible, style })}
-    >
-      <SketchFrame
-        seed={id ?? "content-input"}
-        stroke={invalid ? resolveColor("Destructive") : INK_FAINT}
-        fill={PAPER_RAISED}
-        fillStyle="solid"
-        className="block w-full"
-        contentClassName="block p-2"
-      >
-        <textarea
-          id={id}
-          value={value}
-          rows={rows}
-          maxLength={maxLength}
-          placeholder={placeholder}
-          disabled={disabled}
-          autoFocus={autoFocus}
-          className={cn(nativeInputClass, "resize-y leading-relaxed", densityText(density))}
-          onChange={(event) => onChange?.(event.target.value)}
-          onKeyDown={(event) => {
-            if (event.key === "Enter" && (event.metaKey || event.ctrlKey)) onSubmit?.(value);
-          }}
-        />
-        {files.length > 0 && (
-          <span className="mt-2 flex flex-wrap gap-1.5">
-            {files.map((file) => (
-              <span
-                key={file.id}
-                className="flex items-center gap-1 border border-dashed border-ink-faint px-1.5 py-0.5 text-xs"
-              >
-                <Icon name="Paperclip" size={11} />
-                {file.fileName}
+        <span className="relative block min-w-0 flex-1">
+          <pre
+            ref={scrollRef}
+            aria-hidden="true"
+            className={cn(
+              "pointer-events-none absolute inset-0 m-0 overflow-hidden px-2 py-2 font-sketch-mono leading-relaxed whitespace-pre",
+              codeText,
+            )}
+          >
+            {lines.map((tokens, index) => (
+              <span key={index} className="block">
+                {tokens.length === 0
+                  ? " "
+                  : tokens.map((token, position) => (
+                      <span
+                        key={position}
+                        style={{ color: CODE_COLORS[token.kind] }}
+                        className={token.kind === "comment" ? "italic" : undefined}
+                      >
+                        {token.text}
+                      </span>
+                    ))}
               </span>
             ))}
-          </span>
-        )}
-        <span className="mt-2 flex items-center justify-between border-t border-dashed border-ink-faint pt-2">
-          <span className="flex items-center gap-2">
-            <input
-              ref={fileRef}
-              type="file"
-              accept={accept}
-              multiple={maxFiles !== 1}
-              className="hidden"
-              data-upload-url={uploadUrl}
-              data-max-file-size={maxFileSize}
-              onChange={(event) => onAttach?.(Array.from(event.target.files ?? []))}
-            />
-            <button
-              type="button"
-              aria-label="Attach files"
-              disabled={disabled}
-              onClick={() => fileRef.current?.click()}
-              className="cursor-pointer text-ink-muted hover:text-ink"
-            >
-              <Icon name="Paperclip" size={16} />
-            </button>
-            {maxLength && (
-              <span className="text-[10px] text-ink-faint">
-                {value.length}/{maxLength}
-              </span>
+          </pre>
+          <textarea
+            id={id}
+            value={value}
+            placeholder={placeholder}
+            disabled={disabled}
+            autoFocus={autoFocus}
+            spellCheck={false}
+            data-language={language}
+            onScroll={(event) => {
+              const pre = scrollRef.current;
+              if (!pre) return;
+              pre.scrollTop = event.currentTarget.scrollTop;
+              pre.scrollLeft = event.currentTarget.scrollLeft;
+            }}
+            className={cn(
+              nativeInputClass,
+              "relative h-full w-full resize-none bg-transparent px-2 py-2 font-sketch-mono leading-relaxed whitespace-pre text-transparent caret-ink",
+              codeText,
             )}
-          </span>
-          <span className="flex items-center gap-2">
-            {shortcutKey && <span className="font-sketch-mono text-[10px] text-ink-faint">{shortcutKey}</span>}
-            <button
-              type="button"
-              aria-label="Send"
-              disabled={disabled || !value.trim()}
-              onClick={() => onSubmit?.(value)}
-              className="cursor-pointer text-ink-muted hover:text-ink disabled:opacity-40"
-            >
-              <Icon name="SendHorizontal" size={16} />
-            </button>
-          </span>
+            onChange={(event) =>
+              onChange?.(nullable && !event.target.value ? null : event.target.value)
+            }
+          />
         </span>
       </SketchFrame>
       {invalid && <span className="mt-1 block text-xs text-destructive">{invalid}</span>}
@@ -989,9 +900,7 @@ export const AudioInput = ({
             </svg>
           )}
         </span>
-        <span className="shrink-0 font-sketch-mono text-xs text-ink-muted">
-          {recording ? recordingLabel : label}
-        </span>
+        <span className="shrink-0 text-xs text-ink-muted">{recording ? recordingLabel : label}</span>
       </SketchFrame>
       {invalid && <span className="mt-1 block text-xs text-destructive">{invalid}</span>}
     </div>

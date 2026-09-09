@@ -1,6 +1,7 @@
 import * as React from "react";
 import { cn, seedFrom } from "@/lib/utils";
 import { INK } from "./colors";
+import { roundedRectPath } from "./hand";
 import { useSketchTheme } from "./SketchProvider";
 import {
   roughPaths,
@@ -43,21 +44,44 @@ export interface SketchLayerProps {
   opacity?: number;
 }
 
-function roundedRectPath(x: number, y: number, w: number, h: number, r: number) {
-  const radius = Math.max(0, Math.min(r, w / 2, h / 2));
-  if (radius === 0) return `M ${x} ${y} H ${x + w} V ${y + h} H ${x} Z`;
-  return [
-    `M ${x + radius} ${y}`,
-    `H ${x + w - radius}`,
-    `A ${radius} ${radius} 0 0 1 ${x + w} ${y + radius}`,
-    `V ${y + h - radius}`,
-    `A ${radius} ${radius} 0 0 1 ${x + w - radius} ${y + h}`,
-    `H ${x + radius}`,
-    `A ${radius} ${radius} 0 0 1 ${x} ${y + h - radius}`,
-    `V ${y + radius}`,
-    `A ${radius} ${radius} 0 0 1 ${x + radius} ${y}`,
-    "Z",
-  ].join(" ");
+/**
+ * The radius the content layer clips to, so a fill inside the frame — a
+ * highlighted menu row, a scrolling panel — follows the drawn corner instead
+ * of squaring off across it. Slightly wider than the border's own radius, which
+ * keeps the clip just inside the wobbling pencil line rather than under it.
+ */
+function contentRadius(corner: SketchCorner): string {
+  switch (corner) {
+    case "ellipse":
+      return "50%";
+    case "pill":
+      return "9999px";
+    case "sharp":
+      return "0";
+    default:
+      return "8px";
+  }
+}
+
+/** Whether the caller already asked for its content to be clipped. */
+const CLIPS = /overflow-(hidden|auto|scroll|clip)/;
+
+/**
+ * Rounds the content layer to the drawn corner, and — for frames that already
+ * clip — pulls the clip in to where the border actually sits. Only frames that
+ * opted into clipping are inset, so a chart or a tooltip whose content is meant
+ * to spill out still can.
+ */
+function contentClip(
+  corner: SketchCorner,
+  strokeWidth: number,
+  contentClassName?: string,
+): React.CSSProperties {
+  const radius = contentRadius(corner);
+  if (radius === "0") return {};
+  if (!CLIPS.test(contentClassName ?? "")) return { borderRadius: radius };
+  const inset = strokeWidth + 1;
+  return { borderRadius: radius, clipPath: `inset(${inset}px round ${radius})` };
 }
 
 function edgeShape(
@@ -189,6 +213,7 @@ export const SketchLayer = ({
           stroke={path.stroke}
           strokeWidth={path.strokeWidth}
           fill={path.fill ?? "none"}
+          strokeDasharray={path.strokeLineDash?.join(" ")}
           strokeLinecap="round"
           strokeLinejoin="round"
         />
@@ -237,6 +262,7 @@ export const SketchFrame = React.forwardRef<HTMLElement, SketchFrameProps>(funct
   forwardedRef,
 ) {
   const { ref, width, height } = useMeasuredSize<HTMLElement>();
+  const theme = useSketchTheme();
 
   const setRefs = React.useCallback(
     (node: HTMLElement | null) => {
@@ -268,7 +294,12 @@ export const SketchFrame = React.forwardRef<HTMLElement, SketchFrameProps>(funct
         doubleStroke={doubleStroke}
         opacity={opacity}
       />
-      <Content className={cn("relative z-[1] block", contentClassName)}>{children}</Content>
+      <Content
+        className={cn("relative z-[1] block", contentClassName)}
+        style={contentClip(corner ?? "rounded", strokeWidth ?? theme.strokeWidth, contentClassName)}
+      >
+        {children}
+      </Content>
     </Component>
   );
 });

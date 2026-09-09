@@ -58,6 +58,43 @@
   }
 }
 
+@layer base {
+  /*
+   * A child can cancel its container's padding, so a layout that has to sit
+   * flush against the edge of the panel holding it can say so from the inside.
+   * Mirrors Ivy's `.remove-parent-padding`.
+   */
+  .tendril :where(*):has(> .remove-parent-padding) {
+    padding: 0 !important;
+  }
+}
+
+@layer base {
+  /*
+   * Bold and regular are not the same width, so a label that goes bold when it
+   * is selected nudges its neighbours by a pixel on every click. This reserves
+   * the bold width up front: the label and a hidden bold copy of it share one
+   * grid cell, and the wider of the two sizes the box.
+   */
+  .tendril .steady-bold {
+    display: inline-grid;
+  }
+
+  .tendril .steady-bold::after {
+    content: attr(data-label);
+    grid-area: 1 / 1;
+    height: 0;
+    overflow: hidden;
+    font-weight: 700;
+    visibility: hidden;
+    pointer-events: none;
+  }
+
+  .tendril .steady-bold > * {
+    grid-area: 1 / 1;
+  }
+}
+
 @utility sketch-wobble {
   filter: url(#tendril-wobble);
 }
@@ -221,16 +258,5 @@
   }
   75% {
     transform: rotate(-9deg);
-  }
-}
-
-@keyframes tendril-confetti {
-  from {
-    opacity: 1;
-    transform: translateY(0) rotate(0deg);
-  }
-  to {
-    opacity: 0;
-    transform: translateY(120px) rotate(320deg);
   }
 }

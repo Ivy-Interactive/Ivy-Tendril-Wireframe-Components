@@ -2,6 +2,7 @@ import * as React from "react";
 import { cn, densityText, textAlignClass, widgetStyle } from "@/lib/utils";
 import type { TextAlignment, WidgetBaseProps } from "@/lib/types";
 import { INK_FAINT, SURFACE } from "@/sketch/colors";
+import { CODE_COLORS, tokenize } from "@/sketch/syntax";
 import { Icon } from "@/sketch/Icon";
 import { SketchFrame } from "@/sketch/SketchFrame";
 
@@ -63,7 +64,10 @@ export const CodeBlock = ({
   className,
   style,
 }: CodeBlockProps) => {
-  const lines = content.replace(/\n$/, "").split("\n");
+  const lines = React.useMemo(
+    () => tokenize(content.replace(/\n$/, ""), language),
+    [content, language],
+  );
 
   return (
     <SketchFrame
@@ -90,14 +94,26 @@ export const CodeBlock = ({
           wrapLines ? "whitespace-pre-wrap" : "whitespace-pre",
         )}
       >
-        {lines.map((line, index) => (
+        {lines.map((tokens, index) => (
           <div key={index} className="flex gap-3">
             {showLineNumbers && (
               <span className="w-8 shrink-0 text-right text-ink-faint select-none">
                 {startingLineNumber + index}
               </span>
             )}
-            <span className="min-w-0 flex-1">{line || " "}</span>
+            <span className="min-w-0 flex-1">
+              {tokens.length === 0
+                ? " "
+                : tokens.map((token, position) => (
+                    <span
+                      key={position}
+                      style={{ color: CODE_COLORS[token.kind] }}
+                      className={token.kind === "comment" ? "italic" : undefined}
+                    >
+                      {token.text}
+                    </span>
+                  ))}
+            </span>
           </div>
         ))}
       </pre>
@@ -168,39 +184,6 @@ export const Xml = ({ id, content, width, height, aspectRatio, visible, density,
       density={density}
       className={className}
       style={style}
-    />
-  );
-};
-
-export interface HtmlProps extends WidgetBaseProps {
-  content: string;
-  /** Ivy's escape hatch: keeps `<script>` tags in the markup instead of stripping them. */
-  dangerouslyAllowScripts?: boolean;
-}
-
-/** Renders raw HTML inside the wireframe. Mirrors `Ivy.Html`. */
-export const Html = ({
-  id,
-  content,
-  dangerouslyAllowScripts,
-  density,
-  width,
-  height,
-  aspectRatio,
-  visible,
-  className,
-  style,
-}: HtmlProps) => {
-  const markup = dangerouslyAllowScripts
-    ? content
-    : content.replace(/<script\b[\s\S]*?<\/script>/gi, "");
-
-  return (
-    <div
-      id={id}
-      className={cn("tendril-prose", densityText(density), className)}
-      style={widgetStyle({ width, height, aspectRatio, visible, style })}
-      dangerouslySetInnerHTML={{ __html: markup }}
     />
   );
 };
@@ -318,7 +301,7 @@ function renderInline(text: string, keyPrefix: string): React.ReactNode[] {
 export const Markdown = ({
   id,
   content,
-  density,
+  density = "Medium",
   textAlignment,
   article,
   dangerouslyAllowLocalFiles,
