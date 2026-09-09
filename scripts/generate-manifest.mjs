@@ -29,6 +29,14 @@ const CATEGORY_BY_PATH = [
   [/src\/widgets\//, "Widgets"],
 ];
 
+/**
+ * Locale-independent ordering. `localeCompare` sorts by the machine's collation
+ * — which differs between a Windows desktop and a Linux CI runner — and this
+ * file is byte-compared by `--check`, so the order has to be the same
+ * everywhere.
+ */
+const byName = (a, b) => (a < b ? -1 : a > b ? 1 : 0);
+
 /** Props that exist for React's sake rather than the component's. */
 const PLUMBING = new Set(["className", "style", "children", "key", "ref"]);
 
@@ -241,7 +249,7 @@ for (const exported of exports) {
   props.sort((a, b) => {
     if (a.required !== b.required) return a.required ? -1 : 1;
     if (Boolean(a.inherited) !== Boolean(b.inherited)) return a.inherited ? 1 : -1;
-    return a.name.localeCompare(b.name);
+    return byName(a.name, b.name);
   });
 
   const component = {
@@ -268,7 +276,7 @@ for (const exported of exports) {
 }
 
 components.sort(
-  (a, b) => a.category.localeCompare(b.category) || a.name.localeCompare(b.name),
+  (a, b) => byName(a.category, b.category) || byName(a.name, b.name),
 );
 
 const byCategory = {};
@@ -284,7 +292,7 @@ const manifest = {
     "prose from JSDoc tags in the component files.",
   componentCount: components.filter((c) => !c.internal).length,
   categories: byCategory,
-  types: Object.fromEntries(Object.entries(sharedTypes).sort(([a], [b]) => a.localeCompare(b))),
+  types: Object.fromEntries(Object.entries(sharedTypes).sort(([a], [b]) => byName(a, b))),
   components,
 };
 
@@ -296,6 +304,20 @@ if (process.argv.includes("--check")) {
   const current = existsSync(manifestPath) ? readFileSync(manifestPath, "utf8") : "";
   if (current !== yaml) {
     console.error("tendril.manifest.yaml is out of date — run `npm run manifest`.");
+
+    // Print the first few differing lines. Without them a CI failure says only
+    // that two files differ, which is not enough to act on.
+    const committed = current.split("\n");
+    const generated = yaml.split("\n");
+    let shown = 0;
+    for (let i = 0; i < Math.max(committed.length, generated.length) && shown < 10; i++) {
+      if (committed[i] !== generated[i]) {
+        console.error(`  line ${i + 1}`);
+        console.error(`    committed: ${JSON.stringify(committed[i] ?? "<missing>")}`);
+        console.error(`    generated: ${JSON.stringify(generated[i] ?? "<missing>")}`);
+        shown++;
+      }
+    }
     process.exit(1);
   }
   console.log("manifest: up to date");

@@ -1,0 +1,10 @@
+# Store and check out every text file with LF, on every platform.
+#
+# Without this, Windows checkouts commit CRLF while `scripts/generate-manifest.mjs`
+# writes LF, so `npm run manifest:check` compares CRLF against LF and fails on a
+# Linux runner even when the manifest is perfectly current.
+* text=auto eol=lf
+
+# Lockfiles and generated output are text too, but never hand-edited.
+package-lock.json   text eol=lf linguist-generated
+tendril.manifest.yaml text eol=lf linguist-generated
