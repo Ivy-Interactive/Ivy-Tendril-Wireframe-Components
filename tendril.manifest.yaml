@@ -295,11 +295,10 @@ components:
           - Medium
           - Large
         default: Medium
-        description: "Sizing and spacing scale. Everything that reads it goes through\r
-
-          `byDensity`, which falls back to `Medium`, so `Medium` is the default\r
-
-          everywhere the prop is left off."
+        description: |-
+          Sizing and spacing scale. Everything that reads it goes through
+          `byDensity`, which falls back to `Medium`, so `Medium` is the default
+          everywhere the prop is left off.
         inherited: WidgetBaseProps
       - name: height
         type: Sizing
@@ -455,11 +454,10 @@ components:
           - Medium
           - Large
         default: Medium
-        description: "Sizing and spacing scale. Everything that reads it goes through\r
-
-          `byDensity`, which falls back to `Medium`, so `Medium` is the default\r
-
-          everywhere the prop is left off."
+        description: |-
+          Sizing and spacing scale. Everything that reads it goes through
+          `byDensity`, which falls back to `Medium`, so `Medium` is the default
+          everywhere the prop is left off.
         inherited: WidgetBaseProps
       - name: height
         type: Sizing
@@ -559,11 +557,10 @@ components:
           - Medium
           - Large
         default: Medium
-        description: "Sizing and spacing scale. Everything that reads it goes through\r
-
-          `byDensity`, which falls back to `Medium`, so `Medium` is the default\r
-
-          everywhere the prop is left off."
+        description: |-
+          Sizing and spacing scale. Everything that reads it goes through
+          `byDensity`, which falls back to `Medium`, so `Medium` is the default
+          everywhere the prop is left off.
         inherited: WidgetBaseProps
       - name: height
         type: Sizing
@@ -626,11 +623,10 @@ components:
           - Medium
           - Large
         default: Medium
-        description: "Sizing and spacing scale. Everything that reads it goes through\r
-
-          `byDensity`, which falls back to `Medium`, so `Medium` is the default\r
-
-          everywhere the prop is left off."
+        description: |-
+          Sizing and spacing scale. Everything that reads it goes through
+          `byDensity`, which falls back to `Medium`, so `Medium` is the default
+          everywhere the prop is left off.
         inherited: WidgetBaseProps
       - name: height
         type: Sizing
@@ -716,11 +712,10 @@ components:
           - Medium
           - Large
         default: Medium
-        description: "Sizing and spacing scale. Everything that reads it goes through\r
-
-          `byDensity`, which falls back to `Medium`, so `Medium` is the default\r
-
-          everywhere the prop is left off."
+        description: |-
+          Sizing and spacing scale. Everything that reads it goes through
+          `byDensity`, which falls back to `Medium`, so `Medium` is the default
+          everywhere the prop is left off.
         inherited: WidgetBaseProps
       - name: height
         type: Sizing
@@ -821,11 +816,10 @@ components:
           - Medium
           - Large
         default: Medium
-        description: "Sizing and spacing scale. Everything that reads it goes through\r
-
-          `byDensity`, which falls back to `Medium`, so `Medium` is the default\r
-
-          everywhere the prop is left off."
+        description: |-
+          Sizing and spacing scale. Everything that reads it goes through
+          `byDensity`, which falls back to `Medium`, so `Medium` is the default
+          everywhere the prop is left off.
         inherited: WidgetBaseProps
       - name: height
         type: Sizing
@@ -905,11 +899,10 @@ components:
           - Medium
           - Large
         default: Medium
-        description: "Sizing and spacing scale. Everything that reads it goes through\r
-
-          `byDensity`, which falls back to `Medium`, so `Medium` is the default\r
-
-          everywhere the prop is left off."
+        description: |-
+          Sizing and spacing scale. Everything that reads it goes through
+          `byDensity`, which falls back to `Medium`, so `Medium` is the default
+          everywhere the prop is left off.
         inherited: WidgetBaseProps
       - name: height
         type: Sizing
@@ -1015,11 +1008,10 @@ components:
           - Medium
           - Large
         default: Medium
-        description: "Sizing and spacing scale. Everything that reads it goes through\r
-
-          `byDensity`, which falls back to `Medium`, so `Medium` is the default\r
-
-          everywhere the prop is left off."
+        description: |-
+          Sizing and spacing scale. Everything that reads it goes through
+          `byDensity`, which falls back to `Medium`, so `Medium` is the default
+          everywhere the prop is left off.
         inherited: WidgetBaseProps
       - name: height
         type: Sizing
@@ -1124,11 +1116,10 @@ components:
           - Medium
           - Large
         default: Medium
-        description: "Sizing and spacing scale. Everything that reads it goes through\r
-
-          `byDensity`, which falls back to `Medium`, so `Medium` is the default\r
-
-          everywhere the prop is left off."
+        description: |-
+          Sizing and spacing scale. Everything that reads it goes through
+          `byDensity`, which falls back to `Medium`, so `Medium` is the default
+          everywhere the prop is left off.
         inherited: WidgetBaseProps
       - name: height
         type: Sizing
@@ -1213,11 +1204,10 @@ components:
           - Medium
           - Large
         default: Medium
-        description: "Sizing and spacing scale. Everything that reads it goes through\r
-
-          `byDensity`, which falls back to `Medium`, so `Medium` is the default\r
-
-          everywhere the prop is left off."
+        description: |-
+          Sizing and spacing scale. Everything that reads it goes through
+          `byDensity`, which falls back to `Medium`, so `Medium` is the default
+          everywhere the prop is left off.
         inherited: WidgetBaseProps
       - name: height
         type: Sizing
@@ -1293,11 +1283,10 @@ components:
           - Medium
           - Large
         default: Medium
-        description: "Sizing and spacing scale. Everything that reads it goes through\r
-
-          `byDensity`, which falls back to `Medium`, so `Medium` is the default\r
-
-          everywhere the prop is left off."
+        description: |-
+          Sizing and spacing scale. Everything that reads it goes through
+          `byDensity`, which falls back to `Medium`, so `Medium` is the default
+          everywhere the prop is left off.
         inherited: WidgetBaseProps
       - name: height
         type: Sizing
@@ -1358,9 +1347,9 @@ components:
   - name: RoughShape
     category: Foundations
     file: src/sketch/RoughShape.tsx
-    description: "Draws a rough.js shape inside an existing `<svg>`. Used by the charts and by\r
-
-      any widget that needs sketch geometry rather than a sketch border."
+    description: |-
+      Draws a rough.js shape inside an existing `<svg>`. Used by the charts and by
+      any widget that needs sketch geometry rather than a sketch border.
     props:
       - name: shape
         type: SketchShape
@@ -1418,9 +1407,9 @@ components:
   - name: SketchFrame
     category: Foundations
     file: src/sketch/SketchFrame.tsx
-    description: "A box whose border (and optional fill) is drawn with rough.js. Every other\r
-
-      widget in the library is built on top of this."
+    description: |-
+      A box whose border (and optional fill) is drawn with rough.js. Every other
+      widget in the library is built on top of this.
     props:
       - name: as
         type: React.ElementType<any, keyof React.JSX.IntrinsicElements>
@@ -3410,9 +3399,9 @@ components:
   - name: SketchIcon
     category: Foundations
     file: src/sketch/Icon.tsx
-    description: "Lucide icons, pushed through a turbulence filter so they read as sketched\r
-
-      rather than vector-crisp."
+    description: |-
+      Lucide icons, pushed through a turbulence filter so they read as sketched
+      rather than vector-crisp.
     props:
       - name: absoluteStrokeWidth
         type: boolean
@@ -5887,9 +5876,9 @@ components:
   - name: SketchProvider
     category: Foundations
     file: src/sketch/SketchProvider.tsx
-    description: "Wrap the app once. Supplies the pencil settings every widget draws with and\r
-
-      mounts the shared SVG filter definitions."
+    description: |-
+      Wrap the app once. Supplies the pencil settings every widget draws with and
+      mounts the shared SVG filter definitions.
     props:
       - name: bowing
         type: number
@@ -5960,11 +5949,10 @@ components:
           - Medium
           - Large
         default: Medium
-        description: "Sizing and spacing scale. Everything that reads it goes through\r
-
-          `byDensity`, which falls back to `Medium`, so `Medium` is the default\r
-
-          everywhere the prop is left off."
+        description: |-
+          Sizing and spacing scale. Everything that reads it goes through
+          `byDensity`, which falls back to `Medium`, so `Medium` is the default
+          everywhere the prop is left off.
         inherited: WidgetBaseProps
       - name: disabled
         type: boolean
@@ -6064,11 +6052,10 @@ components:
           - Medium
           - Large
         default: Medium
-        description: "Sizing and spacing scale. Everything that reads it goes through\r
-
-          `byDensity`, which falls back to `Medium`, so `Medium` is the default\r
-
-          everywhere the prop is left off."
+        description: |-
+          Sizing and spacing scale. Everything that reads it goes through
+          `byDensity`, which falls back to `Medium`, so `Medium` is the default
+          everywhere the prop is left off.
         inherited: WidgetBaseProps
       - name: disabled
         type: boolean
@@ -6181,11 +6168,10 @@ components:
           - Medium
           - Large
         default: Medium
-        description: "Sizing and spacing scale. Everything that reads it goes through\r
-
-          `byDensity`, which falls back to `Medium`, so `Medium` is the default\r
-
-          everywhere the prop is left off."
+        description: |-
+          Sizing and spacing scale. Everything that reads it goes through
+          `byDensity`, which falls back to `Medium`, so `Medium` is the default
+          everywhere the prop is left off.
         inherited: WidgetBaseProps
       - name: disabled
         type: boolean
@@ -6285,11 +6271,10 @@ components:
           - Medium
           - Large
         default: Medium
-        description: "Sizing and spacing scale. Everything that reads it goes through\r
-
-          `byDensity`, which falls back to `Medium`, so `Medium` is the default\r
-
-          everywhere the prop is left off."
+        description: |-
+          Sizing and spacing scale. Everything that reads it goes through
+          `byDensity`, which falls back to `Medium`, so `Medium` is the default
+          everywhere the prop is left off.
         inherited: WidgetBaseProps
       - name: disabled
         type: boolean
@@ -6390,11 +6375,10 @@ components:
           - Medium
           - Large
         default: Medium
-        description: "Sizing and spacing scale. Everything that reads it goes through\r
-
-          `byDensity`, which falls back to `Medium`, so `Medium` is the default\r
-
-          everywhere the prop is left off."
+        description: |-
+          Sizing and spacing scale. Everything that reads it goes through
+          `byDensity`, which falls back to `Medium`, so `Medium` is the default
+          everywhere the prop is left off.
         inherited: WidgetBaseProps
       - name: disabled
         type: boolean
@@ -6497,11 +6481,10 @@ components:
           - Medium
           - Large
         default: Medium
-        description: "Sizing and spacing scale. Everything that reads it goes through\r
-
-          `byDensity`, which falls back to `Medium`, so `Medium` is the default\r
-
-          everywhere the prop is left off."
+        description: |-
+          Sizing and spacing scale. Everything that reads it goes through
+          `byDensity`, which falls back to `Medium`, so `Medium` is the default
+          everywhere the prop is left off.
         inherited: WidgetBaseProps
       - name: disabled
         type: boolean
@@ -6616,11 +6599,10 @@ components:
           - Medium
           - Large
         default: Medium
-        description: "Sizing and spacing scale. Everything that reads it goes through\r
-
-          `byDensity`, which falls back to `Medium`, so `Medium` is the default\r
-
-          everywhere the prop is left off."
+        description: |-
+          Sizing and spacing scale. Everything that reads it goes through
+          `byDensity`, which falls back to `Medium`, so `Medium` is the default
+          everywhere the prop is left off.
         inherited: WidgetBaseProps
       - name: disabled
         type: boolean
@@ -6748,11 +6730,10 @@ components:
           - Medium
           - Large
         default: Medium
-        description: "Sizing and spacing scale. Everything that reads it goes through\r
-
-          `byDensity`, which falls back to `Medium`, so `Medium` is the default\r
-
-          everywhere the prop is left off."
+        description: |-
+          Sizing and spacing scale. Everything that reads it goes through
+          `byDensity`, which falls back to `Medium`, so `Medium` is the default
+          everywhere the prop is left off.
         inherited: WidgetBaseProps
       - name: disabled
         type: boolean
@@ -6853,11 +6834,10 @@ components:
           - Medium
           - Large
         default: Medium
-        description: "Sizing and spacing scale. Everything that reads it goes through\r
-
-          `byDensity`, which falls back to `Medium`, so `Medium` is the default\r
-
-          everywhere the prop is left off."
+        description: |-
+          Sizing and spacing scale. Everything that reads it goes through
+          `byDensity`, which falls back to `Medium`, so `Medium` is the default
+          everywhere the prop is left off.
         inherited: WidgetBaseProps
       - name: disabled
         type: boolean
@@ -6961,11 +6941,10 @@ components:
           - Medium
           - Large
         default: Medium
-        description: "Sizing and spacing scale. Everything that reads it goes through\r
-
-          `byDensity`, which falls back to `Medium`, so `Medium` is the default\r
-
-          everywhere the prop is left off."
+        description: |-
+          Sizing and spacing scale. Everything that reads it goes through
+          `byDensity`, which falls back to `Medium`, so `Medium` is the default
+          everywhere the prop is left off.
         inherited: WidgetBaseProps
       - name: height
         type: Sizing
@@ -7053,11 +7032,10 @@ components:
           - Medium
           - Large
         default: Medium
-        description: "Sizing and spacing scale. Everything that reads it goes through\r
-
-          `byDensity`, which falls back to `Medium`, so `Medium` is the default\r
-
-          everywhere the prop is left off."
+        description: |-
+          Sizing and spacing scale. Everything that reads it goes through
+          `byDensity`, which falls back to `Medium`, so `Medium` is the default
+          everywhere the prop is left off.
         inherited: WidgetBaseProps
       - name: disabled
         type: boolean
@@ -7142,11 +7120,10 @@ components:
           - Medium
           - Large
         default: Medium
-        description: "Sizing and spacing scale. Everything that reads it goes through\r
-
-          `byDensity`, which falls back to `Medium`, so `Medium` is the default\r
-
-          everywhere the prop is left off."
+        description: |-
+          Sizing and spacing scale. Everything that reads it goes through
+          `byDensity`, which falls back to `Medium`, so `Medium` is the default
+          everywhere the prop is left off.
         inherited: WidgetBaseProps
       - name: height
         type: Sizing
@@ -7199,11 +7176,10 @@ components:
           - Medium
           - Large
         default: Medium
-        description: "Sizing and spacing scale. Everything that reads it goes through\r
-
-          `byDensity`, which falls back to `Medium`, so `Medium` is the default\r
-
-          everywhere the prop is left off."
+        description: |-
+          Sizing and spacing scale. Everything that reads it goes through
+          `byDensity`, which falls back to `Medium`, so `Medium` is the default
+          everywhere the prop is left off.
         inherited: WidgetBaseProps
       - name: disabled
         type: boolean
@@ -7260,9 +7236,9 @@ components:
     category: Inputs
     file: src/widgets/inputs/InputShell.tsx
     internal: true
-    description: "The bordered box every text-like input sits in: prefix, content, suffix,\r
-
-      clear button and the red squiggle for validation errors."
+    description: |-
+      The bordered box every text-like input sits in: prefix, content, suffix,
+      clear button and the red squiggle for validation errors.
     props:
       - name: contentClassName
         type: string
@@ -7310,11 +7286,10 @@ components:
           - Medium
           - Large
         default: Medium
-        description: "Sizing and spacing scale. Everything that reads it goes through\r
-
-          `byDensity`, which falls back to `Medium`, so `Medium` is the default\r
-
-          everywhere the prop is left off."
+        description: |-
+          Sizing and spacing scale. Everything that reads it goes through
+          `byDensity`, which falls back to `Medium`, so `Medium` is the default
+          everywhere the prop is left off.
         inherited: WidgetBaseProps
       - name: disabled
         type: boolean
@@ -7513,11 +7488,10 @@ components:
           - Medium
           - Large
         default: Medium
-        description: "Sizing and spacing scale. Everything that reads it goes through\r
-
-          `byDensity`, which falls back to `Medium`, so `Medium` is the default\r
-
-          everywhere the prop is left off."
+        description: |-
+          Sizing and spacing scale. Everything that reads it goes through
+          `byDensity`, which falls back to `Medium`, so `Medium` is the default
+          everywhere the prop is left off.
         inherited: WidgetBaseProps
       - name: disabled
         type: boolean
@@ -7644,11 +7618,10 @@ components:
           - Medium
           - Large
         default: Medium
-        description: "Sizing and spacing scale. Everything that reads it goes through\r
-
-          `byDensity`, which falls back to `Medium`, so `Medium` is the default\r
-
-          everywhere the prop is left off."
+        description: |-
+          Sizing and spacing scale. Everything that reads it goes through
+          `byDensity`, which falls back to `Medium`, so `Medium` is the default
+          everywhere the prop is left off.
         inherited: WidgetBaseProps
       - name: disabled
         type: boolean
@@ -7732,11 +7705,10 @@ components:
           - Medium
           - Large
         default: Medium
-        description: "Sizing and spacing scale. Everything that reads it goes through\r
-
-          `byDensity`, which falls back to `Medium`, so `Medium` is the default\r
-
-          everywhere the prop is left off."
+        description: |-
+          Sizing and spacing scale. Everything that reads it goes through
+          `byDensity`, which falls back to `Medium`, so `Medium` is the default
+          everywhere the prop is left off.
         inherited: WidgetBaseProps
       - name: disabled
         type: boolean
@@ -7792,9 +7764,9 @@ components:
     category: Inputs
     file: src/widgets/inputs/SelectInput.tsx
     ivy: Ivy.SelectInput
-    description: "Every selection variant Ivy ships: dropdown, inline list, toggle group,\r
-
-      radio group and a stepped slider. Mirrors `Ivy.SelectInput`."
+    description: |-
+      Every selection variant Ivy ships: dropdown, inline list, toggle group,
+      radio group and a stepped slider. Mirrors `Ivy.SelectInput`.
     tags:
       - dropdown
       - choice
@@ -7880,11 +7852,10 @@ components:
           - Medium
           - Large
         default: Medium
-        description: "Sizing and spacing scale. Everything that reads it goes through\r
-
-          `byDensity`, which falls back to `Medium`, so `Medium` is the default\r
-
-          everywhere the prop is left off."
+        description: |-
+          Sizing and spacing scale. Everything that reads it goes through
+          `byDensity`, which falls back to `Medium`, so `Medium` is the default
+          everywhere the prop is left off.
         inherited: WidgetBaseProps
       - name: disabled
         type: boolean
@@ -7990,11 +7961,10 @@ components:
           - Medium
           - Large
         default: Medium
-        description: "Sizing and spacing scale. Everything that reads it goes through\r
-
-          `byDensity`, which falls back to `Medium`, so `Medium` is the default\r
-
-          everywhere the prop is left off."
+        description: |-
+          Sizing and spacing scale. Everything that reads it goes through
+          `byDensity`, which falls back to `Medium`, so `Medium` is the default
+          everywhere the prop is left off.
         inherited: WidgetBaseProps
       - name: disabled
         type: boolean
@@ -8178,11 +8148,10 @@ components:
           - Medium
           - Large
         default: Medium
-        description: "Sizing and spacing scale. Everything that reads it goes through\r
-
-          `byDensity`, which falls back to `Medium`, so `Medium` is the default\r
-
-          everywhere the prop is left off."
+        description: |-
+          Sizing and spacing scale. Everything that reads it goes through
+          `byDensity`, which falls back to `Medium`, so `Medium` is the default
+          everywhere the prop is left off.
         inherited: WidgetBaseProps
       - name: disabled
         type: boolean
@@ -8238,9 +8207,9 @@ components:
     category: Layouts
     file: src/widgets/layouts/FloatingPanel.tsx
     ivy: Ivy.FloatingPanel
-    description: "A panel floating above everything else — a tool palette, a floating action\r
-
-      button, a status pill. Mirrors `Ivy.FloatingPanel`."
+    description: |-
+      A panel floating above everything else — a tool palette, a floating action
+      button, a status pill. Mirrors `Ivy.FloatingPanel`.
     tags:
       - overlay
       - palette
@@ -8275,9 +8244,9 @@ components:
       - name: contained
         type: boolean
         required: false
-        description: "Floats within the nearest positioned ancestor instead of the viewport.\r
-
-          Give that ancestor `relative` for it to have anything to hold on to."
+        description: |-
+          Floats within the nearest positioned ancestor instead of the viewport.
+          Give that ancestor `relative` for it to have anything to hold on to.
       - name: offset
         type: Sizing | Thickness
         required: false
@@ -8298,11 +8267,10 @@ components:
           - Medium
           - Large
         default: Medium
-        description: "Sizing and spacing scale. Everything that reads it goes through\r
-
-          `byDensity`, which falls back to `Medium`, so `Medium` is the default\r
-
-          everywhere the prop is left off."
+        description: |-
+          Sizing and spacing scale. Everything that reads it goes through
+          `byDensity`, which falls back to `Medium`, so `Medium` is the default
+          everywhere the prop is left off.
         inherited: WidgetBaseProps
       - name: height
         type: Sizing
@@ -8325,13 +8293,11 @@ components:
     category: Layouts
     file: src/widgets/layouts/Resizable.tsx
     ivy: Ivy.ResizablePanel
-    description: "One panel inside a `ResizablePanelGroup`. Mirrors `Ivy.ResizablePanel`.\r
+    description: |-
+      One panel inside a `ResizablePanelGroup`. Mirrors `Ivy.ResizablePanel`.
 
-      \r
-
-      The group reads `defaultSize` off the element and owns the sizing from then\r
-
-      on, so a panel only ever renders its own content."
+      The group reads `defaultSize` off the element and owns the sizing from then
+      on, so a panel only ever renders its own content.
     tags:
       - panel
       - split
@@ -8342,9 +8308,9 @@ components:
       - name: defaultSize
         type: Sizing
         required: false
-        description: "Share of the group this panel starts at, as a percentage or a `\"1/3\"`\r
-
-          fraction. Panels without one split whatever is left evenly."
+        description: |-
+          Share of the group this panel starts at, as a percentage or a `"1/3"`
+          fraction. Panels without one split whatever is left evenly.
       - name: aspectRatio
         type: number
         required: false
@@ -8361,11 +8327,10 @@ components:
           - Medium
           - Large
         default: Medium
-        description: "Sizing and spacing scale. Everything that reads it goes through\r
-
-          `byDensity`, which falls back to `Medium`, so `Medium` is the default\r
-
-          everywhere the prop is left off."
+        description: |-
+          Sizing and spacing scale. Everything that reads it goes through
+          `byDensity`, which falls back to `Medium`, so `Medium` is the default
+          everywhere the prop is left off.
         inherited: WidgetBaseProps
       - name: height
         type: Sizing
@@ -8388,9 +8353,9 @@ components:
     category: Layouts
     file: src/widgets/layouts/Resizable.tsx
     ivy: Ivy.ResizablePanelGroup
-    description: "Panels that can be dragged to resize against each other.\r
-
-      Mirrors `Ivy.ResizablePanelGroup`."
+    description: |-
+      Panels that can be dragged to resize against each other.
+      Mirrors `Ivy.ResizablePanelGroup`.
     tags:
       - split
       - pane
@@ -8436,11 +8401,10 @@ components:
           - Medium
           - Large
         default: Medium
-        description: "Sizing and spacing scale. Everything that reads it goes through\r
-
-          `byDensity`, which falls back to `Medium`, so `Medium` is the default\r
-
-          everywhere the prop is left off."
+        description: |-
+          Sizing and spacing scale. Everything that reads it goes through
+          `byDensity`, which falls back to `Medium`, so `Medium` is the default
+          everywhere the prop is left off.
         inherited: WidgetBaseProps
       - name: height
         type: Sizing
@@ -8465,9 +8429,9 @@ components:
     category: Layouts
     file: src/widgets/layouts/Sidebar.tsx
     ivy: Ivy.SidebarLayout
-    description: "The application shell: a collapsible sidebar beside a main content area.\r
-
-      Mirrors `Ivy.SidebarLayout`."
+    description: |-
+      The application shell: a collapsible sidebar beside a main content area.
+      Mirrors `Ivy.SidebarLayout`.
     tags:
       - shell
       - navigation
@@ -8567,11 +8531,10 @@ components:
           - Medium
           - Large
         default: Medium
-        description: "Sizing and spacing scale. Everything that reads it goes through\r
-
-          `byDensity`, which falls back to `Medium`, so `Medium` is the default\r
-
-          everywhere the prop is left off."
+        description: |-
+          Sizing and spacing scale. Everything that reads it goes through
+          `byDensity`, which falls back to `Medium`, so `Medium` is the default
+          everywhere the prop is left off.
         inherited: WidgetBaseProps
       - name: height
         type: Sizing
@@ -8596,9 +8559,9 @@ components:
     category: Layouts
     file: src/widgets/layouts/Sidebar.tsx
     ivy: Ivy.SidebarMenu
-    description: "The navigation menu that usually fills a `SidebarLayout`'s sidebar.\r
-
-      Mirrors `Ivy.SidebarMenu`."
+    description: |-
+      The navigation menu that usually fills a `SidebarLayout`'s sidebar.
+      Mirrors `Ivy.SidebarMenu`.
     tags:
       - navigation
       - menu
@@ -8638,11 +8601,10 @@ components:
           - Medium
           - Large
         default: Medium
-        description: "Sizing and spacing scale. Everything that reads it goes through\r
-
-          `byDensity`, which falls back to `Medium`, so `Medium` is the default\r
-
-          everywhere the prop is left off."
+        description: |-
+          Sizing and spacing scale. Everything that reads it goes through
+          `byDensity`, which falls back to `Medium`, so `Medium` is the default
+          everywhere the prop is left off.
         inherited: WidgetBaseProps
       - name: height
         type: Sizing
@@ -8665,13 +8627,11 @@ components:
     category: Layouts
     file: src/widgets/layouts/Tabs.tsx
     ivy: Ivy.Tab
-    description: "One tab inside a `TabsLayout`. Mirrors `Ivy.Tab`.\r
+    description: |-
+      One tab inside a `TabsLayout`. Mirrors `Ivy.Tab`.
 
-      \r
-
-      The element carries the tab's title, icon and badge; `TabsLayout` reads them\r
-
-      off and renders the strip itself, so a `Tab` only ever renders its own body."
+      The element carries the tab's title, icon and badge; `TabsLayout` reads them
+      off and renders the strip itself, so a `Tab` only ever renders its own body.
     tags:
       - tab
       - page
@@ -8704,11 +8664,10 @@ components:
           - Medium
           - Large
         default: Medium
-        description: "Sizing and spacing scale. Everything that reads it goes through\r
-
-          `byDensity`, which falls back to `Medium`, so `Medium` is the default\r
-
-          everywhere the prop is left off."
+        description: |-
+          Sizing and spacing scale. Everything that reads it goes through
+          `byDensity`, which falls back to `Medium`, so `Medium` is the default
+          everywhere the prop is left off.
         inherited: WidgetBaseProps
       - name: height
         type: Sizing
@@ -8731,9 +8690,9 @@ components:
     category: Layouts
     file: src/widgets/layouts/Tabs.tsx
     ivy: Ivy.TabsLayout
-    description: "Organizes content into separate views reached through a strip of tabs.\r
-
-      Mirrors `Ivy.TabsLayout`."
+    description: |-
+      Organizes content into separate views reached through a strip of tabs.
+      Mirrors `Ivy.TabsLayout`.
     tags:
       - tabs
       - sections
@@ -8812,11 +8771,10 @@ components:
           - Medium
           - Large
         default: Medium
-        description: "Sizing and spacing scale. Everything that reads it goes through\r
-
-          `byDensity`, which falls back to `Medium`, so `Medium` is the default\r
-
-          everywhere the prop is left off."
+        description: |-
+          Sizing and spacing scale. Everything that reads it goes through
+          `byDensity`, which falls back to `Medium`, so `Medium` is the default
+          everywhere the prop is left off.
         inherited: WidgetBaseProps
       - name: height
         type: Sizing
@@ -8881,11 +8839,10 @@ components:
           - Medium
           - Large
         default: Medium
-        description: "Sizing and spacing scale. Everything that reads it goes through\r
-
-          `byDensity`, which falls back to `Medium`, so `Medium` is the default\r
-
-          everywhere the prop is left off."
+        description: |-
+          Sizing and spacing scale. Everything that reads it goes through
+          `byDensity`, which falls back to `Medium`, so `Medium` is the default
+          everywhere the prop is left off.
         inherited: WidgetBaseProps
       - name: height
         type: Sizing
@@ -8943,11 +8900,10 @@ components:
           - Medium
           - Large
         default: Medium
-        description: "Sizing and spacing scale. Everything that reads it goes through\r
-
-          `byDensity`, which falls back to `Medium`, so `Medium` is the default\r
-
-          everywhere the prop is left off."
+        description: |-
+          Sizing and spacing scale. Everything that reads it goes through
+          `byDensity`, which falls back to `Medium`, so `Medium` is the default
+          everywhere the prop is left off.
         inherited: WidgetBaseProps
       - name: height
         type: Sizing
@@ -9058,11 +9014,10 @@ components:
           - Medium
           - Large
         default: Medium
-        description: "Sizing and spacing scale. Everything that reads it goes through\r
-
-          `byDensity`, which falls back to `Medium`, so `Medium` is the default\r
-
-          everywhere the prop is left off."
+        description: |-
+          Sizing and spacing scale. Everything that reads it goes through
+          `byDensity`, which falls back to `Medium`, so `Medium` is the default
+          everywhere the prop is left off.
         inherited: WidgetBaseProps
       - name: height
         type: Sizing
@@ -9129,11 +9084,10 @@ components:
           - Medium
           - Large
         default: Medium
-        description: "Sizing and spacing scale. Everything that reads it goes through\r
-
-          `byDensity`, which falls back to `Medium`, so `Medium` is the default\r
-
-          everywhere the prop is left off."
+        description: |-
+          Sizing and spacing scale. Everything that reads it goes through
+          `byDensity`, which falls back to `Medium`, so `Medium` is the default
+          everywhere the prop is left off.
         inherited: WidgetBaseProps
       - name: height
         type: Sizing
@@ -9204,11 +9158,10 @@ components:
           - Medium
           - Large
         default: Medium
-        description: "Sizing and spacing scale. Everything that reads it goes through\r
-
-          `byDensity`, which falls back to `Medium`, so `Medium` is the default\r
-
-          everywhere the prop is left off."
+        description: |-
+          Sizing and spacing scale. Everything that reads it goes through
+          `byDensity`, which falls back to `Medium`, so `Medium` is the default
+          everywhere the prop is left off.
         inherited: WidgetBaseProps
       - name: height
         type: Sizing
@@ -9231,9 +9184,9 @@ components:
     category: Primitives
     file: src/widgets/primitives/Media.tsx
     ivy: Ivy.Embed
-    description: "Wireframes stand in for third-party embeds rather than loading them — a card\r
-
-      naming the platform and the link. Mirrors `Ivy.Embed`."
+    description: |-
+      Wireframes stand in for third-party embeds rather than loading them — a card
+      naming the platform and the link. Mirrors `Ivy.Embed`.
     props:
       - name: url
         type: string
@@ -9254,11 +9207,10 @@ components:
           - Medium
           - Large
         default: Medium
-        description: "Sizing and spacing scale. Everything that reads it goes through\r
-
-          `byDensity`, which falls back to `Medium`, so `Medium` is the default\r
-
-          everywhere the prop is left off."
+        description: |-
+          Sizing and spacing scale. Everything that reads it goes through
+          `byDensity`, which falls back to `Medium`, so `Medium` is the default
+          everywhere the prop is left off.
         inherited: WidgetBaseProps
       - name: height
         type: Sizing
@@ -9306,11 +9258,10 @@ components:
           - Medium
           - Large
         default: Medium
-        description: "Sizing and spacing scale. Everything that reads it goes through\r
-
-          `byDensity`, which falls back to `Medium`, so `Medium` is the default\r
-
-          everywhere the prop is left off."
+        description: |-
+          Sizing and spacing scale. Everything that reads it goes through
+          `byDensity`, which falls back to `Medium`, so `Medium` is the default
+          everywhere the prop is left off.
         inherited: WidgetBaseProps
       - name: height
         type: Sizing
@@ -9357,11 +9308,10 @@ components:
           - Medium
           - Large
         default: Medium
-        description: "Sizing and spacing scale. Everything that reads it goes through\r
-
-          `byDensity`, which falls back to `Medium`, so `Medium` is the default\r
-
-          everywhere the prop is left off."
+        description: |-
+          Sizing and spacing scale. Everything that reads it goes through
+          `byDensity`, which falls back to `Medium`, so `Medium` is the default
+          everywhere the prop is left off.
         inherited: WidgetBaseProps
       - name: height
         type: Sizing
@@ -9408,11 +9358,10 @@ components:
           - Medium
           - Large
         default: Medium
-        description: "Sizing and spacing scale. Everything that reads it goes through\r
-
-          `byDensity`, which falls back to `Medium`, so `Medium` is the default\r
-
-          everywhere the prop is left off."
+        description: |-
+          Sizing and spacing scale. Everything that reads it goes through
+          `byDensity`, which falls back to `Medium`, so `Medium` is the default
+          everywhere the prop is left off.
         inherited: WidgetBaseProps
       - name: height
         type: Sizing
@@ -9463,11 +9412,10 @@ components:
           - Medium
           - Large
         default: Medium
-        description: "Sizing and spacing scale. Everything that reads it goes through\r
-
-          `byDensity`, which falls back to `Medium`, so `Medium` is the default\r
-
-          everywhere the prop is left off."
+        description: |-
+          Sizing and spacing scale. Everything that reads it goes through
+          `byDensity`, which falls back to `Medium`, so `Medium` is the default
+          everywhere the prop is left off.
         inherited: WidgetBaseProps
       - name: height
         type: Sizing
@@ -9490,9 +9438,9 @@ components:
     category: Primitives
     file: src/widgets/primitives/Code.tsx
     ivy: Ivy.Markdown
-    description: "A deliberately small Markdown renderer — headings, lists, quotes, fences and\r
-
-      inline emphasis, which is all a wireframe needs. Mirrors `Ivy.Markdown`."
+    description: |-
+      A deliberately small Markdown renderer — headings, lists, quotes, fences and
+      inline emphasis, which is all a wireframe needs. Mirrors `Ivy.Markdown`.
     tags:
       - prose
       - rich-text
@@ -9535,11 +9483,10 @@ components:
           - Medium
           - Large
         default: Medium
-        description: "Sizing and spacing scale. Everything that reads it goes through\r
-
-          `byDensity`, which falls back to `Medium`, so `Medium` is the default\r
-
-          everywhere the prop is left off."
+        description: |-
+          Sizing and spacing scale. Everything that reads it goes through
+          `byDensity`, which falls back to `Medium`, so `Medium` is the default
+          everywhere the prop is left off.
         inherited: WidgetBaseProps
       - name: height
         type: Sizing
@@ -9605,11 +9552,10 @@ components:
           - Medium
           - Large
         default: Medium
-        description: "Sizing and spacing scale. Everything that reads it goes through\r
-
-          `byDensity`, which falls back to `Medium`, so `Medium` is the default\r
-
-          everywhere the prop is left off."
+        description: |-
+          Sizing and spacing scale. Everything that reads it goes through
+          `byDensity`, which falls back to `Medium`, so `Medium` is the default
+          everywhere the prop is left off.
         inherited: WidgetBaseProps
       - name: height
         type: Sizing
@@ -9655,11 +9601,10 @@ components:
           - Medium
           - Large
         default: Medium
-        description: "Sizing and spacing scale. Everything that reads it goes through\r
-
-          `byDensity`, which falls back to `Medium`, so `Medium` is the default\r
-
-          everywhere the prop is left off."
+        description: |-
+          Sizing and spacing scale. Everything that reads it goes through
+          `byDensity`, which falls back to `Medium`, so `Medium` is the default
+          everywhere the prop is left off.
         inherited: WidgetBaseProps
       - name: height
         type: Sizing
@@ -9727,11 +9672,10 @@ components:
           - Medium
           - Large
         default: Medium
-        description: "Sizing and spacing scale. Everything that reads it goes through\r
-
-          `byDensity`, which falls back to `Medium`, so `Medium` is the default\r
-
-          everywhere the prop is left off."
+        description: |-
+          Sizing and spacing scale. Everything that reads it goes through
+          `byDensity`, which falls back to `Medium`, so `Medium` is the default
+          everywhere the prop is left off.
         inherited: WidgetBaseProps
       - name: height
         type: Sizing
@@ -9788,11 +9732,10 @@ components:
           - Medium
           - Large
         default: Medium
-        description: "Sizing and spacing scale. Everything that reads it goes through\r
-
-          `byDensity`, which falls back to `Medium`, so `Medium` is the default\r
-
-          everywhere the prop is left off."
+        description: |-
+          Sizing and spacing scale. Everything that reads it goes through
+          `byDensity`, which falls back to `Medium`, so `Medium` is the default
+          everywhere the prop is left off.
         inherited: WidgetBaseProps
       - name: height
         type: Sizing
@@ -9906,11 +9849,10 @@ components:
           - Medium
           - Large
         default: Medium
-        description: "Sizing and spacing scale. Everything that reads it goes through\r
-
-          `byDensity`, which falls back to `Medium`, so `Medium` is the default\r
-
-          everywhere the prop is left off."
+        description: |-
+          Sizing and spacing scale. Everything that reads it goes through
+          `byDensity`, which falls back to `Medium`, so `Medium` is the default
+          everywhere the prop is left off.
         inherited: WidgetBaseProps
       - name: height
         type: Sizing
@@ -10005,11 +9947,10 @@ components:
           - Medium
           - Large
         default: Medium
-        description: "Sizing and spacing scale. Everything that reads it goes through\r
-
-          `byDensity`, which falls back to `Medium`, so `Medium` is the default\r
-
-          everywhere the prop is left off."
+        description: |-
+          Sizing and spacing scale. Everything that reads it goes through
+          `byDensity`, which falls back to `Medium`, so `Medium` is the default
+          everywhere the prop is left off.
         inherited: WidgetBaseProps
       - name: height
         type: Sizing
@@ -10058,11 +9999,10 @@ components:
           - Medium
           - Large
         default: Medium
-        description: "Sizing and spacing scale. Everything that reads it goes through\r
-
-          `byDensity`, which falls back to `Medium`, so `Medium` is the default\r
-
-          everywhere the prop is left off."
+        description: |-
+          Sizing and spacing scale. Everything that reads it goes through
+          `byDensity`, which falls back to `Medium`, so `Medium` is the default
+          everywhere the prop is left off.
         inherited: WidgetBaseProps
       - name: height
         type: Sizing
@@ -10142,11 +10082,10 @@ components:
           - Medium
           - Large
         default: Medium
-        description: "Sizing and spacing scale. Everything that reads it goes through\r
-
-          `byDensity`, which falls back to `Medium`, so `Medium` is the default\r
-
-          everywhere the prop is left off."
+        description: |-
+          Sizing and spacing scale. Everything that reads it goes through
+          `byDensity`, which falls back to `Medium`, so `Medium` is the default
+          everywhere the prop is left off.
         inherited: WidgetBaseProps
       - name: height
         type: Sizing
@@ -10208,11 +10147,10 @@ components:
           - Medium
           - Large
         default: Medium
-        description: "Sizing and spacing scale. Everything that reads it goes through\r
-
-          `byDensity`, which falls back to `Medium`, so `Medium` is the default\r
-
-          everywhere the prop is left off."
+        description: |-
+          Sizing and spacing scale. Everything that reads it goes through
+          `byDensity`, which falls back to `Medium`, so `Medium` is the default
+          everywhere the prop is left off.
         inherited: WidgetBaseProps
       - name: height
         type: Sizing
@@ -10235,9 +10173,9 @@ components:
     category: Widgets
     file: src/widgets/Button.tsx
     ivy: Ivy.Button
-    description: "The workhorse control. Mirrors `Ivy.Button`, including its variant list,\r
-
-      icon placement, badge and shortcut hint."
+    description: |-
+      The workhorse control. Mirrors `Ivy.Button`, including its variant list,
+      icon placement, badge and shortcut hint.
     tags:
       - action
       - submit
@@ -10335,11 +10273,10 @@ components:
           - Medium
           - Large
         default: Medium
-        description: "Sizing and spacing scale. Everything that reads it goes through\r
-
-          `byDensity`, which falls back to `Medium`, so `Medium` is the default\r
-
-          everywhere the prop is left off."
+        description: |-
+          Sizing and spacing scale. Everything that reads it goes through
+          `byDensity`, which falls back to `Medium`, so `Medium` is the default
+          everywhere the prop is left off.
         inherited: WidgetBaseProps
       - name: height
         type: Sizing
@@ -10362,9 +10299,9 @@ components:
     category: Widgets
     file: src/widgets/Card.tsx
     ivy: Ivy.Card
-    description: "A sheet of paper with an optional header and footer. Mirrors `Ivy.Card`,\r
-
-      whose `Header` / `Content` / `Footer` slots become props here."
+    description: |-
+      A sheet of paper with an optional header and footer. Mirrors `Ivy.Card`,
+      whose `Header` / `Content` / `Footer` slots become props here.
     tags:
       - container
       - panel
@@ -10424,11 +10361,10 @@ components:
           - Medium
           - Large
         default: Medium
-        description: "Sizing and spacing scale. Everything that reads it goes through\r
-
-          `byDensity`, which falls back to `Medium`, so `Medium` is the default\r
-
-          everywhere the prop is left off."
+        description: |-
+          Sizing and spacing scale. Everything that reads it goes through
+          `byDensity`, which falls back to `Medium`, so `Medium` is the default
+          everywhere the prop is left off.
         inherited: WidgetBaseProps
       - name: height
         type: Sizing
@@ -10487,11 +10423,10 @@ components:
           - Medium
           - Large
         default: Medium
-        description: "Sizing and spacing scale. Everything that reads it goes through\r
-
-          `byDensity`, which falls back to `Medium`, so `Medium` is the default\r
-
-          everywhere the prop is left off."
+        description: |-
+          Sizing and spacing scale. Everything that reads it goes through
+          `byDensity`, which falls back to `Medium`, so `Medium` is the default
+          everywhere the prop is left off.
         inherited: WidgetBaseProps
       - name: height
         type: Sizing
@@ -10534,11 +10469,10 @@ components:
           - Medium
           - Large
         default: Medium
-        description: "Sizing and spacing scale. Everything that reads it goes through\r
-
-          `byDensity`, which falls back to `Medium`, so `Medium` is the default\r
-
-          everywhere the prop is left off."
+        description: |-
+          Sizing and spacing scale. Everything that reads it goes through
+          `byDensity`, which falls back to `Medium`, so `Medium` is the default
+          everywhere the prop is left off.
         inherited: WidgetBaseProps
       - name: height
         type: Sizing
@@ -10586,11 +10520,10 @@ components:
           - Medium
           - Large
         default: Medium
-        description: "Sizing and spacing scale. Everything that reads it goes through\r
-
-          `byDensity`, which falls back to `Medium`, so `Medium` is the default\r
-
-          everywhere the prop is left off."
+        description: |-
+          Sizing and spacing scale. Everything that reads it goes through
+          `byDensity`, which falls back to `Medium`, so `Medium` is the default
+          everywhere the prop is left off.
         inherited: WidgetBaseProps
       - name: height
         type: Sizing
@@ -10634,11 +10567,10 @@ components:
           - Medium
           - Large
         default: Medium
-        description: "Sizing and spacing scale. Everything that reads it goes through\r
-
-          `byDensity`, which falls back to `Medium`, so `Medium` is the default\r
-
-          everywhere the prop is left off."
+        description: |-
+          Sizing and spacing scale. Everything that reads it goes through
+          `byDensity`, which falls back to `Medium`, so `Medium` is the default
+          everywhere the prop is left off.
         inherited: WidgetBaseProps
       - name: height
         type: Sizing
@@ -10661,11 +10593,10 @@ components:
     category: Widgets
     file: src/widgets/DataTable.tsx
     ivy: Ivy.DataTable
-    description: "A sortable, filterable, paginated grid. Mirrors `Ivy.DataTable`; where the\r
-
-      Ivy widget streams from a `DataTableConnection`, this one takes `rows`\r
-
-      directly, which is what a wireframe needs."
+    description: |-
+      A sortable, filterable, paginated grid. Mirrors `Ivy.DataTable`; where the
+      Ivy widget streams from a `DataTableConnection`, this one takes `rows`
+      directly, which is what a wireframe needs.
     tags:
       - grid
       - sortable
@@ -10732,11 +10663,10 @@ components:
           - Medium
           - Large
         default: Medium
-        description: "Sizing and spacing scale. Everything that reads it goes through\r
-
-          `byDensity`, which falls back to `Medium`, so `Medium` is the default\r
-
-          everywhere the prop is left off."
+        description: |-
+          Sizing and spacing scale. Everything that reads it goes through
+          `byDensity`, which falls back to `Medium`, so `Medium` is the default
+          everywhere the prop is left off.
         inherited: WidgetBaseProps
       - name: height
         type: Sizing
@@ -10789,11 +10719,10 @@ components:
           - Medium
           - Large
         default: Medium
-        description: "Sizing and spacing scale. Everything that reads it goes through\r
-
-          `byDensity`, which falls back to `Medium`, so `Medium` is the default\r
-
-          everywhere the prop is left off."
+        description: |-
+          Sizing and spacing scale. Everything that reads it goes through
+          `byDensity`, which falls back to `Medium`, so `Medium` is the default
+          everywhere the prop is left off.
         inherited: WidgetBaseProps
       - name: height
         type: Sizing
@@ -10844,11 +10773,10 @@ components:
           - Medium
           - Large
         default: Medium
-        description: "Sizing and spacing scale. Everything that reads it goes through\r
-
-          `byDensity`, which falls back to `Medium`, so `Medium` is the default\r
-
-          everywhere the prop is left off."
+        description: |-
+          Sizing and spacing scale. Everything that reads it goes through
+          `byDensity`, which falls back to `Medium`, so `Medium` is the default
+          everywhere the prop is left off.
         inherited: WidgetBaseProps
       - name: height
         type: Sizing
@@ -10914,11 +10842,10 @@ components:
           - Medium
           - Large
         default: Medium
-        description: "Sizing and spacing scale. Everything that reads it goes through\r
-
-          `byDensity`, which falls back to `Medium`, so `Medium` is the default\r
-
-          everywhere the prop is left off."
+        description: |-
+          Sizing and spacing scale. Everything that reads it goes through
+          `byDensity`, which falls back to `Medium`, so `Medium` is the default
+          everywhere the prop is left off.
         inherited: WidgetBaseProps
       - name: height
         type: Sizing
@@ -10960,11 +10887,10 @@ components:
           - Medium
           - Large
         default: Medium
-        description: "Sizing and spacing scale. Everything that reads it goes through\r
-
-          `byDensity`, which falls back to `Medium`, so `Medium` is the default\r
-
-          everywhere the prop is left off."
+        description: |-
+          Sizing and spacing scale. Everything that reads it goes through
+          `byDensity`, which falls back to `Medium`, so `Medium` is the default
+          everywhere the prop is left off.
         inherited: WidgetBaseProps
       - name: height
         type: Sizing
@@ -11005,11 +10931,10 @@ components:
           - Medium
           - Large
         default: Medium
-        description: "Sizing and spacing scale. Everything that reads it goes through\r
-
-          `byDensity`, which falls back to `Medium`, so `Medium` is the default\r
-
-          everywhere the prop is left off."
+        description: |-
+          Sizing and spacing scale. Everything that reads it goes through
+          `byDensity`, which falls back to `Medium`, so `Medium` is the default
+          everywhere the prop is left off.
         inherited: WidgetBaseProps
       - name: height
         type: Sizing
@@ -11059,11 +10984,10 @@ components:
           - Medium
           - Large
         default: Medium
-        description: "Sizing and spacing scale. Everything that reads it goes through\r
-
-          `byDensity`, which falls back to `Medium`, so `Medium` is the default\r
-
-          everywhere the prop is left off."
+        description: |-
+          Sizing and spacing scale. Everything that reads it goes through
+          `byDensity`, which falls back to `Medium`, so `Medium` is the default
+          everywhere the prop is left off.
         inherited: WidgetBaseProps
       - name: height
         type: Sizing
@@ -11155,11 +11079,10 @@ components:
           - Medium
           - Large
         default: Medium
-        description: "Sizing and spacing scale. Everything that reads it goes through\r
-
-          `byDensity`, which falls back to `Medium`, so `Medium` is the default\r
-
-          everywhere the prop is left off."
+        description: |-
+          Sizing and spacing scale. Everything that reads it goes through
+          `byDensity`, which falls back to `Medium`, so `Medium` is the default
+          everywhere the prop is left off.
         inherited: WidgetBaseProps
       - name: height
         type: Sizing
@@ -11231,11 +11154,10 @@ components:
           - Medium
           - Large
         default: Medium
-        description: "Sizing and spacing scale. Everything that reads it goes through\r
-
-          `byDensity`, which falls back to `Medium`, so `Medium` is the default\r
-
-          everywhere the prop is left off."
+        description: |-
+          Sizing and spacing scale. Everything that reads it goes through
+          `byDensity`, which falls back to `Medium`, so `Medium` is the default
+          everywhere the prop is left off.
         inherited: WidgetBaseProps
       - name: height
         type: Sizing
@@ -11311,11 +11233,10 @@ components:
           - Medium
           - Large
         default: Medium
-        description: "Sizing and spacing scale. Everything that reads it goes through\r
-
-          `byDensity`, which falls back to `Medium`, so `Medium` is the default\r
-
-          everywhere the prop is left off."
+        description: |-
+          Sizing and spacing scale. Everything that reads it goes through
+          `byDensity`, which falls back to `Medium`, so `Medium` is the default
+          everywhere the prop is left off.
         inherited: WidgetBaseProps
       - name: height
         type: Sizing
@@ -11394,11 +11315,10 @@ components:
           - Medium
           - Large
         default: Medium
-        description: "Sizing and spacing scale. Everything that reads it goes through\r
-
-          `byDensity`, which falls back to `Medium`, so `Medium` is the default\r
-
-          everywhere the prop is left off."
+        description: |-
+          Sizing and spacing scale. Everything that reads it goes through
+          `byDensity`, which falls back to `Medium`, so `Medium` is the default
+          everywhere the prop is left off.
         inherited: WidgetBaseProps
       - name: height
         type: Sizing
@@ -11444,11 +11364,10 @@ components:
           - Medium
           - Large
         default: Medium
-        description: "Sizing and spacing scale. Everything that reads it goes through\r
-
-          `byDensity`, which falls back to `Medium`, so `Medium` is the default\r
-
-          everywhere the prop is left off."
+        description: |-
+          Sizing and spacing scale. Everything that reads it goes through
+          `byDensity`, which falls back to `Medium`, so `Medium` is the default
+          everywhere the prop is left off.
         inherited: WidgetBaseProps
       - name: height
         type: Sizing
@@ -11513,11 +11432,10 @@ components:
           - Medium
           - Large
         default: Medium
-        description: "Sizing and spacing scale. Everything that reads it goes through\r
-
-          `byDensity`, which falls back to `Medium`, so `Medium` is the default\r
-
-          everywhere the prop is left off."
+        description: |-
+          Sizing and spacing scale. Everything that reads it goes through
+          `byDensity`, which falls back to `Medium`, so `Medium` is the default
+          everywhere the prop is left off.
         inherited: WidgetBaseProps
       - name: height
         type: Sizing
@@ -11587,11 +11505,10 @@ components:
           - Medium
           - Large
         default: Medium
-        description: "Sizing and spacing scale. Everything that reads it goes through\r
-
-          `byDensity`, which falls back to `Medium`, so `Medium` is the default\r
-
-          everywhere the prop is left off."
+        description: |-
+          Sizing and spacing scale. Everything that reads it goes through
+          `byDensity`, which falls back to `Medium`, so `Medium` is the default
+          everywhere the prop is left off.
         inherited: WidgetBaseProps
       - name: height
         type: Sizing
@@ -11652,11 +11569,10 @@ components:
           - Medium
           - Large
         default: Medium
-        description: "Sizing and spacing scale. Everything that reads it goes through\r
-
-          `byDensity`, which falls back to `Medium`, so `Medium` is the default\r
-
-          everywhere the prop is left off."
+        description: |-
+          Sizing and spacing scale. Everything that reads it goes through
+          `byDensity`, which falls back to `Medium`, so `Medium` is the default
+          everywhere the prop is left off.
         inherited: WidgetBaseProps
       - name: height
         type: Sizing
@@ -11740,11 +11656,10 @@ components:
           - Medium
           - Large
         default: Medium
-        description: "Sizing and spacing scale. Everything that reads it goes through\r
-
-          `byDensity`, which falls back to `Medium`, so `Medium` is the default\r
-
-          everywhere the prop is left off."
+        description: |-
+          Sizing and spacing scale. Everything that reads it goes through
+          `byDensity`, which falls back to `Medium`, so `Medium` is the default
+          everywhere the prop is left off.
         inherited: WidgetBaseProps
       - name: height
         type: Sizing
@@ -11815,11 +11730,10 @@ components:
           - Medium
           - Large
         default: Medium
-        description: "Sizing and spacing scale. Everything that reads it goes through\r
-
-          `byDensity`, which falls back to `Medium`, so `Medium` is the default\r
-
-          everywhere the prop is left off."
+        description: |-
+          Sizing and spacing scale. Everything that reads it goes through
+          `byDensity`, which falls back to `Medium`, so `Medium` is the default
+          everywhere the prop is left off.
         inherited: WidgetBaseProps
       - name: height
         type: Sizing
@@ -11874,11 +11788,10 @@ components:
           - Medium
           - Large
         default: Medium
-        description: "Sizing and spacing scale. Everything that reads it goes through\r
-
-          `byDensity`, which falls back to `Medium`, so `Medium` is the default\r
-
-          everywhere the prop is left off."
+        description: |-
+          Sizing and spacing scale. Everything that reads it goes through
+          `byDensity`, which falls back to `Medium`, so `Medium` is the default
+          everywhere the prop is left off.
         inherited: WidgetBaseProps
       - name: height
         type: Sizing
@@ -11953,11 +11866,10 @@ components:
           - Medium
           - Large
         default: Medium
-        description: "Sizing and spacing scale. Everything that reads it goes through\r
-
-          `byDensity`, which falls back to `Medium`, so `Medium` is the default\r
-
-          everywhere the prop is left off."
+        description: |-
+          Sizing and spacing scale. Everything that reads it goes through
+          `byDensity`, which falls back to `Medium`, so `Medium` is the default
+          everywhere the prop is left off.
         inherited: WidgetBaseProps
       - name: height
         type: Sizing
@@ -12008,11 +11920,10 @@ components:
           - Medium
           - Large
         default: Medium
-        description: "Sizing and spacing scale. Everything that reads it goes through\r
-
-          `byDensity`, which falls back to `Medium`, so `Medium` is the default\r
-
-          everywhere the prop is left off."
+        description: |-
+          Sizing and spacing scale. Everything that reads it goes through
+          `byDensity`, which falls back to `Medium`, so `Medium` is the default
+          everywhere the prop is left off.
         inherited: WidgetBaseProps
       - name: height
         type: Sizing
@@ -12069,11 +11980,10 @@ components:
           - Medium
           - Large
         default: Medium
-        description: "Sizing and spacing scale. Everything that reads it goes through\r
-
-          `byDensity`, which falls back to `Medium`, so `Medium` is the default\r
-
-          everywhere the prop is left off."
+        description: |-
+          Sizing and spacing scale. Everything that reads it goes through
+          `byDensity`, which falls back to `Medium`, so `Medium` is the default
+          everywhere the prop is left off.
         inherited: WidgetBaseProps
       - name: height
         type: Sizing
@@ -12159,11 +12069,10 @@ components:
           - Medium
           - Large
         default: Medium
-        description: "Sizing and spacing scale. Everything that reads it goes through\r
-
-          `byDensity`, which falls back to `Medium`, so `Medium` is the default\r
-
-          everywhere the prop is left off."
+        description: |-
+          Sizing and spacing scale. Everything that reads it goes through
+          `byDensity`, which falls back to `Medium`, so `Medium` is the default
+          everywhere the prop is left off.
         inherited: WidgetBaseProps
       - name: height
         type: Sizing
@@ -12225,11 +12134,10 @@ components:
           - Medium
           - Large
         default: Medium
-        description: "Sizing and spacing scale. Everything that reads it goes through\r
-
-          `byDensity`, which falls back to `Medium`, so `Medium` is the default\r
-
-          everywhere the prop is left off."
+        description: |-
+          Sizing and spacing scale. Everything that reads it goes through
+          `byDensity`, which falls back to `Medium`, so `Medium` is the default
+          everywhere the prop is left off.
         inherited: WidgetBaseProps
       - name: height
         type: Sizing
@@ -12252,9 +12160,9 @@ components:
     category: Widgets
     file: src/widgets/wireframe/Arrow.tsx
     ivy: Ivy.WireframeArrow
-    description: "A drawn-on arrow, for pointing one part of a sketch at another.\r
-
-      Mirrors `Ivy.WireframeArrow`."
+    description: |-
+      A drawn-on arrow, for pointing one part of a sketch at another.
+      Mirrors `Ivy.WireframeArrow`.
     tags:
       - annotation
       - pointer
@@ -12320,11 +12228,10 @@ components:
           - Medium
           - Large
         default: Medium
-        description: "Sizing and spacing scale. Everything that reads it goes through\r
-
-          `byDensity`, which falls back to `Medium`, so `Medium` is the default\r
-
-          everywhere the prop is left off."
+        description: |-
+          Sizing and spacing scale. Everything that reads it goes through
+          `byDensity`, which falls back to `Medium`, so `Medium` is the default
+          everywhere the prop is left off.
         inherited: WidgetBaseProps
       - name: height
         type: Sizing
@@ -12386,11 +12293,10 @@ components:
           - Medium
           - Large
         default: Medium
-        description: "Sizing and spacing scale. Everything that reads it goes through\r
-
-          `byDensity`, which falls back to `Medium`, so `Medium` is the default\r
-
-          everywhere the prop is left off."
+        description: |-
+          Sizing and spacing scale. Everything that reads it goes through
+          `byDensity`, which falls back to `Medium`, so `Medium` is the default
+          everywhere the prop is left off.
         inherited: WidgetBaseProps
       - name: height
         type: Sizing
@@ -12413,9 +12319,9 @@ components:
     category: Widgets
     file: src/widgets/wireframe/CurlyBrace.tsx
     ivy: Ivy.WireframeCurlyBrace
-    description: "A brace gathering a run of the sketch together, to be labelled as one thing.\r
-
-      Mirrors `Ivy.WireframeCurlyBrace`."
+    description: |-
+      A brace gathering a run of the sketch together, to be labelled as one thing.
+      Mirrors `Ivy.WireframeCurlyBrace`.
     tags:
       - annotation
       - group
@@ -12453,11 +12359,10 @@ components:
           - Medium
           - Large
         default: Medium
-        description: "Sizing and spacing scale. Everything that reads it goes through\r
-
-          `byDensity`, which falls back to `Medium`, so `Medium` is the default\r
-
-          everywhere the prop is left off."
+        description: |-
+          Sizing and spacing scale. Everything that reads it goes through
+          `byDensity`, which falls back to `Medium`, so `Medium` is the default
+          everywhere the prop is left off.
         inherited: WidgetBaseProps
       - name: height
         type: Sizing
@@ -12480,9 +12385,9 @@ components:
     category: Widgets
     file: src/widgets/wireframe/Mockup.tsx
     ivy: Ivy.WireframeMockup
-    description: "A hand-drawn device or browser frame wrapped around real content.\r
-
-      Mirrors `Ivy.WireframeMockup`."
+    description: |-
+      A hand-drawn device or browser frame wrapped around real content.
+      Mirrors `Ivy.WireframeMockup`.
     tags:
       - device
       - phone
@@ -12533,11 +12438,10 @@ components:
           - Medium
           - Large
         default: Medium
-        description: "Sizing and spacing scale. Everything that reads it goes through\r
-
-          `byDensity`, which falls back to `Medium`, so `Medium` is the default\r
-
-          everywhere the prop is left off."
+        description: |-
+          Sizing and spacing scale. Everything that reads it goes through
+          `byDensity`, which falls back to `Medium`, so `Medium` is the default
+          everywhere the prop is left off.
         inherited: WidgetBaseProps
       - name: height
         type: Sizing
@@ -12591,11 +12495,10 @@ components:
           - Medium
           - Large
         default: Medium
-        description: "Sizing and spacing scale. Everything that reads it goes through\r
-
-          `byDensity`, which falls back to `Medium`, so `Medium` is the default\r
-
-          everywhere the prop is left off."
+        description: |-
+          Sizing and spacing scale. Everything that reads it goes through
+          `byDensity`, which falls back to `Medium`, so `Medium` is the default
+          everywhere the prop is left off.
         inherited: WidgetBaseProps
       - name: height
         type: Sizing
@@ -12619,9 +12522,9 @@ components:
     category: Widgets
     file: src/widgets/wireframe/Marks.tsx
     ivy: Ivy.WireframePlaceholder
-    description: "The crossed box that stands in for content nobody has drawn yet.\r
-
-      Mirrors `Ivy.WireframePlaceholder`."
+    description: |-
+      The crossed box that stands in for content nobody has drawn yet.
+      Mirrors `Ivy.WireframePlaceholder`.
     tags:
       - annotation
       - stub
@@ -12655,11 +12558,10 @@ components:
           - Medium
           - Large
         default: Medium
-        description: "Sizing and spacing scale. Everything that reads it goes through\r
-
-          `byDensity`, which falls back to `Medium`, so `Medium` is the default\r
-
-          everywhere the prop is left off."
+        description: |-
+          Sizing and spacing scale. Everything that reads it goes through
+          `byDensity`, which falls back to `Medium`, so `Medium` is the default
+          everywhere the prop is left off.
         inherited: WidgetBaseProps
       - name: height
         type: Sizing
@@ -12684,9 +12586,9 @@ components:
     category: Widgets
     file: src/widgets/wireframe/Marks.tsx
     ivy: Ivy.WireframeRedX
-    description: "A marker X struck over a region — this part is wrong, or cut.\r
-
-      Mirrors `Ivy.WireframeRedX`."
+    description: |-
+      A marker X struck over a region — this part is wrong, or cut.
+      Mirrors `Ivy.WireframeRedX`.
     tags:
       - annotation
       - reject
@@ -12714,11 +12616,10 @@ components:
           - Medium
           - Large
         default: Medium
-        description: "Sizing and spacing scale. Everything that reads it goes through\r
-
-          `byDensity`, which falls back to `Medium`, so `Medium` is the default\r
-
-          everywhere the prop is left off."
+        description: |-
+          Sizing and spacing scale. Everything that reads it goes through
+          `byDensity`, which falls back to `Medium`, so `Medium` is the default
+          everywhere the prop is left off.
         inherited: WidgetBaseProps
       - name: height
         type: Sizing
@@ -12743,9 +12644,9 @@ components:
     category: Widgets
     file: src/widgets/wireframe/Marks.tsx
     ivy: Ivy.WireframeScratchOut
-    description: "A scribbled-over region — struck through, but still legible underneath.\r
-
-      Mirrors `Ivy.WireframeScratchOut`."
+    description: |-
+      A scribbled-over region — struck through, but still legible underneath.
+      Mirrors `Ivy.WireframeScratchOut`.
     tags:
       - annotation
       - strike
@@ -12774,11 +12675,10 @@ components:
           - Medium
           - Large
         default: Medium
-        description: "Sizing and spacing scale. Everything that reads it goes through\r
-
-          `byDensity`, which falls back to `Medium`, so `Medium` is the default\r
-
-          everywhere the prop is left off."
+        description: |-
+          Sizing and spacing scale. Everything that reads it goes through
+          `byDensity`, which falls back to `Medium`, so `Medium` is the default
+          everywhere the prop is left off.
         inherited: WidgetBaseProps
       - name: height
         type: Sizing
@@ -12803,15 +12703,12 @@ components:
     category: Widgets
     file: src/widgets/wireframe/Transform.tsx
     ivy: Ivy.WireframeTransform
-    description: "Renders its children under a transform: rotated, scaled, skewed, flipped or\r
-
-      nudged. The transform is visual only — children keep the layout box they\r
-
-      started with, so a rotated child does not push its neighbours around. Turn\r
-
-      `fit` on when the transformed bounds should take up room.\r
-
-      Mirrors `Ivy.WireframeTransform`."
+    description: |-
+      Renders its children under a transform: rotated, scaled, skewed, flipped or
+      nudged. The transform is visual only — children keep the layout box they
+      started with, so a rotated child does not push its neighbours around. Turn
+      `fit` on when the transformed bounds should take up room.
+      Mirrors `Ivy.WireframeTransform`.
     tags:
       - rotate
       - scale
@@ -12828,13 +12725,11 @@ components:
       - name: fit
         type: boolean
         required: false
-        description: "Shrinks the widget's own layout box to the transformed bounds, so a scaled\r
-
-          or rotated child takes up the room it visually occupies instead of the room\r
-
-          it started with. Off by default, which is the plain CSS behaviour. When on,\r
-
-          `origin` no longer affects the result — the bounds are recentred either way."
+        description: |-
+          Shrinks the widget's own layout box to the transformed bounds, so a scaled
+          or rotated child takes up the room it visually occupies instead of the room
+          it started with. Off by default, which is the plain CSS behaviour. When on,
+          `origin` no longer affects the result — the bounds are recentred either way.
       - name: flipHorizontal
         type: boolean
         required: false
@@ -12914,11 +12809,10 @@ components:
           - Medium
           - Large
         default: Medium
-        description: "Sizing and spacing scale. Everything that reads it goes through\r
-
-          `byDensity`, which falls back to `Medium`, so `Medium` is the default\r
-
-          everywhere the prop is left off."
+        description: |-
+          Sizing and spacing scale. Everything that reads it goes through
+          `byDensity`, which falls back to `Medium`, so `Medium` is the default
+          everywhere the prop is left off.
         inherited: WidgetBaseProps
       - name: height
         type: Sizing
