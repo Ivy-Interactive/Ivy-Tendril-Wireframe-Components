@@ -76,7 +76,13 @@ export const Badge = ({
       fill={filled ? tint(accent, 0.85) : undefined}
       fillStyle="solid"
       onClick={onClick}
-      className={cn("inline-block align-middle", onClick && "cursor-pointer", className)}
+      // w-fit, not self-start: a badge is a pill and should never fill its container, but
+      // align-self is cross-axis, so self-start would top-align every badge sitting in a
+      // flex row. Setting the width stops a flex column stretching it (stretch only applies
+      // to an auto cross size) and leaves row alignment alone. An explicit `width` prop
+      // still wins -- it lands in the inline style -- and a `w-*` class in `className` wins
+      // through tailwind-merge.
+      className={cn("inline-block w-fit align-middle", onClick && "cursor-pointer", className)}
       contentClassName={cn(
         "flex items-center gap-1 leading-none whitespace-nowrap",
         byDensity(density, ["px-2 py-0.5 text-[10px]", "px-2.5 py-1 text-xs", "px-3 py-1.5 text-sm"]),

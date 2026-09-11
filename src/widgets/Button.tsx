@@ -143,8 +143,12 @@ export const Button = React.forwardRef<HTMLElement, ButtonProps>(function Button
       title={tooltip}
       aria-label={typeof label === "string" ? label : undefined}
       onClick={handleClick}
+      // w-fit for the same reason as Badge: dropped into a `flex flex-col`, the default
+      // align-items: stretch would otherwise give the button the full column width, which
+      // is occasionally wanted but never by accident. `width="100%"` still says so
+      // explicitly, and a `w-*` class in `className` wins through tailwind-merge.
       className={cn(
-        "inline-block cursor-pointer text-left transition-transform select-none",
+        "inline-block w-fit cursor-pointer text-left transition-transform select-none",
         !disabled && !bare && "active:translate-y-px",
         !disabled && bare && "hover:opacity-70",
         disabled && "cursor-not-allowed opacity-45",

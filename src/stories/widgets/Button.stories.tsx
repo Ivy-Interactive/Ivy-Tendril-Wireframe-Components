@@ -85,3 +85,26 @@ export const States: Story = {
 export const AsLink: Story = {
   args: { title: "Open the docs", url: "https://example.com", target: "Blank", variant: "Link" },
 };
+
+/**
+ * A button sizes to its label, whichever way the surrounding flex container runs. Dropped
+ * into a `flex flex-col` it used to take the whole column width, which is occasionally
+ * wanted but never by accident -- and the accident is invisible until someone looks at a
+ * screenshot.
+ *
+ * Say it explicitly with `width="100%"` when a full-width button is the intent.
+ */
+export const InFlexContainers: Story = {
+  render: (args) => (
+    <div className="flex flex-col gap-6">
+      <div className="flex w-96 flex-col gap-2 border border-dashed border-neutral-300 p-3">
+        <Button {...args} title="Sized to its label" />
+        <Button {...args} title="So is this" variant="Secondary" icon="Plus" />
+      </div>
+
+      <div className="flex w-96 flex-col gap-2 border border-dashed border-neutral-300 p-3">
+        <Button {...args} title="Full width, on purpose" width="100%" />
+      </div>
+    </div>
+  ),
+};
