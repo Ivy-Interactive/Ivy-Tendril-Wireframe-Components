@@ -1,5 +1,5 @@
 name: tendril-wireframes
-version: 0.1.8
+version: 0.1.9
 generated: Do not edit. Run `npm run manifest` — props come from the TypeScript types, prose from
   JSDoc tags in the component files.
 componentCount: 99
@@ -730,9 +730,17 @@ types:
     kind: enum
     values:
       - Mobile
-      - Website
       - Tablet
-      - Desktop
+      - Website
+      - OSX
+      - Windows
+    description: |-
+      Which frame to draw.
+
+      `OSX` and `Windows` are separate on purpose. They were one `Desktop` variant drawing
+      macOS traffic lights, which is actively misleading on a wireframe of a Windows
+      application — the platform is usually the first thing a reviewer reads off a window
+      sketch, and there was no way to say "Windows" at all.
   NullableBoolean:
     kind: alias
     type: boolean | null
@@ -1310,6 +1318,10 @@ components:
       - name: height
         type: Sizing
         required: false
+        description: |-
+          Fixes the height instead of letting the widget size to its content. A widget that
+          would otherwise grow — `WireframeMockup` is the clearest case — will clip once this is
+          set, so leave it off unless the height itself is the point.
         inherited: WidgetBaseProps
       - name: id
         type: string
@@ -1469,6 +1481,10 @@ components:
       - name: height
         type: Sizing
         required: false
+        description: |-
+          Fixes the height instead of letting the widget size to its content. A widget that
+          would otherwise grow — `WireframeMockup` is the clearest case — will clip once this is
+          set, so leave it off unless the height itself is the point.
         inherited: WidgetBaseProps
       - name: id
         type: string
@@ -1573,6 +1589,10 @@ components:
         type: Sizing
         required: false
         default: 18rem
+        description: |-
+          Fixes the height instead of letting the widget size to its content. A widget that
+          would otherwise grow — `WireframeMockup` is the clearest case — will clip once this is
+          set, so leave it off unless the height itself is the point.
         inherited: WidgetBaseProps
       - name: id
         type: string
@@ -1638,6 +1658,10 @@ components:
       - name: height
         type: Sizing
         required: false
+        description: |-
+          Fixes the height instead of letting the widget size to its content. A widget that
+          would otherwise grow — `WireframeMockup` is the clearest case — will clip once this is
+          set, so leave it off unless the height itself is the point.
         inherited: WidgetBaseProps
       - name: id
         type: string
@@ -1727,6 +1751,10 @@ components:
       - name: height
         type: Sizing
         required: false
+        description: |-
+          Fixes the height instead of letting the widget size to its content. A widget that
+          would otherwise grow — `WireframeMockup` is the clearest case — will clip once this is
+          set, so leave it off unless the height itself is the point.
         inherited: WidgetBaseProps
       - name: id
         type: string
@@ -1831,6 +1859,10 @@ components:
       - name: height
         type: Sizing
         required: false
+        description: |-
+          Fixes the height instead of letting the widget size to its content. A widget that
+          would otherwise grow — `WireframeMockup` is the clearest case — will clip once this is
+          set, so leave it off unless the height itself is the point.
         inherited: WidgetBaseProps
       - name: id
         type: string
@@ -1914,6 +1946,10 @@ components:
       - name: height
         type: Sizing
         required: false
+        description: |-
+          Fixes the height instead of letting the widget size to its content. A widget that
+          would otherwise grow — `WireframeMockup` is the clearest case — will clip once this is
+          set, so leave it off unless the height itself is the point.
         inherited: WidgetBaseProps
       - name: id
         type: string
@@ -2023,6 +2059,10 @@ components:
       - name: height
         type: Sizing
         required: false
+        description: |-
+          Fixes the height instead of letting the widget size to its content. A widget that
+          would otherwise grow — `WireframeMockup` is the clearest case — will clip once this is
+          set, so leave it off unless the height itself is the point.
         inherited: WidgetBaseProps
       - name: id
         type: string
@@ -2131,6 +2171,10 @@ components:
       - name: height
         type: Sizing
         required: false
+        description: |-
+          Fixes the height instead of letting the widget size to its content. A widget that
+          would otherwise grow — `WireframeMockup` is the clearest case — will clip once this is
+          set, so leave it off unless the height itself is the point.
         inherited: WidgetBaseProps
       - name: id
         type: string
@@ -2219,6 +2263,10 @@ components:
       - name: height
         type: Sizing
         required: false
+        description: |-
+          Fixes the height instead of letting the widget size to its content. A widget that
+          would otherwise grow — `WireframeMockup` is the clearest case — will clip once this is
+          set, so leave it off unless the height itself is the point.
         inherited: WidgetBaseProps
       - name: id
         type: string
@@ -2298,6 +2346,10 @@ components:
       - name: height
         type: Sizing
         required: false
+        description: |-
+          Fixes the height instead of letting the widget size to its content. A widget that
+          would otherwise grow — `WireframeMockup` is the clearest case — will clip once this is
+          set, so leave it off unless the height itself is the point.
         inherited: WidgetBaseProps
       - name: id
         type: string
@@ -2462,6 +2514,10 @@ components:
       - name: height
         type: Sizing
         required: false
+        description: |-
+          Fixes the height instead of letting the widget size to its content. A widget that
+          would otherwise grow — `WireframeMockup` is the clearest case — will clip once this is
+          set, so leave it off unless the height itself is the point.
         inherited: WidgetBaseProps
       - name: id
         type: string
@@ -7098,6 +7154,10 @@ components:
       - name: height
         type: Sizing
         required: false
+        description: |-
+          Fixes the height instead of letting the widget size to its content. A widget that
+          would otherwise grow — `WireframeMockup` is the clearest case — will clip once this is
+          set, so leave it off unless the height itself is the point.
         inherited: WidgetBaseProps
       - name: id
         type: string
@@ -7201,6 +7261,10 @@ components:
       - name: height
         type: Sizing
         required: false
+        description: |-
+          Fixes the height instead of letting the widget size to its content. A widget that
+          would otherwise grow — `WireframeMockup` is the clearest case — will clip once this is
+          set, so leave it off unless the height itself is the point.
         inherited: WidgetBaseProps
       - name: id
         type: string
@@ -7317,6 +7381,10 @@ components:
       - name: height
         type: Sizing
         required: false
+        description: |-
+          Fixes the height instead of letting the widget size to its content. A widget that
+          would otherwise grow — `WireframeMockup` is the clearest case — will clip once this is
+          set, so leave it off unless the height itself is the point.
         inherited: WidgetBaseProps
       - name: id
         type: string
@@ -7420,6 +7488,10 @@ components:
       - name: height
         type: Sizing
         required: false
+        description: |-
+          Fixes the height instead of letting the widget size to its content. A widget that
+          would otherwise grow — `WireframeMockup` is the clearest case — will clip once this is
+          set, so leave it off unless the height itself is the point.
         inherited: WidgetBaseProps
       - name: id
         type: string
@@ -7525,6 +7597,10 @@ components:
         type: Sizing
         required: false
         default: 12rem
+        description: |-
+          Fixes the height instead of letting the widget size to its content. A widget that
+          would otherwise grow — `WireframeMockup` is the clearest case — will clip once this is
+          set, so leave it off unless the height itself is the point.
         inherited: WidgetBaseProps
       - name: id
         type: string
@@ -7630,6 +7706,10 @@ components:
       - name: height
         type: Sizing
         required: false
+        description: |-
+          Fixes the height instead of letting the widget size to its content. A widget that
+          would otherwise grow — `WireframeMockup` is the clearest case — will clip once this is
+          set, so leave it off unless the height itself is the point.
         inherited: WidgetBaseProps
       - name: id
         type: string
@@ -7748,6 +7828,10 @@ components:
       - name: height
         type: Sizing
         required: false
+        description: |-
+          Fixes the height instead of letting the widget size to its content. A widget that
+          would otherwise grow — `WireframeMockup` is the clearest case — will clip once this is
+          set, so leave it off unless the height itself is the point.
         inherited: WidgetBaseProps
       - name: id
         type: string
@@ -7879,6 +7963,10 @@ components:
       - name: height
         type: Sizing
         required: false
+        description: |-
+          Fixes the height instead of letting the widget size to its content. A widget that
+          would otherwise grow — `WireframeMockup` is the clearest case — will clip once this is
+          set, so leave it off unless the height itself is the point.
         inherited: WidgetBaseProps
       - name: id
         type: string
@@ -7983,6 +8071,10 @@ components:
       - name: height
         type: Sizing
         required: false
+        description: |-
+          Fixes the height instead of letting the widget size to its content. A widget that
+          would otherwise grow — `WireframeMockup` is the clearest case — will clip once this is
+          set, so leave it off unless the height itself is the point.
         inherited: WidgetBaseProps
       - name: id
         type: string
@@ -8081,6 +8173,10 @@ components:
       - name: height
         type: Sizing
         required: false
+        description: |-
+          Fixes the height instead of letting the widget size to its content. A widget that
+          would otherwise grow — `WireframeMockup` is the clearest case — will clip once this is
+          set, so leave it off unless the height itself is the point.
         inherited: WidgetBaseProps
       - name: id
         type: string
@@ -8181,6 +8277,10 @@ components:
       - name: height
         type: Sizing
         required: false
+        description: |-
+          Fixes the height instead of letting the widget size to its content. A widget that
+          would otherwise grow — `WireframeMockup` is the clearest case — will clip once this is
+          set, so leave it off unless the height itself is the point.
         inherited: WidgetBaseProps
       - name: id
         type: string
@@ -8260,6 +8360,10 @@ components:
       - name: height
         type: Sizing
         required: false
+        description: |-
+          Fixes the height instead of letting the widget size to its content. A widget that
+          would otherwise grow — `WireframeMockup` is the clearest case — will clip once this is
+          set, so leave it off unless the height itself is the point.
         inherited: WidgetBaseProps
       - name: id
         type: string
@@ -8325,6 +8429,10 @@ components:
       - name: height
         type: Sizing
         required: false
+        description: |-
+          Fixes the height instead of letting the widget size to its content. A widget that
+          would otherwise grow — `WireframeMockup` is the clearest case — will clip once this is
+          set, so leave it off unless the height itself is the point.
         inherited: WidgetBaseProps
       - name: id
         type: string
@@ -8435,6 +8543,10 @@ components:
       - name: height
         type: Sizing
         required: false
+        description: |-
+          Fixes the height instead of letting the widget size to its content. A widget that
+          would otherwise grow — `WireframeMockup` is the clearest case — will clip once this is
+          set, so leave it off unless the height itself is the point.
         inherited: WidgetBaseProps
       - name: id
         type: string
@@ -8637,6 +8749,10 @@ components:
       - name: height
         type: Sizing
         required: false
+        description: |-
+          Fixes the height instead of letting the widget size to its content. A widget that
+          would otherwise grow — `WireframeMockup` is the clearest case — will clip once this is
+          set, so leave it off unless the height itself is the point.
         inherited: WidgetBaseProps
       - name: id
         type: string
@@ -8767,6 +8883,10 @@ components:
       - name: height
         type: Sizing
         required: false
+        description: |-
+          Fixes the height instead of letting the widget size to its content. A widget that
+          would otherwise grow — `WireframeMockup` is the clearest case — will clip once this is
+          set, so leave it off unless the height itself is the point.
         inherited: WidgetBaseProps
       - name: id
         type: string
@@ -8854,6 +8974,10 @@ components:
       - name: height
         type: Sizing
         required: false
+        description: |-
+          Fixes the height instead of letting the widget size to its content. A widget that
+          would otherwise grow — `WireframeMockup` is the clearest case — will clip once this is
+          set, so leave it off unless the height itself is the point.
         inherited: WidgetBaseProps
       - name: id
         type: string
@@ -9001,6 +9125,10 @@ components:
       - name: height
         type: Sizing
         required: false
+        description: |-
+          Fixes the height instead of letting the widget size to its content. A widget that
+          would otherwise grow — `WireframeMockup` is the clearest case — will clip once this is
+          set, so leave it off unless the height itself is the point.
         inherited: WidgetBaseProps
       - name: id
         type: string
@@ -9110,6 +9238,10 @@ components:
       - name: height
         type: Sizing
         required: false
+        description: |-
+          Fixes the height instead of letting the widget size to its content. A widget that
+          would otherwise grow — `WireframeMockup` is the clearest case — will clip once this is
+          set, so leave it off unless the height itself is the point.
         inherited: WidgetBaseProps
       - name: id
         type: string
@@ -9297,6 +9429,10 @@ components:
       - name: height
         type: Sizing
         required: false
+        description: |-
+          Fixes the height instead of letting the widget size to its content. A widget that
+          would otherwise grow — `WireframeMockup` is the clearest case — will clip once this is
+          set, so leave it off unless the height itself is the point.
         inherited: WidgetBaseProps
       - name: id
         type: string
@@ -9407,6 +9543,10 @@ components:
       - name: height
         type: Sizing
         required: false
+        description: |-
+          Fixes the height instead of letting the widget size to its content. A widget that
+          would otherwise grow — `WireframeMockup` is the clearest case — will clip once this is
+          set, so leave it off unless the height itself is the point.
         inherited: WidgetBaseProps
       - name: id
         type: string
@@ -9467,6 +9607,10 @@ components:
       - name: height
         type: Sizing
         required: false
+        description: |-
+          Fixes the height instead of letting the widget size to its content. A widget that
+          would otherwise grow — `WireframeMockup` is the clearest case — will clip once this is
+          set, so leave it off unless the height itself is the point.
         inherited: WidgetBaseProps
       - name: id
         type: string
@@ -9542,6 +9686,10 @@ components:
         type: Sizing
         required: false
         default: 100%
+        description: |-
+          Fixes the height instead of letting the widget size to its content. A widget that
+          would otherwise grow — `WireframeMockup` is the clearest case — will clip once this is
+          set, so leave it off unless the height itself is the point.
         inherited: WidgetBaseProps
       - name: id
         type: string
@@ -9672,6 +9820,10 @@ components:
         type: Sizing
         required: false
         default: 100%
+        description: |-
+          Fixes the height instead of letting the widget size to its content. A widget that
+          would otherwise grow — `WireframeMockup` is the clearest case — will clip once this is
+          set, so leave it off unless the height itself is the point.
         inherited: WidgetBaseProps
       - name: id
         type: string
@@ -9741,6 +9893,10 @@ components:
       - name: height
         type: Sizing
         required: false
+        description: |-
+          Fixes the height instead of letting the widget size to its content. A widget that
+          would otherwise grow — `WireframeMockup` is the clearest case — will clip once this is
+          set, so leave it off unless the height itself is the point.
         inherited: WidgetBaseProps
       - name: id
         type: string
@@ -9804,6 +9960,10 @@ components:
       - name: height
         type: Sizing
         required: false
+        description: |-
+          Fixes the height instead of letting the widget size to its content. A widget that
+          would otherwise grow — `WireframeMockup` is the clearest case — will clip once this is
+          set, so leave it off unless the height itself is the point.
         inherited: WidgetBaseProps
       - name: id
         type: string
@@ -9911,6 +10071,10 @@ components:
       - name: height
         type: Sizing
         required: false
+        description: |-
+          Fixes the height instead of letting the widget size to its content. A widget that
+          would otherwise grow — `WireframeMockup` is the clearest case — will clip once this is
+          set, so leave it off unless the height itself is the point.
         inherited: WidgetBaseProps
       - name: id
         type: string
@@ -9979,6 +10143,10 @@ components:
       - name: height
         type: Sizing
         required: false
+        description: |-
+          Fixes the height instead of letting the widget size to its content. A widget that
+          would otherwise grow — `WireframeMockup` is the clearest case — will clip once this is
+          set, so leave it off unless the height itself is the point.
         inherited: WidgetBaseProps
       - name: id
         type: string
@@ -10040,6 +10208,10 @@ components:
       - name: height
         type: Sizing
         required: false
+        description: |-
+          Fixes the height instead of letting the widget size to its content. A widget that
+          would otherwise grow — `WireframeMockup` is the clearest case — will clip once this is
+          set, so leave it off unless the height itself is the point.
         inherited: WidgetBaseProps
       - name: id
         type: string
@@ -10154,6 +10326,10 @@ components:
       - name: height
         type: Sizing
         required: false
+        description: |-
+          Fixes the height instead of letting the widget size to its content. A widget that
+          would otherwise grow — `WireframeMockup` is the clearest case — will clip once this is
+          set, so leave it off unless the height itself is the point.
         inherited: WidgetBaseProps
       - name: id
         type: string
@@ -10224,6 +10400,10 @@ components:
       - name: height
         type: Sizing
         required: false
+        description: |-
+          Fixes the height instead of letting the widget size to its content. A widget that
+          would otherwise grow — `WireframeMockup` is the clearest case — will clip once this is
+          set, so leave it off unless the height itself is the point.
         inherited: WidgetBaseProps
       - name: id
         type: string
@@ -10298,6 +10478,10 @@ components:
       - name: height
         type: Sizing
         required: false
+        description: |-
+          Fixes the height instead of letting the widget size to its content. A widget that
+          would otherwise grow — `WireframeMockup` is the clearest case — will clip once this is
+          set, so leave it off unless the height itself is the point.
         inherited: WidgetBaseProps
       - name: id
         type: string
@@ -10347,6 +10531,10 @@ components:
       - name: height
         type: Sizing
         required: false
+        description: |-
+          Fixes the height instead of letting the widget size to its content. A widget that
+          would otherwise grow — `WireframeMockup` is the clearest case — will clip once this is
+          set, so leave it off unless the height itself is the point.
         inherited: WidgetBaseProps
       - name: id
         type: string
@@ -10398,6 +10586,10 @@ components:
       - name: height
         type: Sizing
         required: false
+        description: |-
+          Fixes the height instead of letting the widget size to its content. A widget that
+          would otherwise grow — `WireframeMockup` is the clearest case — will clip once this is
+          set, so leave it off unless the height itself is the point.
         inherited: WidgetBaseProps
       - name: id
         type: string
@@ -10448,6 +10640,10 @@ components:
       - name: height
         type: Sizing
         required: false
+        description: |-
+          Fixes the height instead of letting the widget size to its content. A widget that
+          would otherwise grow — `WireframeMockup` is the clearest case — will clip once this is
+          set, so leave it off unless the height itself is the point.
         inherited: WidgetBaseProps
       - name: id
         type: string
@@ -10498,6 +10694,10 @@ components:
       - name: height
         type: Sizing
         required: false
+        description: |-
+          Fixes the height instead of letting the widget size to its content. A widget that
+          would otherwise grow — `WireframeMockup` is the clearest case — will clip once this is
+          set, so leave it off unless the height itself is the point.
         inherited: WidgetBaseProps
       - name: id
         type: string
@@ -10552,6 +10752,10 @@ components:
       - name: height
         type: Sizing
         required: false
+        description: |-
+          Fixes the height instead of letting the widget size to its content. A widget that
+          would otherwise grow — `WireframeMockup` is the clearest case — will clip once this is
+          set, so leave it off unless the height itself is the point.
         inherited: WidgetBaseProps
       - name: id
         type: string
@@ -10623,6 +10827,10 @@ components:
       - name: height
         type: Sizing
         required: false
+        description: |-
+          Fixes the height instead of letting the widget size to its content. A widget that
+          would otherwise grow — `WireframeMockup` is the clearest case — will clip once this is
+          set, so leave it off unless the height itself is the point.
         inherited: WidgetBaseProps
       - name: id
         type: string
@@ -10692,6 +10900,10 @@ components:
       - name: height
         type: Sizing
         required: false
+        description: |-
+          Fixes the height instead of letting the widget size to its content. A widget that
+          would otherwise grow — `WireframeMockup` is the clearest case — will clip once this is
+          set, so leave it off unless the height itself is the point.
         inherited: WidgetBaseProps
       - name: id
         type: string
@@ -10742,6 +10954,10 @@ components:
         type: Sizing
         required: false
         default: 1.25rem
+        description: |-
+          Fixes the height instead of letting the widget size to its content. A widget that
+          would otherwise grow — `WireframeMockup` is the clearest case — will clip once this is
+          set, so leave it off unless the height itself is the point.
         inherited: WidgetBaseProps
       - name: id
         type: string
@@ -10812,6 +11028,10 @@ components:
       - name: height
         type: Sizing
         required: false
+        description: |-
+          Fixes the height instead of letting the widget size to its content. A widget that
+          would otherwise grow — `WireframeMockup` is the clearest case — will clip once this is
+          set, so leave it off unless the height itself is the point.
         inherited: WidgetBaseProps
       - name: id
         type: string
@@ -10872,6 +11092,10 @@ components:
       - name: height
         type: Sizing
         required: false
+        description: |-
+          Fixes the height instead of letting the widget size to its content. A widget that
+          would otherwise grow — `WireframeMockup` is the clearest case — will clip once this is
+          set, so leave it off unless the height itself is the point.
         inherited: WidgetBaseProps
       - name: id
         type: string
@@ -10989,6 +11213,10 @@ components:
       - name: height
         type: Sizing
         required: false
+        description: |-
+          Fixes the height instead of letting the widget size to its content. A widget that
+          would otherwise grow — `WireframeMockup` is the clearest case — will clip once this is
+          set, so leave it off unless the height itself is the point.
         inherited: WidgetBaseProps
       - name: id
         type: string
@@ -11088,6 +11316,10 @@ components:
         type: Sizing
         required: false
         default: 16rem
+        description: |-
+          Fixes the height instead of letting the widget size to its content. A widget that
+          would otherwise grow — `WireframeMockup` is the clearest case — will clip once this is
+          set, so leave it off unless the height itself is the point.
         inherited: WidgetBaseProps
       - name: id
         type: string
@@ -11139,6 +11371,10 @@ components:
       - name: height
         type: Sizing
         required: false
+        description: |-
+          Fixes the height instead of letting the widget size to its content. A widget that
+          would otherwise grow — `WireframeMockup` is the clearest case — will clip once this is
+          set, so leave it off unless the height itself is the point.
         inherited: WidgetBaseProps
       - name: id
         type: string
@@ -11222,6 +11458,10 @@ components:
       - name: height
         type: Sizing
         required: false
+        description: |-
+          Fixes the height instead of letting the widget size to its content. A widget that
+          would otherwise grow — `WireframeMockup` is the clearest case — will clip once this is
+          set, so leave it off unless the height itself is the point.
         inherited: WidgetBaseProps
       - name: id
         type: string
@@ -11287,6 +11527,10 @@ components:
       - name: height
         type: Sizing
         required: false
+        description: |-
+          Fixes the height instead of letting the widget size to its content. A widget that
+          would otherwise grow — `WireframeMockup` is the clearest case — will clip once this is
+          set, so leave it off unless the height itself is the point.
         inherited: WidgetBaseProps
       - name: id
         type: string
@@ -11413,6 +11657,10 @@ components:
       - name: height
         type: Sizing
         required: false
+        description: |-
+          Fixes the height instead of letting the widget size to its content. A widget that
+          would otherwise grow — `WireframeMockup` is the clearest case — will clip once this is
+          set, so leave it off unless the height itself is the point.
         inherited: WidgetBaseProps
       - name: id
         type: string
@@ -11501,6 +11749,10 @@ components:
       - name: height
         type: Sizing
         required: false
+        description: |-
+          Fixes the height instead of letting the widget size to its content. A widget that
+          would otherwise grow — `WireframeMockup` is the clearest case — will clip once this is
+          set, so leave it off unless the height itself is the point.
         inherited: WidgetBaseProps
       - name: id
         type: string
@@ -11564,6 +11816,10 @@ components:
         type: Sizing
         required: false
         default: 26rem
+        description: |-
+          Fixes the height instead of letting the widget size to its content. A widget that
+          would otherwise grow — `WireframeMockup` is the clearest case — will clip once this is
+          set, so leave it off unless the height itself is the point.
         inherited: WidgetBaseProps
       - name: id
         type: string
@@ -11609,6 +11865,10 @@ components:
       - name: height
         type: Sizing
         required: false
+        description: |-
+          Fixes the height instead of letting the widget size to its content. A widget that
+          would otherwise grow — `WireframeMockup` is the clearest case — will clip once this is
+          set, so leave it off unless the height itself is the point.
         inherited: WidgetBaseProps
       - name: id
         type: string
@@ -11660,6 +11920,10 @@ components:
       - name: height
         type: Sizing
         required: false
+        description: |-
+          Fixes the height instead of letting the widget size to its content. A widget that
+          would otherwise grow — `WireframeMockup` is the clearest case — will clip once this is
+          set, so leave it off unless the height itself is the point.
         inherited: WidgetBaseProps
       - name: id
         type: string
@@ -11707,6 +11971,10 @@ components:
       - name: height
         type: Sizing
         required: false
+        description: |-
+          Fixes the height instead of letting the widget size to its content. A widget that
+          would otherwise grow — `WireframeMockup` is the clearest case — will clip once this is
+          set, so leave it off unless the height itself is the point.
         inherited: WidgetBaseProps
       - name: id
         type: string
@@ -11803,6 +12071,10 @@ components:
       - name: height
         type: Sizing
         required: false
+        description: |-
+          Fixes the height instead of letting the widget size to its content. A widget that
+          would otherwise grow — `WireframeMockup` is the clearest case — will clip once this is
+          set, so leave it off unless the height itself is the point.
         inherited: WidgetBaseProps
       - name: id
         type: string
@@ -11859,6 +12131,10 @@ components:
       - name: height
         type: Sizing
         required: false
+        description: |-
+          Fixes the height instead of letting the widget size to its content. A widget that
+          would otherwise grow — `WireframeMockup` is the clearest case — will clip once this is
+          set, so leave it off unless the height itself is the point.
         inherited: WidgetBaseProps
       - name: id
         type: string
@@ -11913,6 +12189,10 @@ components:
       - name: height
         type: Sizing
         required: false
+        description: |-
+          Fixes the height instead of letting the widget size to its content. A widget that
+          would otherwise grow — `WireframeMockup` is the clearest case — will clip once this is
+          set, so leave it off unless the height itself is the point.
         inherited: WidgetBaseProps
       - name: id
         type: string
@@ -11982,6 +12262,10 @@ components:
       - name: height
         type: Sizing
         required: false
+        description: |-
+          Fixes the height instead of letting the widget size to its content. A widget that
+          would otherwise grow — `WireframeMockup` is the clearest case — will clip once this is
+          set, so leave it off unless the height itself is the point.
         inherited: WidgetBaseProps
       - name: id
         type: string
@@ -12027,6 +12311,10 @@ components:
       - name: height
         type: Sizing
         required: false
+        description: |-
+          Fixes the height instead of letting the widget size to its content. A widget that
+          would otherwise grow — `WireframeMockup` is the clearest case — will clip once this is
+          set, so leave it off unless the height itself is the point.
         inherited: WidgetBaseProps
       - name: id
         type: string
@@ -12071,6 +12359,10 @@ components:
       - name: height
         type: Sizing
         required: false
+        description: |-
+          Fixes the height instead of letting the widget size to its content. A widget that
+          would otherwise grow — `WireframeMockup` is the clearest case — will clip once this is
+          set, so leave it off unless the height itself is the point.
         inherited: WidgetBaseProps
       - name: id
         type: string
@@ -12124,6 +12416,10 @@ components:
       - name: height
         type: Sizing
         required: false
+        description: |-
+          Fixes the height instead of letting the widget size to its content. A widget that
+          would otherwise grow — `WireframeMockup` is the clearest case — will clip once this is
+          set, so leave it off unless the height itself is the point.
         inherited: WidgetBaseProps
       - name: id
         type: string
@@ -12219,6 +12515,10 @@ components:
       - name: height
         type: Sizing
         required: false
+        description: |-
+          Fixes the height instead of letting the widget size to its content. A widget that
+          would otherwise grow — `WireframeMockup` is the clearest case — will clip once this is
+          set, so leave it off unless the height itself is the point.
         inherited: WidgetBaseProps
       - name: id
         type: string
@@ -12294,6 +12594,10 @@ components:
       - name: height
         type: Sizing
         required: false
+        description: |-
+          Fixes the height instead of letting the widget size to its content. A widget that
+          would otherwise grow — `WireframeMockup` is the clearest case — will clip once this is
+          set, so leave it off unless the height itself is the point.
         inherited: WidgetBaseProps
       - name: id
         type: string
@@ -12374,6 +12678,10 @@ components:
         type: Sizing
         required: false
         default: 28rem
+        description: |-
+          Fixes the height instead of letting the widget size to its content. A widget that
+          would otherwise grow — `WireframeMockup` is the clearest case — will clip once this is
+          set, so leave it off unless the height itself is the point.
         inherited: WidgetBaseProps
       - name: id
         type: string
@@ -12455,6 +12763,10 @@ components:
       - name: height
         type: Sizing
         required: false
+        description: |-
+          Fixes the height instead of letting the widget size to its content. A widget that
+          would otherwise grow — `WireframeMockup` is the clearest case — will clip once this is
+          set, so leave it off unless the height itself is the point.
         inherited: WidgetBaseProps
       - name: id
         type: string
@@ -12504,6 +12816,10 @@ components:
       - name: height
         type: Sizing
         required: false
+        description: |-
+          Fixes the height instead of letting the widget size to its content. A widget that
+          would otherwise grow — `WireframeMockup` is the clearest case — will clip once this is
+          set, so leave it off unless the height itself is the point.
         inherited: WidgetBaseProps
       - name: id
         type: string
@@ -12572,6 +12888,10 @@ components:
       - name: height
         type: Sizing
         required: false
+        description: |-
+          Fixes the height instead of letting the widget size to its content. A widget that
+          would otherwise grow — `WireframeMockup` is the clearest case — will clip once this is
+          set, so leave it off unless the height itself is the point.
         inherited: WidgetBaseProps
       - name: id
         type: string
@@ -12645,6 +12965,10 @@ components:
       - name: height
         type: Sizing
         required: false
+        description: |-
+          Fixes the height instead of letting the widget size to its content. A widget that
+          would otherwise grow — `WireframeMockup` is the clearest case — will clip once this is
+          set, so leave it off unless the height itself is the point.
         inherited: WidgetBaseProps
       - name: id
         type: string
@@ -12709,6 +13033,10 @@ components:
       - name: height
         type: Sizing
         required: false
+        description: |-
+          Fixes the height instead of letting the widget size to its content. A widget that
+          would otherwise grow — `WireframeMockup` is the clearest case — will clip once this is
+          set, so leave it off unless the height itself is the point.
         inherited: WidgetBaseProps
       - name: id
         type: string
@@ -12797,6 +13125,10 @@ components:
         type: Sizing
         required: false
         default: 20rem
+        description: |-
+          Fixes the height instead of letting the widget size to its content. A widget that
+          would otherwise grow — `WireframeMockup` is the clearest case — will clip once this is
+          set, so leave it off unless the height itself is the point.
         inherited: WidgetBaseProps
       - name: id
         type: string
@@ -12870,6 +13202,10 @@ components:
       - name: height
         type: Sizing
         required: false
+        description: |-
+          Fixes the height instead of letting the widget size to its content. A widget that
+          would otherwise grow — `WireframeMockup` is the clearest case — will clip once this is
+          set, so leave it off unless the height itself is the point.
         inherited: WidgetBaseProps
       - name: id
         type: string
@@ -12928,6 +13264,10 @@ components:
       - name: height
         type: Sizing
         required: false
+        description: |-
+          Fixes the height instead of letting the widget size to its content. A widget that
+          would otherwise grow — `WireframeMockup` is the clearest case — will clip once this is
+          set, so leave it off unless the height itself is the point.
         inherited: WidgetBaseProps
       - name: id
         type: string
@@ -13006,6 +13346,10 @@ components:
       - name: height
         type: Sizing
         required: false
+        description: |-
+          Fixes the height instead of letting the widget size to its content. A widget that
+          would otherwise grow — `WireframeMockup` is the clearest case — will clip once this is
+          set, so leave it off unless the height itself is the point.
         inherited: WidgetBaseProps
       - name: id
         type: string
@@ -13060,6 +13404,10 @@ components:
       - name: height
         type: Sizing
         required: false
+        description: |-
+          Fixes the height instead of letting the widget size to its content. A widget that
+          would otherwise grow — `WireframeMockup` is the clearest case — will clip once this is
+          set, so leave it off unless the height itself is the point.
         inherited: WidgetBaseProps
       - name: id
         type: string
@@ -13120,6 +13468,10 @@ components:
       - name: height
         type: Sizing
         required: false
+        description: |-
+          Fixes the height instead of letting the widget size to its content. A widget that
+          would otherwise grow — `WireframeMockup` is the clearest case — will clip once this is
+          set, so leave it off unless the height itself is the point.
         inherited: WidgetBaseProps
       - name: id
         type: string
@@ -13209,6 +13561,10 @@ components:
       - name: height
         type: Sizing
         required: false
+        description: |-
+          Fixes the height instead of letting the widget size to its content. A widget that
+          would otherwise grow — `WireframeMockup` is the clearest case — will clip once this is
+          set, so leave it off unless the height itself is the point.
         inherited: WidgetBaseProps
       - name: id
         type: string
@@ -13274,6 +13630,10 @@ components:
       - name: height
         type: Sizing
         required: false
+        description: |-
+          Fixes the height instead of letting the widget size to its content. A widget that
+          would otherwise grow — `WireframeMockup` is the clearest case — will clip once this is
+          set, so leave it off unless the height itself is the point.
         inherited: WidgetBaseProps
       - name: id
         type: string
@@ -13369,6 +13729,10 @@ components:
         type: Sizing
         required: false
         default: "15"
+        description: |-
+          Fixes the height instead of letting the widget size to its content. A widget that
+          would otherwise grow — `WireframeMockup` is the clearest case — will clip once this is
+          set, so leave it off unless the height itself is the point.
         inherited: WidgetBaseProps
       - name: id
         type: string
@@ -13433,6 +13797,10 @@ components:
       - name: height
         type: Sizing
         required: false
+        description: |-
+          Fixes the height instead of letting the widget size to its content. A widget that
+          would otherwise grow — `WireframeMockup` is the clearest case — will clip once this is
+          set, so leave it off unless the height itself is the point.
         inherited: WidgetBaseProps
       - name: id
         type: string
@@ -13499,6 +13867,10 @@ components:
       - name: height
         type: Sizing
         required: false
+        description: |-
+          Fixes the height instead of letting the widget size to its content. A widget that
+          would otherwise grow — `WireframeMockup` is the clearest case — will clip once this is
+          set, so leave it off unless the height itself is the point.
         inherited: WidgetBaseProps
       - name: id
         type: string
@@ -13520,27 +13892,68 @@ components:
     description: |-
       A hand-drawn device or browser frame wrapped around real content.
       Mirrors `Ivy.WireframeMockup`.
+
+      **It grows to fit its children.** The variant's size is a starting point, not a limit, so
+      a long page inside a `Website` frame makes the frame taller rather than being cut off at
+      the bottom of a notional screen.
+
+      **Set `height` only when the frame's size is the point** — showing that content overflows
+      a phone, or lining two mockups up. Content that then does not fit is clipped, and the clip
+      is drawn as a torn edge across the foot of the screen, because a mockup that silently
+      loses half its content is worse than one that admits it.
+
+      `OSX` and `Windows` draw their own platform's chrome: traffic lights and a centred title
+      for one, an app icon, a left title and caption buttons for the other. `title`, `icon`,
+      `menu` and `footer` build the rest of the window.
     tags:
       - device
       - phone
       - browser
       - frame
       - chrome
+      - window
+      - desktop
     slots:
       - name: children
-        description: Laid out inside the frame's screen area
+        description: Laid out inside the frame's screen area; the frame grows to fit them
+      - name: footer
+        description: A status bar along the bottom, inside the frame
     examples:
       - <WireframeMockup variant="Mobile"><Card title="Inbox" /></WireframeMockup>
-      - <WireframeMockup variant="Website" url="app.example.com" width="42rem" />
+      - <WireframeMockup variant="Website" url="app.example.com" icon="Globe" />
+      - <WireframeMockup variant="Windows" title="Convertly" icon="Repeat" menu={["File", "Edit",
+        "View", "Help"]} footer="Ready" />
+      - <WireframeMockup variant="OSX" title="Preview" footer="3 items" />
     props:
       - name: color
         type: string
         required: false
         default: Black
+      - name: footer
+        type: React.ReactNode
+        required: false
+        kind: slot
+        description: |-
+          A status bar along the bottom, inside the frame. Takes any node, so it can hold a row of
+          counts, a progress bar, or plain text.
+      - name: icon
+        type: string
+        required: false
+        description: |-
+          Icon name from the lucide set. The app icon in a `Windows` title bar, beside the title
+          on `OSX`, and the favicon in the `Website` address pill.
+      - name: menu
+        type: string[]
+        required: false
+        description: |-
+          Menu bar items, drawn as a row of chrome under the title bar — `["File", "Edit", "View"]`.
+          Real chrome rather than a hand-laid row of labels inside the content.
       - name: title
         type: string
         required: false
-        description: Window title on the `Desktop` variant. Ignored by the other variants.
+        description: |-
+          Window title. Drawn left of centre on `Windows` (beside the icon) and centred on `OSX`.
+          Ignored by the device and browser variants.
       - name: url
         type: string
         required: false
@@ -13550,9 +13963,10 @@ components:
         required: false
         values:
           - Mobile
-          - Website
           - Tablet
-          - Desktop
+          - Website
+          - OSX
+          - Windows
         default: Mobile
       - name: aspectRatio
         type: number
@@ -13578,6 +13992,10 @@ components:
       - name: height
         type: Sizing
         required: false
+        description: |-
+          Fixes the height instead of letting the widget size to its content. A widget that
+          would otherwise grow — `WireframeMockup` is the clearest case — will clip once this is
+          set, so leave it off unless the height itself is the point.
         inherited: WidgetBaseProps
       - name: id
         type: string
@@ -13635,6 +14053,10 @@ components:
       - name: height
         type: Sizing
         required: false
+        description: |-
+          Fixes the height instead of letting the widget size to its content. A widget that
+          would otherwise grow — `WireframeMockup` is the clearest case — will clip once this is
+          set, so leave it off unless the height itself is the point.
         inherited: WidgetBaseProps
       - name: id
         type: string
@@ -13699,6 +14121,10 @@ components:
         type: Sizing
         required: false
         default: "35"
+        description: |-
+          Fixes the height instead of letting the widget size to its content. A widget that
+          would otherwise grow — `WireframeMockup` is the clearest case — will clip once this is
+          set, so leave it off unless the height itself is the point.
         inherited: WidgetBaseProps
       - name: id
         type: string
@@ -13757,6 +14183,10 @@ components:
         type: Sizing
         required: false
         default: "25"
+        description: |-
+          Fixes the height instead of letting the widget size to its content. A widget that
+          would otherwise grow — `WireframeMockup` is the clearest case — will clip once this is
+          set, so leave it off unless the height itself is the point.
         inherited: WidgetBaseProps
       - name: id
         type: string
@@ -13816,6 +14246,10 @@ components:
         type: Sizing
         required: false
         default: "25"
+        description: |-
+          Fixes the height instead of letting the widget size to its content. A widget that
+          would otherwise grow — `WireframeMockup` is the clearest case — will clip once this is
+          set, so leave it off unless the height itself is the point.
         inherited: WidgetBaseProps
       - name: id
         type: string
@@ -13949,6 +14383,10 @@ components:
       - name: height
         type: Sizing
         required: false
+        description: |-
+          Fixes the height instead of letting the widget size to its content. A widget that
+          would otherwise grow — `WireframeMockup` is the clearest case — will clip once this is
+          set, so leave it off unless the height itself is the point.
         inherited: WidgetBaseProps
       - name: id
         type: string
