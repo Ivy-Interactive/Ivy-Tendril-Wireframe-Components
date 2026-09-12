@@ -1,10 +1,11 @@
 name: tendril-wireframes
-version: 0.1.3
+version: 0.1.4
 generated: Do not edit. Run `npm run manifest` — props come from the TypeScript types, prose from
   JSDoc tags in the component files.
-componentCount: 98
+componentCount: 99
 categories:
   Charts: 13
+  Diagrams: 1
   Foundations: 5
   Inputs: 22
   Layouts: 7
@@ -317,6 +318,13 @@ types:
       - Medium
       - Large
     description: Sizing / spacing scale shared by every widget, mirroring `Ivy.Densities`.
+  EdgeStyle:
+    kind: enum
+    values:
+      - Elbow
+      - Curved
+      - Straight
+    description: How an edge gets from one node to the next.
   FeedbackVariant:
     kind: enum
     values:
@@ -356,6 +364,14 @@ types:
       - name: links
         type: FlowLink[]
         required: true
+  FlowDirection:
+    kind: enum
+    values:
+      - Down
+      - Up
+      - Right
+      - Left
+    description: Which way the flow runs. Ranks advance along this axis.
   FlowLink:
     kind: object
     properties:
@@ -374,6 +390,84 @@ types:
       - name: name
         type: string
         required: true
+  FlowShape:
+    kind: alias
+    type: '| "Process" /** A branch. Its outgoing edges are the ones worth labelling. */ | "Decision"
+      /** A start or an end. */ | "Terminator" /** Data in or out. */ | "InputOutput" /** A setup
+      step, before the work proper. */ | "Preparation" /** A step a person does. */ | "Manual" /**
+      Something printed or produced. */ | "Document" /** Stored state. */ | "Database" /** A join to
+      somewhere else on the page. */ | "Connector" /** An aside. Not part of the flow; usually the
+      target of a dashed edge. */ | "Note"'
+    description: |-
+      The standard flowchart vocabulary, named the way the diagrams themselves are read rather
+      than by geometry — a `Decision` rather than a diamond, so swapping its drawn shape later
+      does not rename the API.
+  FlowchartEdge:
+    kind: object
+    properties:
+      - name: from
+        type: string
+        required: true
+        description: Id of the node the arrow leaves.
+      - name: to
+        type: string
+        required: true
+        description: Id of the node the arrow points at.
+      - name: label
+        type: string
+        required: false
+        description: Text on the line — the branch condition, usually.
+      - name: dashed
+        type: boolean
+        required: false
+        description: Draws the line dashed, for a weak or optional step.
+      - name: heads
+        type: ArrowHeads
+        required: false
+        description: Which end carries an arrowhead.
+      - name: color
+        type: string
+        required: false
+        description: Ivy colour name or CSS colour for the line.
+    description: A connection between two boxes.
+  FlowchartNode:
+    kind: object
+    properties:
+      - name: id
+        type: string
+        required: true
+        description: Referenced by edges. Must be unique.
+      - name: label
+        type: string
+        required: false
+        description: 'Text inside the box. Falls back to the id, so a bare `{ id: "Start" }` still reads.'
+      - name: shape
+        type: FlowShape
+        required: false
+        description: Which flowchart symbol to draw.
+      - name: icon
+        type: string
+        required: false
+        description: A lucide icon name, drawn before the label.
+      - name: color
+        type: string
+        required: false
+        description: Ivy colour name or CSS colour for the outline and wash.
+      - name: width
+        type: Sizing
+        required: false
+        description: Fixes the box size instead of measuring the label.
+      - name: height
+        type: Sizing
+        required: false
+      - name: x
+        type: Sizing
+        required: false
+        description: Pins the node at this position and takes it out of the automatic layout.
+      - name: y
+        type: Sizing
+        required: false
+    description: A box in the chart.
   FormatStyle:
     kind: enum
     values:
@@ -2257,6 +2351,126 @@ components:
         type: YAxisProps[]
         required: false
         inherited: CartesianChartProps
+  - name: Flowchart
+    category: Diagrams
+    file: src/widgets/diagram/Flowchart.tsx
+    description: |-
+      A flowchart, laid out automatically and drawn in the sketch hand.
+      Mirrors no single Ivy widget; it is the diagram the wireframe set was missing.
+
+      Give it `nodes` and `edges`, or write the whole chart in `chart` using a subset of
+      Mermaid's syntax. Boxes size themselves to their labels, ranks fall out of the arrows,
+      and long edges route around whatever is in the way.
+    tags:
+      - flowchart
+      - diagram
+      - graph
+      - process
+      - decision
+      - workflow
+    examples:
+      - <Flowchart chart="Start([Start]) --> Check{Valid?}" />
+      - |-
+        <Flowchart chart={`
+        Start([Start]) --> Check{Valid?}
+        Check -- yes --> Save[Save record]
+        Check -- no --> Start
+        `} />
+      - '<Flowchart direction="Right" nodes={[{ id: "a", label: "Draft" }, { id: "b", label:
+        "Review" }]} edges={[{ from: "a", to: "b" }]} />'
+    props:
+      - name: chart
+        type: string
+        required: false
+        description: |-
+          The chart in text form, as a subset of Mermaid's flowchart syntax:
+          `Start([Start]) --> Check{Valid?}` and `Check -- yes --> Save[Save]`.
+          Brackets pick the shape, arrows pick the edge. Takes precedence over `nodes`.
+      - name: colorScheme
+        type: ColorScheme
+        required: false
+        values:
+          - Default
+          - Rainbow
+        default: Default
+        description: Colours the nodes in sequence rather than leaving them all ink.
+      - name: direction
+        type: FlowDirection
+        required: false
+        values:
+          - Down
+          - Up
+          - Right
+          - Left
+        default: Down
+        description: Which way the flow runs.
+      - name: edgeStyle
+        type: EdgeStyle
+        required: false
+        values:
+          - Elbow
+          - Curved
+          - Straight
+        default: Elbow
+        description: How the arrows get between boxes.
+      - name: edges
+        type: FlowchartEdge[]
+        required: false
+        description: The arrows. Ignored when `chart` is given.
+      - name: nodeGap
+        type: number
+        required: false
+        description: Gap between neighbours in the same rank.
+      - name: nodes
+        type: FlowchartNode[]
+        required: false
+        description: The boxes. Ignored when `chart` is given.
+      - name: onNodeClick
+        type: "((id: string) => void)"
+        required: false
+        kind: event
+      - name: rankGap
+        type: number
+        required: false
+        description: Gap between one rank and the next.
+      - name: aspectRatio
+        type: number
+        required: false
+        inherited: WidgetBaseProps
+      - name: data-testid
+        type: string
+        required: false
+        inherited: WidgetBaseProps
+      - name: density
+        type: Densities
+        required: false
+        values:
+          - Small
+          - Medium
+          - Large
+        default: Medium
+        description: |-
+          Sizing and spacing scale. Everything that reads it goes through
+          `byDensity`, which falls back to `Medium`, so `Medium` is the default
+          everywhere the prop is left off.
+        inherited: WidgetBaseProps
+      - name: height
+        type: Sizing
+        required: false
+        inherited: WidgetBaseProps
+      - name: id
+        type: string
+        required: false
+        inherited: WidgetBaseProps
+      - name: visible
+        type: boolean
+        required: false
+        description: "`false` hides the widget without unmounting it, matching Ivy's `Visible`."
+        inherited: WidgetBaseProps
+      - name: width
+        type: Sizing
+        required: false
+        inherited: WidgetBaseProps
   - name: RoughShape
     category: Foundations
     file: src/sketch/RoughShape.tsx

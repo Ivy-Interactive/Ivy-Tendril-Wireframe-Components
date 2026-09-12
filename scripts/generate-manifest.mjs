@@ -25,6 +25,7 @@ const CATEGORY_BY_PATH = [
   [/src\/widgets\/primitives\//, "Primitives"],
   [/src\/widgets\/inputs\//, "Inputs"],
   [/src\/widgets\/charts\//, "Charts"],
+  [/src\/widgets\/diagram\//, "Diagrams"],
   [/src\/widgets\/layouts\//, "Layouts"],
   [/src\/sketch\//, "Foundations"],
   [/src\/widgets\//, "Widgets"],

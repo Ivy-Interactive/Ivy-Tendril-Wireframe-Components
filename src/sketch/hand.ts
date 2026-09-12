@@ -68,3 +68,22 @@ export function bendPoints(from: Pt, to: Pt, bend: number, steps = 10): Pt[] {
   }
   return points;
 }
+
+/**
+ * The two barbs of an arrowhead at `tip`, angled back along the direction the shaft came
+ * in on.
+ *
+ * Aim `from` at the *previous point on the run* rather than the far endpoint: on a bent or
+ * elbowed line the two differ, and aiming at the far end puts the head on at the wrong
+ * angle exactly when the line is most obviously curved.
+ */
+export function barbsAt(tip: Pt, from: Pt, size: number, rnd: () => number): Array<[Pt, Pt]> {
+  const angle = Math.atan2(tip[1] - from[1], tip[0] - from[0]);
+  const spread = 0.42 + (rnd() - 0.5) * 0.1;
+
+  return [1, -1].map((side) => {
+    const a = angle + Math.PI + side * spread + (rnd() - 0.5) * 0.08;
+    const length = size * (0.85 + rnd() * 0.3);
+    return [tip, [tip[0] + Math.cos(a) * length, tip[1] + Math.sin(a) * length]] as [Pt, Pt];
+  });
+}

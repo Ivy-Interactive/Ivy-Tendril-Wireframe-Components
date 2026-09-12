@@ -2,7 +2,7 @@ import * as React from "react";
 import { byDensity, cn, widgetStyle } from "@/lib/utils";
 import type { WidgetBaseProps } from "@/lib/types";
 import { resolveColor } from "@/sketch/colors";
-import { bendPoints, handRng, type Pt } from "@/sketch/hand";
+import { barbsAt, bendPoints, handRng, type Pt } from "@/sketch/hand";
 import { RoughShape } from "@/sketch/RoughShape";
 import { useMeasuredSize } from "@/sketch/useRough";
 
@@ -47,18 +47,6 @@ function endpointsFor(direction: ArrowDirection, w: number, h: number, inset: nu
     default:
       return [[left, cy], [right, cy]];
   }
-}
-
-/** Two barbs at a tip, angled back along the direction the shaft came in on. */
-function barbsAt(tip: Pt, from: Pt, size: number, rnd: () => number): Array<[Pt, Pt]> {
-  const angle = Math.atan2(tip[1] - from[1], tip[0] - from[0]);
-  const spread = 0.42 + (rnd() - 0.5) * 0.1;
-
-  return [1, -1].map((side) => {
-    const a = angle + Math.PI + side * spread + (rnd() - 0.5) * 0.08;
-    const length = size * (0.85 + rnd() * 0.3);
-    return [tip, [tip[0] + Math.cos(a) * length, tip[1] + Math.sin(a) * length]] as [Pt, Pt];
-  });
 }
 
 export interface WireframeArrowProps extends WidgetBaseProps {
