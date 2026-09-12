@@ -33,6 +33,21 @@ export type TextAlignment = "Left" | "Center" | "Right" | "Justify";
 
 export type HoverEffect = "None" | "Pointer" | "PointerAndTranslate" | "Shadow";
 
+/**
+ * A width, height or spacing value, mirroring `Ivy.Sizing`.
+ *
+ * A **number is a Tailwind spacing unit, not pixels**: the value is multiplied by 4px, so
+ * `width={64}` is 256px and `width={150}` is 600px. This is the single easiest thing to
+ * get wrong, because nothing errors -- the element simply renders four times too big.
+ *
+ * A **string is any CSS length**, and is what to reach for when an exact size is wanted:
+ * `width="150px"`, `"20rem"`, `"100%"`. A fraction, `"1/2"`, becomes a percentage. A
+ * string of digits is still spacing units, so `"150"` is 600px, the same as `150`.
+ *
+ * @example width={4}        // 16px
+ * @example width="150px"    // exactly 150px
+ * @example width="1/2"      // 50%
+ */
 export type Sizing = number | string;
 
 /**
@@ -64,6 +79,7 @@ export interface MenuItem {
   onSelect?: (item: MenuItem) => void;
 }
 
+/** A choice in a `SelectInput`, `RadioInput` or any other list of options. */
 export interface Option {
   value: string | number;
   label?: string;

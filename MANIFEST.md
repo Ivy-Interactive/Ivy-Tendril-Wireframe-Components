@@ -77,10 +77,34 @@ categories:
   Primitives: 25
   Widgets: 39
 
-# Named unions, listed once and referenced by props that use them.
+# Every named type a prop refers to, described once. A prop that says `Sizing` or
+# `Option` is useless on its own -- this is where a consumer finds out what it means.
+# Types from React and the chart libraries are left out; they are not ours to document.
+#
+#   kind: enum    values
+#   kind: object  properties (name, type, required, description)
+#   kind: map     keyType, valueType, for an index signature
+#   kind: alias   type, what it expands to
 types:
-  ButtonVariant: [Primary, Secondary, Destructive, Outline, Ghost, Link, Inline, Ai]
-  Densities: [Small, Medium, Large]
+  ButtonVariant:
+    kind: enum
+    values: [Primary, Secondary, Destructive, Outline, Ghost, Link, Inline, Ai]
+  Sizing:
+    kind: alias
+    type: number | string
+    description: >-
+      A number is a Tailwind spacing unit, not pixels: the value is multiplied by 4px,
+      so `width={64}` is 256px. Pass a string for an exact size: `width="150px"`.
+  Option:
+    kind: object
+    description: A choice in a `SelectInput`, `RadioInput` or any other list of options.
+    properties:
+      - name: value
+        type: string | number
+        required: true
+      - name: label
+        type: string
+        required: false
 
 components:
   - name: Button

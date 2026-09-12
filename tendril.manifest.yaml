@@ -1,5 +1,5 @@
 name: tendril-wireframes
-version: 0.1.1
+version: 0.1.2
 generated: Do not edit. Run `npm run manifest` — props come from the TypeScript types, prose from
   JSDoc tags in the component files.
 componentCount: 98
@@ -12,236 +12,1174 @@ categories:
   Widgets: 40
 types:
   Align:
-    - TopLeft
-    - TopRight
-    - TopCenter
-    - BottomLeft
-    - BottomRight
-    - BottomCenter
-    - Left
-    - Right
-    - Center
-    - Stretch
-    - SpaceBetween
-    - SpaceAround
-    - SpaceEvenly
+    kind: enum
+    values:
+      - TopLeft
+      - TopRight
+      - TopCenter
+      - BottomLeft
+      - BottomRight
+      - BottomCenter
+      - Left
+      - Right
+      - Center
+      - Stretch
+      - SpaceBetween
+      - SpaceAround
+      - SpaceEvenly
   ArrowBend:
-    - None
-    - Left
-    - Right
+    kind: enum
+    values:
+      - None
+      - Left
+      - Right
   ArrowDirection:
-    - Right
-    - Left
-    - Up
-    - Down
-    - UpLeft
-    - UpRight
-    - DownLeft
-    - DownRight
+    kind: enum
+    values:
+      - Right
+      - Left
+      - Up
+      - Down
+      - UpLeft
+      - UpRight
+      - DownLeft
+      - DownRight
   ArrowHeads:
-    - None
-    - Start
-    - End
-    - Both
+    kind: enum
+    values:
+      - None
+      - Start
+      - End
+      - Both
   BadgeVariant:
-    - Primary
-    - Destructive
-    - Outline
-    - Secondary
-    - Success
-    - Warning
-    - Info
+    kind: enum
+    values:
+      - Primary
+      - Destructive
+      - Outline
+      - Secondary
+      - Success
+      - Warning
+      - Info
+  BarSeries:
+    kind: object
+    properties:
+      - name: dataKey
+        type: string
+        required: true
+      - name: name
+        type: string
+        required: false
+      - name: fill
+        type: string | null
+        required: false
+      - name: fillOpacity
+        type: number | null
+        required: false
+      - name: stroke
+        type: string | null
+        required: false
+      - name: strokeWidth
+        type: number
+        required: false
+      - name: stackId
+        type: string | number
+        required: false
+      - name: radius
+        type: number[]
+        required: false
+      - name: unit
+        type: string | null
+        required: false
+      - name: animated
+        type: boolean
+        required: false
+      - name: labelLists
+        type: string[]
+        required: false
+      - name: legendType
+        type: string
+        required: false
   BoolInputVariant:
-    - Checkbox
-    - Switch
-    - Toggle
+    kind: enum
+    values:
+      - Checkbox
+      - Switch
+      - Toggle
   BorderRadius:
-    - None
-    - Rounded
-    - Full
+    kind: enum
+    values:
+      - None
+      - Rounded
+      - Full
   BorderStyle:
-    - None
-    - Solid
-    - Dashed
-    - Dotted
+    kind: enum
+    values:
+      - None
+      - Solid
+      - Dashed
+      - Dotted
+  BreadcrumbItem:
+    kind: object
+    properties:
+      - name: label
+        type: string
+        required: true
+      - name: icon
+        type: string
+        required: false
+      - name: tooltip
+        type: string
+        required: false
+      - name: disabled
+        type: boolean
+        required: false
+      - name: hasOnClick
+        type: boolean
+        required: false
   ButtonVariant:
-    - Primary
-    - Secondary
-    - Destructive
-    - Outline
-    - Ghost
-    - Link
-    - Inline
-    - Ai
+    kind: enum
+    values:
+      - Primary
+      - Secondary
+      - Destructive
+      - Outline
+      - Ghost
+      - Link
+      - Inline
+      - Ai
   CalloutVariant:
-    - Info
-    - Success
-    - Warning
-    - Error
-    - Destructive
+    kind: enum
+    values:
+      - Info
+      - Success
+      - Warning
+      - Error
+      - Destructive
+  CartesianGridProps:
+    kind: object
+    properties:
+      - name: horizontal
+        type: boolean
+        required: false
+      - name: vertical
+        type: boolean
+        required: false
+      - name: stroke
+        type: string | null
+        required: false
+      - name: strokeDashArray
+        type: string | null
+        required: false
+      - name: fill
+        type: string | null
+        required: false
+      - name: fillOpacity
+        type: number | null
+        required: false
+  ChartData:
+    kind: map
+    keyType: string
+    valueType: string | number
+  ColType:
+    kind: alias
+    type: "| \"Text\"\r
+
+      \  | \"Number\"\r
+
+      \  | \"Boolean\"\r
+
+      \  | \"Date\"\r
+
+      \  | \"Badge\"\r
+
+      \  | \"Link\"\r
+
+      \  | \"Image\"\r
+
+      \  | \"Custom\""
   ColorInputVariant:
-    - Text
-    - Picker
-    - TextAndPicker
-    - Swatch
-    - SwatchPicker
+    kind: enum
+    values:
+      - Text
+      - Picker
+      - TextAndPicker
+      - Swatch
+      - SwatchPicker
   ColorScheme:
-    - Default
-    - Rainbow
+    kind: enum
+    values:
+      - Default
+      - Rainbow
   CurlyBraceVariant:
-    - Horizontal
-    - Vertical
+    kind: enum
+    values:
+      - Horizontal
+      - Vertical
+    description: |-
+      Which way the brace's centre nub points. This follows the wireframing
+      convention the widget is modelled on: the name is the direction of the nub,
+      not of the span. A `Horizontal` brace is the familiar `{` — it spans
+      downwards with the nub pointing left.
+  DataTableColumn:
+    kind: object
+    properties:
+      - name: name
+        type: string
+        required: true
+      - name: header
+        type: string
+        required: false
+      - name: colType
+        type: ColType
+        required: false
+      - name: group
+        type: string
+        required: false
+      - name: width
+        type: Sizing
+        required: false
+      - name: hidden
+        type: boolean
+        required: false
+      - name: sortable
+        type: boolean
+        required: false
+      - name: sortDirection
+        type: SortDirection
+        required: false
+      - name: filterable
+        type: boolean
+        required: false
+      - name: alignContent
+        type: Align
+        required: false
+      - name: wrapText
+        type: boolean
+        required: false
+      - name: order
+        type: number
+        required: false
+      - name: icon
+        type: string
+        required: false
+      - name: help
+        type: string
+        required: false
+      - name: footer
+        type: string[]
+        required: false
+        description: Aggregate strings rendered in the footer row.
+      - name: color
+        type: string
+        required: false
+      - name: badgeColorMapping
+        type: Record<string, string>
+        required: false
+      - name: formatStyle
+        type: FormatStyle
+        required: false
+      - name: precision
+        type: number
+        required: false
+      - name: currency
+        type: string
+        required: false
+      - name: render
+        type: "(value: unknown, row: Record<string, unknown>) => React.ReactNode"
+        required: false
+  DataTableConfig:
+    kind: object
+    properties:
+      - name: freezeColumns
+        type: number
+        required: false
+      - name: allowSorting
+        type: boolean
+        required: false
+      - name: allowFiltering
+        type: boolean
+        required: false
+      - name: pageSize
+        type: number
+        required: false
+      - name: selectionMode
+        type: '"None" | "Single" | "Multiple"'
+        required: false
+  DateRangeValue:
+    kind: object
+    properties:
+      - name: item1
+        type: string | null
+        required: true
+      - name: item2
+        type: string | null
+        required: true
   DateTimeVariant:
-    - Date
-    - DateTime
-    - Time
-    - Month
-    - Week
-    - Year
+    kind: enum
+    values:
+      - Date
+      - DateTime
+      - Time
+      - Month
+      - Week
+      - Year
   Densities:
-    - Small
-    - Medium
-    - Large
+    kind: enum
+    values:
+      - Small
+      - Medium
+      - Large
+    description: Sizing / spacing scale shared by every widget, mirroring `Ivy.Densities`.
   FeedbackVariant:
-    - Thumbs
-    - Emojis
-    - Stars
+    kind: enum
+    values:
+      - Thumbs
+      - Emojis
+      - Stars
+  FileItem:
+    kind: object
+    properties:
+      - name: id
+        type: string
+        required: true
+      - name: fileName
+        type: string
+        required: true
+      - name: contentType
+        type: string
+        required: true
+      - name: length
+        type: number
+        required: true
+      - name: progress
+        type: number
+        required: true
+      - name: status
+        type: FileUploadStatus
+        required: true
+  FileUploadStatus:
+    kind: alias
+    type: '"Pending" | "Aborted" | "Loading" | "Failed" | "Finished"'
+  FlowData:
+    kind: object
+    properties:
+      - name: nodes
+        type: FlowNode[]
+        required: true
+      - name: links
+        type: FlowLink[]
+        required: true
+  FlowLink:
+    kind: object
+    properties:
+      - name: source
+        type: number
+        required: true
+      - name: target
+        type: number
+        required: true
+      - name: value
+        type: number
+        required: true
+  FlowNode:
+    kind: object
+    properties:
+      - name: name
+        type: string
+        required: true
   FormatStyle:
-    - Decimal
-    - Currency
-    - Percent
-    - Compact
-    - Scientific
-    - Engineering
-    - Accounting
-    - Bytes
+    kind: enum
+    values:
+      - Decimal
+      - Currency
+      - Percent
+      - Compact
+      - Scientific
+      - Engineering
+      - Accounting
+      - Bytes
+  FunnelSeries:
+    kind: object
+    properties:
+      - name: dataKey
+        type: string
+        required: true
+      - name: nameKey
+        type: string
+        required: true
+      - name: fill
+        type: string | null
+        required: false
+      - name: fillOpacity
+        type: number | null
+        required: false
+      - name: stroke
+        type: string | null
+        required: false
+      - name: strokeWidth
+        type: number
+        required: false
+      - name: minSize
+        type: string
+        required: false
+      - name: maxSize
+        type: string
+        required: false
+      - name: animated
+        type: boolean
+        required: false
+      - name: legendType
+        type: string
+        required: false
+  GaugePointer:
+    kind: object
+    properties:
+      - name: style
+        type: GaugePointerStyle
+        required: false
+      - name: width
+        type: number
+        required: false
+      - name: length
+        type: string
+        required: false
+        description: Percentage of the radius, e.g. `"60%"`.
+  GaugePointerStyle:
+    kind: alias
+    type: '"Line" | "Arrow" | "Rounded"'
+  GaugeThreshold:
+    kind: object
+    properties:
+      - name: value
+        type: number
+        required: true
+      - name: color
+        type: string
+        required: true
   HoverEffect:
-    - None
-    - Pointer
-    - PointerAndTranslate
-    - Shadow
+    kind: enum
+    values:
+      - None
+      - Pointer
+      - PointerAndTranslate
+      - Shadow
+  KanbanColumn:
+    kind: object
+    properties:
+      - name: id
+        type: string
+        required: true
+      - name: title
+        type: string
+        required: true
+      - name: color
+        type: string
+        required: false
+      - name: limit
+        type: number
+        required: false
+        description: Refuses drops once this many cards are in the column.
+  KanbanTask:
+    kind: object
+    properties:
+      - name: id
+        type: string
+        required: true
+      - name: columnId
+        type: string
+        required: true
+      - name: title
+        type: string
+        required: false
+      - name: description
+        type: string
+        required: false
+      - name: assignee
+        type: string
+        required: false
+      - name: priority
+        type: number
+        required: false
+      - name: order
+        type: number
+        required: false
+  LegendProps:
+    kind: object
+    properties:
+      - name: align
+        type: '"Left" | "Center" | "Right"'
+        required: false
+      - name: iconSize
+        type: number
+        required: false
+      - name: iconType
+        type: string | null
+        required: false
+      - name: layout
+        type: '"Horizontal" | "Vertical"'
+        required: false
+      - name: verticalAlign
+        type: '"Top" | "Middle" | "Bottom"'
+        required: false
+  LineSeries:
+    kind: object
+    properties:
+      - name: dataKey
+        type: string
+        required: true
+      - name: name
+        type: string
+        required: false
+      - name: stroke
+        type: string | null
+        required: false
+      - name: strokeWidth
+        type: number
+        required: false
+      - name: strokeDashArray
+        type: string | null
+        required: false
+      - name: curveType
+        type: '"Linear" | "Monotone" | "Step"'
+        required: false
+      - name: connectNulls
+        type: boolean
+        required: false
+      - name: stackId
+        type: string | number
+        required: false
+      - name: unit
+        type: string | null
+        required: false
+      - name: animated
+        type: boolean
+        required: false
+      - name: label
+        type: string | null
+        required: false
+      - name: legendType
+        type: string
+        required: false
+  MarkArea:
+    kind: object
+    properties:
+      - name: x1
+        type: number | string
+        required: false
+      - name: x2
+        type: number | string
+        required: false
+      - name: y1
+        type: number | string
+        required: false
+      - name: y2
+        type: number | string
+        required: false
+      - name: label
+        type: string
+        required: false
+      - name: fill
+        type: string
+        required: false
+  MarkLine:
+    kind: object
+    properties:
+      - name: x
+        type: number | string
+        required: false
+      - name: y
+        type: number | string
+        required: false
+      - name: label
+        type: string
+        required: false
+      - name: stroke
+        type: string
+        required: false
+      - name: strokeDashArray
+        type: string
+        required: false
+  MenuItem:
+    kind: object
+    properties:
+      - name: label
+        type: string
+        required: true
+      - name: icon
+        type: string
+        required: false
+      - name: tag
+        type: string
+        required: false
+      - name: tooltip
+        type: string
+        required: false
+      - name: children
+        type: MenuItem[]
+        required: false
+      - name: variant
+        type: '"Default" | "Separator" | "Checkbox" | "Radio" | "Group"'
+        required: false
+      - name: checked
+        type: boolean
+        required: false
+      - name: disabled
+        type: boolean
+        required: false
+      - name: color
+        type: string
+        required: false
+      - name: shortcut
+        type: string
+        required: false
+      - name: badge
+        type: string
+        required: false
+      - name: expanded
+        type: boolean
+        required: false
+      - name: path
+        type: string
+        required: false
+      - name: onSelect
+        type: "(item: MenuItem) => void"
+        required: false
+    description: Item shared by `DropDownMenu`, `Toolbar`, `Tree` and every row-action surface.
   MockupVariant:
-    - Mobile
-    - Website
-    - Tablet
-    - Desktop
+    kind: enum
+    values:
+      - Mobile
+      - Website
+      - Tablet
+      - Desktop
+  NullableBoolean:
+    kind: alias
+    type: boolean | null
+  NullableSelectValue:
+    kind: alias
+    type: string | number | string[] | number[] | null
+  Option:
+    kind: object
+    properties:
+      - name: value
+        type: string | number
+        required: true
+      - name: label
+        type: string
+        required: false
+      - name: description
+        type: string
+        required: false
+      - name: group
+        type: string
+        required: false
+      - name: icon
+        type: string
+        required: false
+      - name: disabled
+        type: boolean
+        required: false
+      - name: tooltip
+        type: string
+        required: false
+    description: A choice in a `SelectInput`, `RadioInput` or any other list of options.
   Orientation:
-    - Horizontal
-    - Vertical
+    kind: enum
+    values:
+      - Horizontal
+      - Vertical
   Overflow:
-    - Clip
-    - Ellipsis
-    - Auto
-    - Visible
-    - Scroll
+    kind: enum
+    values:
+      - Clip
+      - Ellipsis
+      - Auto
+      - Visible
+      - Scroll
+  PieSeries:
+    kind: object
+    properties:
+      - name: dataKey
+        type: string
+        required: true
+      - name: nameKey
+        type: string
+        required: true
+      - name: innerRadius
+        type: string | number
+        required: false
+      - name: outerRadius
+        type: string | number
+        required: false
+      - name: startAngle
+        type: number
+        required: false
+      - name: endAngle
+        type: number
+        required: false
+      - name: fill
+        type: string | null
+        required: false
+      - name: fillOpacity
+        type: number | null
+        required: false
+      - name: stroke
+        type: string | null
+        required: false
+      - name: strokeWidth
+        type: number
+        required: false
+      - name: animated
+        type: boolean
+        required: false
+      - name: labelLists
+        type: string[]
+        required: false
+      - name: legendType
+        type: string
+        required: false
+  ProgressSegment:
+    kind: object
+    properties:
+      - name: value
+        type: number
+        required: true
+      - name: color
+        type: string
+        required: false
+      - name: label
+        type: string
+        required: false
+  RadarIndicator:
+    kind: object
+    properties:
+      - name: name
+        type: string
+        required: true
+      - name: max
+        type: number
+        required: false
+      - name: min
+        type: number
+        required: false
+  RadarSeries:
+    kind: object
+    properties:
+      - name: dataKey
+        type: string
+        required: true
+      - name: name
+        type: string | null
+        required: false
+      - name: filled
+        type: boolean
+        required: false
+      - name: fill
+        type: string | null
+        required: false
+      - name: stroke
+        type: string | null
+        required: false
+      - name: strokeWidth
+        type: number
+        required: false
+      - name: strokeDashArray
+        type: string | null
+        required: false
+      - name: showSymbol
+        type: boolean
+        required: false
+      - name: legendType
+        type: string
+        required: false
+      - name: labelLists
+        type: string[]
+        required: false
+  ReferenceDot:
+    kind: object
+    properties:
+      - name: x
+        type: number
+        required: true
+      - name: y
+        type: number
+        required: true
+      - name: label
+        type: string
+        required: false
   SankeyAlign:
-    - Justify
-    - Left
+    kind: enum
+    values:
+      - Justify
+      - Left
+  Scales:
+    kind: object
+    properties:
+      - name: plot
+        type: "{ left: number; top: number; width: number; height: number }"
+        required: true
+      - name: xOf
+        type: "(index: number) => number"
+        required: true
+      - name: yOf
+        type: "(value: number) => number"
+        required: true
+      - name: bandWidth
+        type: number
+        required: true
+      - name: yMin
+        type: number
+        required: true
+      - name: yMax
+        type: number
+        required: true
+      - name: ticks
+        type: number[]
+        required: true
+  ScatterSeries:
+    kind: object
+    properties:
+      - name: dataKey
+        type: string
+        required: true
+      - name: name
+        type: string
+        required: true
+      - name: fill
+        type: string | null
+        required: false
+      - name: fillOpacity
+        type: number | null
+        required: false
+      - name: stroke
+        type: string | null
+        required: false
+      - name: strokeWidth
+        type: number
+        required: false
+      - name: shape
+        type: ScatterShape
+        required: false
+      - name: line
+        type: boolean
+        required: false
+      - name: lineType
+        type: '"Joint" | "Fitting"'
+        required: false
+      - name: unit
+        type: string | null
+        required: false
+      - name: animated
+        type: boolean
+        required: false
+  ScatterShape:
+    kind: alias
+    type: '"Circle" | "Square" | "Cross" | "Diamond" | "Star" | "Triangle" | "Wye"'
   Scroll:
-    - None
-    - Auto
-    - Vertical
-    - Horizontal
-    - Both
+    kind: enum
+    values:
+      - None
+      - Auto
+      - Vertical
+      - Horizontal
+      - Both
+    description: Which axes a container scrolls on, mirroring `Ivy.Scroll`.
   SearchMode:
-    - CaseInsensitive
-    - CaseSensitive
-    - Fuzzy
+    kind: enum
+    values:
+      - CaseInsensitive
+      - CaseSensitive
+      - Fuzzy
   SelectVariant:
-    - Select
-    - List
-    - Toggle
-    - Slider
-    - Radio
+    kind: enum
+    values:
+      - Select
+      - List
+      - Toggle
+      - Slider
+      - Radio
+  SeriesLegendEntry:
+    kind: object
+    properties:
+      - name: name
+        type: string
+        required: true
+      - name: color
+        type: string
+        required: true
   SheetSide:
-    - Left
-    - Right
-    - Top
-    - Bottom
+    kind: enum
+    values:
+      - Left
+      - Right
+      - Top
+      - Bottom
+  Sizing:
+    kind: alias
+    type: number | string
+    description: |-
+      A width, height or spacing value, mirroring `Ivy.Sizing`.
+
+      A **number is a Tailwind spacing unit, not pixels**: the value is multiplied by 4px, so
+      `width={64}` is 256px and `width={150}` is 600px. This is the single easiest thing to
+      get wrong, because nothing errors -- the element simply renders four times too big.
+
+      A **string is any CSS length**, and is what to reach for when an exact size is wanted:
+      `width="150px"`, `"20rem"`, `"100%"`. A fraction, `"1/2"`, becomes a percentage. A
+      string of digits is still spacing units, so `"150"` is 600px, the same as `150`.
   SketchCorner:
-    - sharp
-    - rounded
-    - pill
-    - ellipse
+    kind: enum
+    values:
+      - sharp
+      - rounded
+      - pill
+      - ellipse
   SketchFillStyle:
-    - hachure
-    - solid
-    - zigzag
-    - cross-hatch
-    - dots
-    - dashed
-    - zigzag-line
+    kind: enum
+    values:
+      - hachure
+      - solid
+      - zigzag
+      - cross-hatch
+      - dots
+      - dashed
+      - zigzag-line
   SketchOutline:
-    - solid
-    - dashed
-    - dotted
-    - none
+    kind: enum
+    values:
+      - solid
+      - dashed
+      - dotted
+      - none
+  SketchShape:
+    kind: alias
+    type: "| { kind: \"rectangle\"; x?: number; y?: number; width: number; height: number }\r
+
+      \  | { kind: \"ellipse\"; cx: number; cy: number; width: number; height: number }\r
+
+      \  | { kind: \"circle\"; cx: number; cy: number; diameter: number }\r
+
+      \  | { kind: \"line\"; x1: number; y1: number; x2: number; y2: number }\r
+
+      \  | { kind: \"linearPath\"; points: [number, number][] }\r
+
+      \  | { kind: \"polygon\"; points: [number, number][] }\r
+
+      \  | { kind: \"curve\"; points: [number, number][] }\r
+
+      \  | { kind: \"arc\"; x: number; y: number; width: number; height: number; start: number;
+      stop: number; closed?: boolean }\r
+
+      \  | { kind: \"path\"; d: string }"
+    description: Shapes the sketch layer knows how to draw behind or around content.
+  SortDirection:
+    kind: alias
+    type: '"None" | "Ascending" | "Descending"'
   StackOffset:
-    - None
-    - Expand
-    - Wiggle
-    - Silhouette
+    kind: enum
+    values:
+      - None
+      - Expand
+      - Wiggle
+      - Silhouette
+  StepperItem:
+    kind: object
+    properties:
+      - name: symbol
+        type: string
+        required: false
+      - name: icon
+        type: string
+        required: false
+      - name: label
+        type: string
+        required: false
+      - name: description
+        type: string
+        required: false
+      - name: loading
+        type: boolean
+        required: false
   TabsVariant:
-    - Tabs
-    - Content
+    kind: enum
+    values:
+      - Tabs
+      - Content
+    description: |-
+      `Tabs` draws the strip as boxed, browser-style tabs sitting on the panel.
+      `Content` is the quieter one: labels with a wavy underline under the active
+      one, and no frame around the body.
+  TerminalLine:
+    kind: object
+    properties:
+      - name: content
+        type: string
+        required: true
+      - name: isCommand
+        type: boolean
+        required: false
+      - name: prompt
+        type: string
+        required: false
   TextAlignment:
-    - Left
-    - Center
-    - Right
-    - Justify
+    kind: enum
+    values:
+      - Left
+      - Center
+      - Right
+      - Justify
   TextBlockVariant:
-    - Literal
-    - H1
-    - H2
-    - H3
-    - H4
-    - H5
-    - H6
-    - P
-    - Inline
-    - Block
-    - Blockquote
-    - Monospaced
-    - Lead
-    - Muted
-    - Danger
-    - Warning
-    - Success
-    - Label
-    - Strong
-    - Display
+    kind: enum
+    values:
+      - Literal
+      - H1
+      - H2
+      - H3
+      - H4
+      - H5
+      - H6
+      - P
+      - Inline
+      - Block
+      - Blockquote
+      - Monospaced
+      - Lead
+      - Muted
+      - Danger
+      - Warning
+      - Success
+      - Label
+      - Strong
+      - Display
   TextInputVariant:
-    - Text
-    - Textarea
-    - Email
-    - Tel
-    - Url
-    - Password
-    - Search
+    kind: enum
+    values:
+      - Text
+      - Textarea
+      - Email
+      - Tel
+      - Url
+      - Password
+      - Search
+  Thickness:
+    kind: object
+    properties:
+      - name: left
+        type: Sizing
+        required: false
+      - name: top
+        type: Sizing
+        required: false
+      - name: right
+        type: Sizing
+        required: false
+      - name: bottom
+        type: Sizing
+        required: false
+    description: |-
+      Per-edge spacing, mirroring `Ivy.Thickness`. A bare number is uniform on all
+      four edges; both go through `toCssSize`, so a number means Ivy's 0.25rem unit.
+  ToolTipProps:
+    kind: object
+    properties:
+      - name: animated
+        type: boolean
+        required: false
+      - name: valueFormat
+        type: string | null
+        required: false
+      - name: valueFormatType
+        type: '"Auto" | "Number" | "Date" | null'
+        required: false
+  ToolboxProps:
+    kind: object
+    properties:
+      - name: enabled
+        type: boolean
+        required: false
+      - name: orientation
+        type: '"Horizontal" | "Vertical"'
+        required: false
+      - name: align
+        type: '"Left" | "Center" | "Right"'
+        required: false
+      - name: verticalAlign
+        type: '"Top" | "Middle" | "Bottom"'
+        required: false
+      - name: saveAsImage
+        type: boolean
+        required: false
+      - name: restore
+        type: boolean
+        required: false
+      - name: dataView
+        type: boolean
+        required: false
+      - name: magicType
+        type: boolean
+        required: false
   TooltipVariant:
-    - Default
-    - Info
-    - Success
-    - Warning
-    - Error
+    kind: enum
+    values:
+      - Default
+      - Info
+      - Success
+      - Warning
+      - Error
   TransformOrigin:
-    - Center
-    - TopLeft
-    - Top
-    - TopRight
-    - Left
-    - Right
-    - BottomLeft
-    - Bottom
-    - BottomRight
+    kind: enum
+    values:
+      - Center
+      - TopLeft
+      - Top
+      - TopRight
+      - Left
+      - Right
+      - BottomLeft
+      - Bottom
+      - BottomRight
+    description: The anchor a transform pivots and scales around.
   WeekDay:
-    - 0
-    - 1
-    - 2
-    - 3
-    - 4
-    - 5
-    - 6
+    kind: enum
+    values:
+      - 0
+      - 1
+      - 2
+      - 3
+      - 4
+      - 5
+      - 6
+  XAxisProps:
+    kind: object
+    properties:
+      - name: orientation
+        type: '"Top" | "Bottom"'
+        required: false
+  YAxisProps:
+    kind: object
+    properties:
+      - name: orientation
+        type: '"Left" | "Right"'
+        required: false
+  ZAxisProps:
+    kind: object
+    properties:
+      - name: dataKey
+        type: string
+        required: false
+      - name: rangeMin
+        type: number
+        required: false
+      - name: rangeMax
+        type: number
+        required: false
+      - name: unit
+        type: string | null
+        required: false
+      - name: name
+        type: string | null
+        required: false
 components:
   - name: AreaChart
     category: Charts

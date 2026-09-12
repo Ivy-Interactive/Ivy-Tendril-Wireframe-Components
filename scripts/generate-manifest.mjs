@@ -10,6 +10,7 @@
  * vocabulary.
  */
 import ts from "typescript";
+import { describeTypes } from "./describe-types.mjs";
 import { stringify } from "yaml";
 import { createRequire } from "node:module";
 import { dirname, relative, resolve } from "node:path";
@@ -178,6 +179,8 @@ const exports = checker.getExportsOfModule(entrySymbol);
 
 const components = [];
 const sharedTypes = {};
+/** Every prop's type expression, so the type descriptions can start from what is used. */
+const typeSeeds = new Set();
 
 for (const exported of exports) {
   const symbol =
@@ -223,6 +226,8 @@ for (const exported of exports) {
     // Callbacks are what Ivy models as `events`, so they are worth marking.
     if (/^on[A-Z]/.test(name) && bare.getCallSignatures().length) entryProp.kind = "event";
     else if (/\bReactNode\b/.test(typeText)) entryProp.kind = "slot";
+
+    typeSeeds.add(typeText);
 
     const values = sourceOrderedValues(bare) ?? literalValues(bare, checker);
     if (values) {
@@ -301,7 +306,19 @@ const manifest = {
     "prose from JSDoc tags in the component files.",
   componentCount: components.filter((c) => !c.internal).length,
   categories: byCategory,
-  types: Object.fromEntries(Object.entries(sharedTypes).sort(([a], [b]) => byName(a, b))),
+  types: Object.fromEntries(
+    Object.entries(
+      describeTypes({
+        program,
+        checker,
+        root,
+        seeds: typeSeeds,
+        enums: sharedTypes,
+        prose,
+        cleanType,
+      }),
+    ).sort(([a], [b]) => byName(a, b)),
+  ),
   components,
 };
 
@@ -346,6 +363,6 @@ const publicCount = components.filter((c) => !c.internal).length;
 console.log(
   `manifest: ${publicCount} components (+${components.length - publicCount} internal), ${
     components.reduce((sum, c) => sum + c.props.length, 0)
-  } props, ${Object.keys(sharedTypes).length} shared enums`,
+  } props, ${Object.keys(manifest.types).length} shared types`,
 );
 if (undocumented.length) console.log(`  no description: ${undocumented.join(", ")}`);
