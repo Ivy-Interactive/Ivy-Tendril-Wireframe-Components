@@ -96,6 +96,9 @@ interface Measured {
   height: number;
 }
 
+/** Rounds up to the next even pixel, so a sub-pixel wobble cannot change the layout. */
+const snap = (value: number) => Math.ceil(value / 2) * 2;
+
 const DEFAULT_SHAPE: FlowShape = "Process";
 
 /** Turns a `Sizing` into pixels, for the few places the layout needs a number. */
@@ -198,7 +201,11 @@ export const Flowchart = ({
       host.querySelectorAll<HTMLElement>("[data-node]").forEach((element) => {
         const key = element.dataset.node!;
         const rect = element.getBoundingClientRect();
-        next[key] = { width: Math.ceil(rect.width), height: Math.ceil(rect.height) };
+        // Snapped to a 2px grid rather than ceil'd. Text metrics land on fractions, and a
+        // width that measures 63.999 on one run and 64.001 on the next would round to a
+        // different integer, move one box by a pixel, and break the byte-for-byte
+        // screenshot comparison. Two pixels of slack is invisible; a flapping layout is not.
+        next[key] = { width: snap(rect.width), height: snap(rect.height) };
       });
 
       setMeasured((previous) => {

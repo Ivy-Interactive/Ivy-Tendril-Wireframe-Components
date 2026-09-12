@@ -281,7 +281,10 @@ export function layered(
     neighboursOf.get(edge.to)!.push(edge.from);
   });
 
-  for (let pass = 0; pass < 4; pass++) {
+  // Eight passes, not four. A long back edge is a chain of dummy nodes, and each pass only
+  // pulls one of them toward its neighbours — too few and the edge comes out as a staircase
+  // instead of a straight run down the side of the chart.
+  for (let pass = 0; pass < 8; pass++) {
     for (const ids of ranks) {
       // Desired centre from the neighbours, then push apart to restore the gap.
       const wanted = ids.map((id) => {
