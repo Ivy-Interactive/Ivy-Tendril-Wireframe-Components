@@ -1,6 +1,6 @@
 import * as React from "react";
 import { seedFrom } from "@/lib/utils";
-import { INK } from "./colors";
+import { INK, resolveColor } from "./colors";
 import { useSketchTheme } from "./SketchProvider";
 import { useRoughPaths, type RoughOptions, type SketchShape } from "./useRough";
 
@@ -74,13 +74,21 @@ export const RoughShape = ({
   const theme = useSketchTheme();
   const sw = strokeWidth ?? theme.strokeWidth;
 
+  // Resolved here rather than passed through. These went straight to rough.js, so a palette
+  // name or a theme token — the vocabulary every other colour prop in the library takes, and
+  // the one this component's own example uses — simply did not draw.
+  const strokeColor = stroke === "none" ? "none" : resolveColor(stroke, INK);
+  // An unresolvable fill becomes no fill, never ink: a wrong value should leave a shape
+  // empty, not paint a solid blob over the drawing.
+  const fillColor = fill ? resolveColor(fill, "transparent") : undefined;
+
   const options = React.useMemo<RoughOptions>(
     () => ({
-      stroke,
+      stroke: strokeColor,
       strokeWidth: sw,
       roughness: roughness ?? theme.roughness,
       bowing: bowing ?? theme.bowing,
-      fill,
+      fill: fillColor,
       fillStyle,
       fillWeight: fillWeight ?? sw / 2,
       hachureAngle: hachureAngle ?? -41,
@@ -91,11 +99,11 @@ export const RoughShape = ({
       ...(strokeLineDash ? { strokeLineDash } : {}),
     }),
     [
-      stroke,
+      strokeColor,
       sw,
       roughness,
       bowing,
-      fill,
+      fillColor,
       fillStyle,
       fillWeight,
       hachureAngle,

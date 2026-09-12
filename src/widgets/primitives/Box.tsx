@@ -67,7 +67,9 @@ export const Box = ({
       outline={outlineFor(borderStyle)}
       stroke={resolveColor(borderColor)}
       strokeWidth={thickness * 1.4}
-      fill={background ? resolveColor(background) : undefined}
+      // "transparent" rather than the ink default: an unresolvable colour should leave the
+      // box empty and warn, not fill it with a dark blob.
+      fill={background ? resolveColor(background, "transparent") : undefined}
       fillStyle="solid"
       opacity={borderOpacity}
       onClick={onClick}
