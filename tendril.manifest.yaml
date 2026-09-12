@@ -1,5 +1,5 @@
 name: tendril-wireframes
-version: 0.1.2
+version: 0.1.3
 generated: Do not edit. Run `npm run manifest` — props come from the TypeScript types, prose from
   JSDoc tags in the component files.
 componentCount: 98
@@ -183,21 +183,7 @@ types:
     valueType: string | number
   ColType:
     kind: alias
-    type: "| \"Text\"\r
-
-      \  | \"Number\"\r
-
-      \  | \"Boolean\"\r
-
-      \  | \"Date\"\r
-
-      \  | \"Badge\"\r
-
-      \  | \"Link\"\r
-
-      \  | \"Image\"\r
-
-      \  | \"Custom\""
+    type: '| "Text" | "Number" | "Boolean" | "Date" | "Badge" | "Link" | "Image" | "Custom"'
   ColorInputVariant:
     kind: enum
     values:
@@ -954,24 +940,13 @@ types:
       - none
   SketchShape:
     kind: alias
-    type: "| { kind: \"rectangle\"; x?: number; y?: number; width: number; height: number }\r
-
-      \  | { kind: \"ellipse\"; cx: number; cy: number; width: number; height: number }\r
-
-      \  | { kind: \"circle\"; cx: number; cy: number; diameter: number }\r
-
-      \  | { kind: \"line\"; x1: number; y1: number; x2: number; y2: number }\r
-
-      \  | { kind: \"linearPath\"; points: [number, number][] }\r
-
-      \  | { kind: \"polygon\"; points: [number, number][] }\r
-
-      \  | { kind: \"curve\"; points: [number, number][] }\r
-
-      \  | { kind: \"arc\"; x: number; y: number; width: number; height: number; start: number;
-      stop: number; closed?: boolean }\r
-
-      \  | { kind: \"path\"; d: string }"
+    type: '| { kind: "rectangle"; x?: number; y?: number; width: number; height: number } | { kind:
+      "ellipse"; cx: number; cy: number; width: number; height: number } | { kind: "circle"; cx:
+      number; cy: number; diameter: number } | { kind: "line"; x1: number; y1: number; x2: number;
+      y2: number } | { kind: "linearPath"; points: [number, number][] } | { kind: "polygon"; points:
+      [number, number][] } | { kind: "curve"; points: [number, number][] } | { kind: "arc"; x:
+      number; y: number; width: number; height: number; start: number; stop: number; closed?:
+      boolean } | { kind: "path"; d: string }'
     description: Shapes the sketch layer knows how to draw behind or around content.
   SortDirection:
     kind: alias

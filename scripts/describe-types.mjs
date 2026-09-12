@@ -14,6 +14,17 @@
  */
 import ts from "typescript";
 
+/**
+ * Type text comes from `getText()`, which is the raw source -- so a union written across
+ * several lines arrives with its newlines, and on Windows with carriage returns too. That
+ * lands verbatim in the YAML, and the file is byte-compared by `--check`, so a manifest
+ * generated on a desktop would never match one generated in CI. Collapsed to one line,
+ * which is how a type expression wants to read anyway.
+ */
+function flatten(text) {
+  return text.replace(/\s+/g, " ").trim();
+}
+
 /** Identifiers in a type expression, e.g. "Sizing | Thickness" -> [Sizing, Thickness]. */
 function referencedNames(text) {
   return new Set(text.match(/\b[A-Z][A-Za-z0-9_]*\b/g) ?? []);
@@ -89,8 +100,8 @@ export function describeTypes({ program, checker, root, seeds, enums, prose, cle
         // `{ [key: string]: string | number }` -- ChartData is nothing but this, and
         // reporting it as an object with no properties says the opposite of the truth.
         if (ts.isIndexSignatureDeclaration(member)) {
-          const keyType = cleanType(member.parameters[0]?.type?.getText() ?? "string");
-          const valueType = cleanType(member.type ? member.type.getText() : "unknown");
+          const keyType = flatten(cleanType(member.parameters[0]?.type?.getText() ?? "string"));
+          const valueType = flatten(cleanType(member.type ? member.type.getText() : "unknown"));
           described[name] = {
             kind: "map",
             keyType,
@@ -104,7 +115,7 @@ export function describeTypes({ program, checker, root, seeds, enums, prose, cle
         if (!ts.isPropertySignature(member) || !member.name) continue;
 
         const propertyName = member.name.getText();
-        const typeText = cleanType(member.type ? member.type.getText() : "unknown");
+        const typeText = flatten(cleanType(member.type ? member.type.getText() : "unknown"));
         const entry = { name: propertyName, type: typeText, required: !member.questionToken };
 
         const memberSymbol = checker.getSymbolAtLocation(member.name);
@@ -124,7 +135,7 @@ export function describeTypes({ program, checker, root, seeds, enums, prose, cle
 
     // Everything else -- `number | string`, a function type, a mapped type -- is reported
     // as what it expands to. That is the whole answer for an alias like Sizing.
-    const expanded = cleanType(declaration.type ? declaration.type.getText() : "unknown");
+    const expanded = flatten(cleanType(declaration.type ? declaration.type.getText() : "unknown"));
     described[name] = { kind: "alias", type: expanded };
     if (description) described[name].description = description;
     for (const referenced of referencedNames(expanded)) queue.push(referenced);

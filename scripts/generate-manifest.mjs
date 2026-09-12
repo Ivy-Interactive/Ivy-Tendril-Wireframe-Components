@@ -324,6 +324,17 @@ const manifest = {
 
 // Anchors would make the file smaller but harder for a plain parser to read.
 const yaml = stringify(manifest, { lineWidth: 100, aliasDuplicateObjects: false });
+
+// A carriage return reaches this file only by riding inside a value read from source --
+// a doc comment, or a type expression spanning lines. It is invisible here and fatal in
+// CI, where --check byte-compares a manifest generated on Linux against one committed
+// from Windows. Caught at the source rather than diffed line by line an hour later.
+if (/\r/.test(yaml)) {
+  throw new Error(
+    "The manifest contains a carriage return, so it would differ between Windows and CI. " +
+      "Some value read from source kept its line endings — normalise it before emitting.",
+  );
+}
 const manifestPath = resolve(root, "tendril.manifest.yaml");
 
 if (process.argv.includes("--check")) {
