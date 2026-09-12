@@ -1,5 +1,5 @@
 name: tendril-wireframes
-version: 0.1.7
+version: 0.1.8
 generated: Do not edit. Run `npm run manifest` — props come from the TypeScript types, prose from
   JSDoc tags in the component files.
 componentCount: 99
@@ -2376,8 +2376,8 @@ components:
         Check -- yes --> Save[Save record]
         Check -- no --> Start
         `} />
-      - '<Flowchart direction="Right" nodes={[{ id: "a", label: "Draft" }, { id: "b", label:
-        "Review" }]} edges={[{ from: "a", to: "b" }]} />'
+      - '<Flowchart direction="Down" nodes={[{ id: "a", label: "Draft" }, { id: "b", label: "Review"
+        }]} edges={[{ from: "a", to: "b" }]} />'
     props:
       - name: chart
         type: string
@@ -2402,8 +2402,13 @@ components:
           - Up
           - Right
           - Left
-        default: Down
-        description: Which way the flow runs.
+        default: Right
+        description: |-
+          Which way the flow runs.
+
+          Horizontal by default. A wireframe viewport is wide and short — 1440x860 is the usual
+          one — so a chart that runs downward leaves the width empty and falls off the bottom,
+          while the same chart running rightward fits on screen.
       - name: edgeStyle
         type: EdgeStyle
         required: false

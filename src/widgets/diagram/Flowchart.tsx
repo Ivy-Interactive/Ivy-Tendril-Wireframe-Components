@@ -71,7 +71,12 @@ export interface FlowchartProps extends WidgetBaseProps {
   chart?: string;
   /**
    * Which way the flow runs.
-   * @default "Down"
+   *
+   * Horizontal by default. A wireframe viewport is wide and short — 1440x860 is the usual
+   * one — so a chart that runs downward leaves the width empty and falls off the bottom,
+   * while the same chart running rightward fits on screen.
+   *
+   * @default "Right"
    */
   direction?: FlowDirection;
   /**
@@ -133,14 +138,14 @@ function pixels(value: Sizing | undefined): number | undefined {
  *   Check -- yes --> Save[Save record]
  *   Check -- no --> Start
  * `} />
- * @example <Flowchart direction="Right" nodes={[{ id: "a", label: "Draft" }, { id: "b", label: "Review" }]} edges={[{ from: "a", to: "b" }]} />
+ * @example <Flowchart direction="Down" nodes={[{ id: "a", label: "Draft" }, { id: "b", label: "Review" }]} edges={[{ from: "a", to: "b" }]} />
  */
 export const Flowchart = ({
   id,
   nodes,
   edges,
   chart,
-  direction = "Down",
+  direction = "Right",
   edgeStyle = "Elbow",
   nodeGap,
   rankGap,
@@ -159,7 +164,11 @@ export const Flowchart = ({
   const strokeWidth = byDensity(density, [STROKE.thin, STROKE.regular, STROKE.emphasis]);
   const fontSize = byDensity(density, [11, 12.5, 14]);
   const headSize = byDensity(density, [9, 11, 13]);
-  const gapWithin = nodeGap ?? byDensity(density, [26, 34, 44]);
+  // Boxes are wide and short, so a horizontal chart needs more room across the flow than a
+  // vertical one: the gap there separates 40px-tall rows that several edges have to route
+  // between, where in a vertical chart it separates boxes as wide as their labels.
+  const horizontal = direction === "Right" || direction === "Left";
+  const gapWithin = nodeGap ?? byDensity(density, horizontal ? [40, 52, 66] : [26, 34, 44]);
   const gapBetween = rankGap ?? byDensity(density, [34, 46, 58]);
 
   // ---- the graph, from either form ----------------------------------------

@@ -202,14 +202,36 @@ export function layered(
   edges: LayoutEdge[],
   options: LayoutOptions,
 ): Placed {
-  const flowing = nodes.filter((node) => node.x === undefined || node.y === undefined);
-  const pinned = nodes.filter((node) => node.x !== undefined && node.y !== undefined);
+  // The pipeline solves the "Down" case and `finish` transposes the answer. For a
+  // horizontal chart that means solving a transposed *problem* too: within a rank the
+  // separation runs along the cross axis, which is vertical once transposed, so it has to be
+  // computed from heights rather than widths. Swapping each box on the way in and swapping
+  // the sizes back on the way out is the whole of it — without this, a horizontal chart
+  // separates its nodes by the wrong dimension and they overlap.
+  const horizontal = options.direction === "Right" || options.direction === "Left";
+  const actualSize = new Map(nodes.map((node) => [node.id, { width: node.width, height: node.height }] as const));
+  const transpose = (node: LayoutNode): LayoutNode =>
+    horizontal ? { ...node, width: node.height, height: node.width, x: node.y, y: node.x } : node;
+
+  const restore = (placed: Placed): Placed =>
+    horizontal
+      ? {
+          ...placed,
+          nodes: placed.nodes.map((node) => ({ ...node, ...(actualSize.get(node.id) ?? {}) })),
+        }
+      : placed;
+
+  const laidOut = nodes.map(transpose);
+  const flowing = laidOut.filter((node) => node.x === undefined || node.y === undefined);
+  const pinned = laidOut.filter((node) => node.x !== undefined && node.y !== undefined);
 
   if (flowing.length === 0) {
-    return finish(
-      nodes.map((node, i) => ({ ...node, x: node.x ?? 0, y: node.y ?? 0, rank: 0, order: i })),
-      edges.map((edge) => ({ ...edge, waypoints: [], reversed: false })),
-      options,
+    return restore(
+      finish(
+        laidOut.map((node, i) => ({ ...node, x: node.x ?? 0, y: node.y ?? 0, rank: 0, order: i })),
+        edges.map((edge) => ({ ...edge, waypoints: [], reversed: false })),
+        options,
+      ),
     );
   }
 
@@ -373,7 +395,7 @@ export function layered(
     order: i,
   }))];
 
-  return finish(all, placedEdges, options, { along: alongTotal, across: acrossTotal });
+  return restore(finish(all, placedEdges, options, { along: alongTotal, across: acrossTotal }));
 }
 
 /**
