@@ -1,5 +1,5 @@
 name: tendril-wireframes
-version: 0.1.5
+version: 0.1.6
 generated: Do not edit. Run `npm run manifest` — props come from the TypeScript types, prose from
   JSDoc tags in the component files.
 componentCount: 99

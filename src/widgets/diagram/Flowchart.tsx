@@ -5,8 +5,8 @@ import { INK, INK_MUTED, PAPER, resolveColor, seriesColor, tint, STROKE, type Co
 import { barbsAt, handRng, type Pt } from "@/sketch/hand";
 import { Icon } from "@/sketch/Icon";
 import { RoughShape } from "@/sketch/RoughShape";
-import { useMeasuredSize } from "@/sketch/useRough";
 import type { ArrowHeads } from "@/widgets/wireframe/Arrow";
+import { measureLabel, whenFontReady, type MeasuredLabel } from "./measure";
 import { labelBox, shapeOutline, SHAPE_PADDING, type FlowShape, type Rect } from "./shapes";
 import { layered } from "./layout/layered";
 import { parseChart, type ParseProblem } from "./layout/parse";
@@ -91,13 +91,18 @@ export interface FlowchartProps extends WidgetBaseProps {
   onNodeClick?: (id: string) => void;
 }
 
-interface Measured {
-  width: number;
-  height: number;
-}
+/** How wide a label may run before it wraps. */
+const MAX_LABEL_WIDTH = 170;
 
-/** Rounds up to the next even pixel, so a sub-pixel wobble cannot change the layout. */
-const snap = (value: number) => Math.ceil(value / 2) * 2;
+/**
+ * Rounds a measurement up to a 4px grid.
+ *
+ * Text metrics are fractional, and a node sized straight from one would change by a pixel
+ * between runs and break `screenshot --repeat`. A grid does not remove that risk on its own
+ * — it moves the boundary — so it works together with waiting for the real font below,
+ * which is what stops the underlying number moving in the first place.
+ */
+const snap = (value: number) => Math.ceil(value / 4) * 4;
 
 const DEFAULT_SHAPE: FlowShape = "Process";
 
@@ -184,51 +189,39 @@ export const Flowchart = ({
     };
   }, [chart, nodes, edges]);
 
-  // ---- pass A: measure the labels ------------------------------------------
-  // Nothing else in the library measures text, and a node has to fit its own label. The
-  // labels render hidden, a ResizeObserver reports their natural boxes, and the layout runs
-  // on the result. A one-shot measurement would be taken before the webfont loads and bake
-  // fallback metrics into every box; this re-measures when the font arrives.
-  const [measured, setMeasured] = React.useState<Record<string, Measured>>({});
-  const probeRef = React.useRef<HTMLDivElement | null>(null);
+  // ---- label sizes ---------------------------------------------------------
+  // Measured with canvas metrics rather than a hidden DOM node. See measure.ts: a DOM
+  // measurement wobbled by a fraction of a pixel between runs, which was enough to resize a
+  // box and break the byte-for-byte screenshot comparison.
+  //
+  // The only asynchrony left is the webfont: until it is loaded the metrics describe the
+  // fallback, so this re-renders once when it arrives. The screenshot pipeline already waits
+  // for fonts and then for a quiet period, so it never captures the interim layout.
+  const [fontReady, setFontReady] = React.useState(false);
 
-  React.useLayoutEffect(() => {
-    const host = probeRef.current;
-    if (!host) return;
-
-    const read = () => {
-      const next: Record<string, Measured> = {};
-      host.querySelectorAll<HTMLElement>("[data-node]").forEach((element) => {
-        const key = element.dataset.node!;
-        const rect = element.getBoundingClientRect();
-        // Snapped to a 2px grid rather than ceil'd. Text metrics land on fractions, and a
-        // width that measures 63.999 on one run and 64.001 on the next would round to a
-        // different integer, move one box by a pixel, and break the byte-for-byte
-        // screenshot comparison. Two pixels of slack is invisible; a flapping layout is not.
-        next[key] = { width: snap(rect.width), height: snap(rect.height) };
+  React.useEffect(() => {
+    let cancelled = false;
+    whenFontReady(fontSize)
+      .then(() => {
+        if (!cancelled) setFontReady(true);
+      })
+      .catch(() => {
+        if (!cancelled) setFontReady(true); // no font API; the fallback metrics are what we have
       });
-
-      setMeasured((previous) => {
-        const keys = Object.keys(next);
-        const same =
-          keys.length === Object.keys(previous).length &&
-          keys.every(
-            (key) =>
-              previous[key] &&
-              Math.abs(previous[key].width - next[key].width) < 0.5 &&
-              Math.abs(previous[key].height - next[key].height) < 0.5,
-          );
-        return same ? previous : next;
-      });
+    return () => {
+      cancelled = true;
     };
+  }, [fontSize]);
 
-    read();
-    if (typeof ResizeObserver === "undefined") return;
-
-    const observer = new ResizeObserver(read);
-    host.querySelectorAll<HTMLElement>("[data-node]").forEach((element) => observer.observe(element));
-    return () => observer.disconnect();
-  }, [graphNodes, fontSize]);
+  const measured = React.useMemo(() => {
+    const sizes: Record<string, MeasuredLabel> = {};
+    graphNodes.forEach((node) => {
+      sizes[node.id] = measureLabel(node.label ?? node.id, fontSize, MAX_LABEL_WIDTH);
+    });
+    return sizes;
+    // fontReady is a dependency on purpose: the same text measures differently once the
+    // real face is in, and every box has to be resized when it is.
+  }, [graphNodes, fontSize, fontReady]);
 
   // ---- pass B: lay it out ---------------------------------------------------
   const diagram = React.useMemo(() => {
@@ -240,11 +233,14 @@ export const Flowchart = ({
     const layoutNodes: LayoutNode[] = graphNodes.map((node) => {
       const shape = node.shape ?? DEFAULT_SHAPE;
       const padding = SHAPE_PADDING[shape] ?? SHAPE_PADDING.Process;
-      const label = measured[node.id] ?? { width: 64, height: fontSize * 1.4 };
+      const label = measured[node.id] ?? { width: 64, height: fontSize * 1.4, lines: [] };
+      // Snapped to a 4px grid. The metrics are stable now, but a grid keeps a one-glyph
+      // edit from nudging the whole chart, which makes diffs between screenshots readable.
+      const icon = node.icon ? fontSize + 8 : 0;
       return {
         id: node.id,
-        width: pixels(node.width) ?? Math.max(56, Math.ceil(label.width + padding.x)),
-        height: pixels(node.height) ?? Math.max(40, Math.ceil(label.height + padding.y)),
+        width: pixels(node.width) ?? Math.max(56, snap(label.width + icon + padding.x)),
+        height: pixels(node.height) ?? Math.max(40, snap(label.height + padding.y)),
         x: pixels(node.x),
         y: pixels(node.y),
       };
@@ -269,17 +265,16 @@ export const Flowchart = ({
     return { placed, routed, shapeOf };
   }, [graphNodes, graphEdges, measured, direction, edgeStyle, gapWithin, gapBetween, fontSize]);
 
-  const { ref: hostRef, width: hostWidth } = useMeasuredSize<HTMLDivElement>();
-
   // A little room so a wobbling stroke and an arrowhead are not clipped at the edges.
   const bleed = 10;
   const diagramWidth = (diagram?.placed.width ?? 0) + bleed * 2;
   const diagramHeight = (diagram?.placed.height ?? 0) + bleed * 2;
 
-  // Shrink to fit the available width. Never scale up: a two-box chart blown up to fill a
-  // page looks like a mistake.
-  const scale =
-    hostWidth > 0 && diagramWidth > hostWidth ? Math.max(0.35, hostWidth / diagramWidth) : 1;
+  // Deliberately no shrink-to-fit. It was a feedback loop: the wrapper's width came from the
+  // scale, the scale came from the measured width, and `diagram > host` is a hard threshold —
+  // so a chart sized within a pixel of its container scaled on one run and not the next, and
+  // `screenshot --repeat` caught it. A chart wider than its space overflows, the way every
+  // other component here does; `direction="Right"` or an explicit `width` is the answer.
 
   const nodeById = new Map(graphNodes.map((node) => [node.id, node] as const));
   const colourOf = (nodeId: string, index: number) => {
@@ -291,53 +286,16 @@ export const Flowchart = ({
   return (
     <div
       id={id}
-      ref={hostRef}
       className={cn("relative", className)}
       style={widgetStyle({ width, height, aspectRatio, visible, style })}
       {...rest}
     >
       {/* Pass A. Hidden, but laid out, so the browser does the wrapping for us. */}
-      {/* Measured off to the side at its natural width. A zero-width or clipped container
-          would make every label wrap at its narrowest, and the boxes would come out sized
-          for one word per line. */}
-      <div
-        ref={probeRef}
-        aria-hidden="true"
-        className="pointer-events-none absolute"
-        style={{ left: -10000, top: 0, visibility: "hidden" }}
-      >
-        {graphNodes.map((node) => (
-          <div
-            key={node.id}
-            data-node={node.id}
-            className="inline-flex items-center gap-1.5 whitespace-pre-wrap"
-            style={{ fontSize, lineHeight: 1.3, maxWidth: 180 }}
-          >
-            {node.icon ? <span style={{ width: fontSize + 2, height: fontSize + 2 }} /> : null}
-            {node.label ?? node.id}
-          </div>
-        ))}
-      </div>
-
       {problems.length > 0 && <ParsePanel problems={problems} />}
 
       {diagram && (
-        <div
-          style={{
-            width: diagramWidth * scale,
-            height: diagramHeight * scale,
-            position: "relative",
-          }}
-        >
-          <div
-            style={{
-              width: diagramWidth,
-              height: diagramHeight,
-              transform: scale === 1 ? undefined : `scale(${scale})`,
-              transformOrigin: "top left",
-              position: "relative",
-            }}
-          >
+        <div style={{ width: diagramWidth, height: diagramHeight, position: "relative" }}>
+          <div style={{ width: diagramWidth, height: diagramHeight, position: "relative" }}>
             <svg
               aria-hidden="true"
               className="absolute inset-0 overflow-visible"
@@ -451,7 +409,17 @@ export const Flowchart = ({
                 >
                   <span className="inline-flex items-center gap-1.5">
                     {source?.icon && <Icon name={source.icon} size={fontSize + 2} color={colourOf(node.id, index)} />}
-                    {source?.label ?? node.id}
+                    {/* The measured lines, not the original string: letting CSS re-wrap it
+                        would break the text somewhere other than where the box was sized
+                        for. */}
+                    <span>
+                      {(measured[node.id]?.lines ?? [source?.label ?? node.id]).map((line, i) => (
+                        <React.Fragment key={i}>
+                          {i > 0 && <br />}
+                          {line}
+                        </React.Fragment>
+                      ))}
+                    </span>
                   </span>
                 </div>
               );
