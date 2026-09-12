@@ -6,7 +6,7 @@ import { barbsAt, handRng, type Pt } from "@/sketch/hand";
 import { Icon } from "@/sketch/Icon";
 import { RoughShape } from "@/sketch/RoughShape";
 import type { ArrowHeads } from "@/widgets/wireframe/Arrow";
-import { measureLabel, whenFontReady, type MeasuredLabel } from "./measure";
+import { measureLabel, type MeasuredLabel } from "./measure";
 import { labelBox, shapeOutline, SHAPE_PADDING, type FlowShape, type Rect } from "./shapes";
 import { layered } from "./layout/layered";
 import { parseChart, type ParseProblem } from "./layout/parse";
@@ -190,40 +190,18 @@ export const Flowchart = ({
   }, [chart, nodes, edges]);
 
   // ---- label sizes ---------------------------------------------------------
-  // Measured with canvas metrics rather than a hidden DOM node. See measure.ts: a DOM
-  // measurement wobbled by a fraction of a pixel between runs, which was enough to resize a
-  // box and break the byte-for-byte screenshot comparison.
-  //
-  // The only asynchrony left is the webfont: until it is loaded the metrics describe the
-  // fallback, so this re-renders once when it arrives. The screenshot pipeline already waits
-  // for fonts and then for a quiet period, so it never captures the interim layout.
-  const [fontReady, setFontReady] = React.useState(false);
-
-  React.useEffect(() => {
-    let cancelled = false;
-    whenFontReady(fontSize)
-      .then(() => {
-        if (!cancelled) setFontReady(true);
-      })
-      .catch(() => {
-        if (!cancelled) setFontReady(true); // no font API; the fallback metrics are what we have
-      });
-    return () => {
-      cancelled = true;
-    };
-  }, [fontSize]);
-
+  // A pure function of the label text — no DOM, no canvas, no font. See measure.ts for why
+  // that matters: everything that asked the browser produced a layout that moved by a pixel
+  // between a cold screenshot run and a warm one, which is enough to fail `--repeat`.
   const measured = React.useMemo(() => {
     const sizes: Record<string, MeasuredLabel> = {};
     graphNodes.forEach((node) => {
       sizes[node.id] = measureLabel(node.label ?? node.id, fontSize, MAX_LABEL_WIDTH);
     });
     return sizes;
-    // fontReady is a dependency on purpose: the same text measures differently once the
-    // real face is in, and every box has to be resized when it is.
-  }, [graphNodes, fontSize, fontReady]);
+  }, [graphNodes, fontSize]);
 
-  // ---- pass B: lay it out ---------------------------------------------------
+  // ---- layout ---------------------------------------------------------------
   const diagram = React.useMemo(() => {
     if (graphNodes.length === 0) return null;
 

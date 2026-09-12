@@ -1,34 +1,53 @@
 /**
  * How big a label is.
  *
- * This started as a hidden DOM node measured with a `ResizeObserver`, which gets real
- * wrapping and real font metrics for free. It also broke `wireframe screenshot --repeat`
- * about one run in three: a box would come out a pixel wider than it had the run before,
- * every downstream position shifted, and the PNGs stopped matching. Quantising the result
- * did not fix it — a grid only moves the boundary the wobble crosses.
+ * Nothing here touches the DOM, a canvas, or the font. That is the whole point, and it was
+ * arrived at the hard way.
  *
- * Canvas `measureText` is a pure function of the font and the string, with no layout, no
- * observer and no timing, so identical inputs give identical numbers. The cost is that the
- * wrapping is ours to do — which turns out to be a benefit, because the caller can render
- * the exact lines that were measured instead of hoping CSS breaks the text the same way.
+ * The first version measured a hidden DOM node with a `ResizeObserver` — real wrapping, real
+ * metrics, free. It failed `wireframe screenshot --repeat` on roughly one run in three: the
+ * screenshot runner starts from a cold browser profile, so Balsamiq Sans arrives at a
+ * different point in the render each time, and the correcting re-measure settled a fraction
+ * of a pixel from where a warm reload settled. One box a pixel wider shifts everything below
+ * it. Quantising did not help — a grid only moves the boundary the wobble crosses. Nor did
+ * waiting on `document.fonts.ready`, which resolves before a lazily-used face has even been
+ * requested. Canvas `measureText` after an explicit `document.fonts.load` got the failure
+ * rate down to about one in six, but "usually identical" is not what a byte-for-byte
+ * comparison means.
+ *
+ * So the layout no longer asks the browser anything. Widths come from a table of glyph
+ * classes, which makes a node's size a pure function of its label — the same on a cold run,
+ * a warm run, and a machine that has never had the font. Boxes end up a little roomier than
+ * a perfect fit, which on a hand-drawn wireframe reads as deliberate rather than as slack.
  */
 
-/** Must match the family the labels actually render in, or the numbers describe nothing. */
-const FONT_STACK = '"Balsamiq Sans", ui-sans-serif, system-ui, sans-serif';
+/**
+ * Glyph widths as a fraction of the font size, for Balsamiq Sans at the sizes labels use.
+ *
+ * Grouped by how wide the glyph actually is rather than measured per character: the point is
+ * a stable estimate, and a table of 200 entries would imply a precision this does not have.
+ */
+const NARROW = new Set("iIl1.,;:'\"`|!()[]{}jft/\\-");
+const WIDE = new Set("mMWQ@%&");
+const CAPITAL = new Set("ABCDEFGHJKLNOPRSTUVXYZ0");
 
-/** Roughly the average glyph width of this face, for when there is no canvas at all. */
-const AVERAGE_GLYPH = 0.52;
+const WIDTH_NARROW = 0.3;
+const WIDTH_WIDE = 0.88;
+const WIDTH_CAPITAL = 0.64;
+const WIDTH_SPACE = 0.28;
+const WIDTH_DEFAULT = 0.53;
 
-let cached: CanvasRenderingContext2D | null | undefined;
-
-function context(): CanvasRenderingContext2D | null {
-  if (cached !== undefined) return cached;
-  try {
-    cached = document.createElement("canvas").getContext("2d");
-  } catch {
-    cached = null; // no DOM, or canvas is blocked
+/** Width of one line, in pixels, at `fontSize`. */
+function lineWidth(text: string, fontSize: number): number {
+  let total = 0;
+  for (const character of text) {
+    if (character === " ") total += WIDTH_SPACE;
+    else if (NARROW.has(character)) total += WIDTH_NARROW;
+    else if (WIDE.has(character)) total += WIDTH_WIDE;
+    else if (CAPITAL.has(character)) total += WIDTH_CAPITAL;
+    else total += WIDTH_DEFAULT;
   }
-  return cached;
+  return total * fontSize;
 }
 
 export interface MeasuredLabel {
@@ -41,8 +60,8 @@ export interface MeasuredLabel {
 /**
  * Measures a label, wrapping it greedily to fit `maxWidth`.
  *
- * A single word longer than `maxWidth` is left to overflow rather than broken mid-word —
- * an identifier split across two lines is harder to read than a slightly wide box.
+ * A single word longer than `maxWidth` overflows rather than breaking mid-word: an
+ * identifier split across two lines is harder to read than a slightly wide box.
  */
 export function measureLabel(
   text: string,
@@ -50,12 +69,6 @@ export function measureLabel(
   maxWidth: number,
   lineHeight = 1.3,
 ): MeasuredLabel {
-  const canvas = context();
-  if (canvas) canvas.font = `${fontSize}px ${FONT_STACK}`;
-
-  const widthOf = (value: string) =>
-    canvas ? canvas.measureText(value).width : value.length * fontSize * AVERAGE_GLYPH;
-
   const words = text.split(/\s+/).filter((word) => word.length > 0);
   if (words.length === 0) {
     return { width: 0, height: Math.ceil(fontSize * lineHeight), lines: [] };
@@ -66,7 +79,7 @@ export function measureLabel(
 
   for (const word of words.slice(1)) {
     const candidate = `${current} ${word}`;
-    if (widthOf(candidate) <= maxWidth) {
+    if (lineWidth(candidate, fontSize) <= maxWidth) {
       current = candidate;
     } else {
       lines.push(current);
@@ -75,23 +88,9 @@ export function measureLabel(
   }
   lines.push(current);
 
-  const width = Math.ceil(Math.max(...lines.map(widthOf)));
-  const height = Math.ceil(lines.length * fontSize * lineHeight);
-
-  return { width, height, lines };
-}
-
-/**
- * Whether the real face is available yet.
- *
- * `document.fonts.ready` is not the right question: a face is only fetched when something
- * first needs it, so ready can resolve before Balsamiq Sans has even been requested, and a
- * measurement taken then describes the fallback. `load()` asks for it explicitly.
- */
-export function whenFontReady(fontSize: number): Promise<unknown> {
-  if (typeof document === "undefined" || !document.fonts?.load) return Promise.resolve();
-  return Promise.all([
-    document.fonts.load(`${fontSize}px "Balsamiq Sans"`),
-    document.fonts.load(`bold ${fontSize}px "Balsamiq Sans"`),
-  ]);
+  return {
+    width: Math.ceil(Math.max(...lines.map((line) => lineWidth(line, fontSize)))),
+    height: Math.ceil(lines.length * fontSize * lineHeight),
+    lines,
+  };
 }
