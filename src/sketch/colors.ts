@@ -78,13 +78,119 @@ const PALETTE: Record<TendrilColor, string> = {
   Muted: "#8b8b8b",
 };
 
-/** Accepts an Ivy color name, a raw CSS color, or nothing. */
+/**
+ * The theme tokens, under the names the stylesheet uses.
+ *
+ * `agent-readme` teaches these as Tailwind utilities -- `bg-paper-sunken`, `text-ink-muted`
+ * -- and then hands out props called `color` and `background`. Every signal says the two
+ * vocabularies are the same, so they are now: a colour prop takes a token name too.
+ */
+const TOKENS: Record<string, string> = {
+  ink: INK,
+  "ink-muted": INK_MUTED,
+  "ink-faint": INK_FAINT,
+  paper: PAPER,
+  "paper-raised": PAPER_RAISED,
+  "paper-sunken": PAPER_SUNKEN,
+  highlight: HIGHLIGHT,
+  accent: PALETTE.Info,
+  success: PALETTE.Success,
+  warning: PALETTE.Warning,
+  destructive: PALETTE.Destructive,
+  info: PALETTE.Info,
+  muted: PALETTE.Muted,
+  primary: PALETTE.Primary,
+  secondary: PALETTE.Secondary,
+};
+
+/**
+ * Whether a string is something CSS would actually accept as a colour.
+ *
+ * Needed because the old behaviour was to pass anything unrecognised straight through, and
+ * an unresolvable value reaches SVG as an invalid presentation attribute -- which SVG
+ * ignores, leaving its initial fill: **black**. So a mistyped or unsupported colour did not
+ * degrade quietly, it painted solid black over the drawing. Black is the worst possible
+ * fallback: maximally visible, and nothing in the build or the linter mentions it.
+ */
+function looksLikeCss(value: string): boolean {
+  if (/^#(?:[0-9a-f]{3,4}|[0-9a-f]{6}|[0-9a-f]{8})$/i.test(value)) return true;
+  if (/^(?:rgba?|hsla?|hwb|lab|lch|oklab|oklch|color|color-mix|light-dark|var)\s*\(/i.test(value)) {
+    return true;
+  }
+  return CSS_NAMED_COLORS.has(value.toLowerCase());
+}
+
+/**
+ * Accepts an Ivy colour name (`"Destructive"`), a theme token (`"paper-sunken"`), or any CSS
+ * colour. Anything else returns the fallback rather than painting black, and says so once.
+ */
 export function resolveColor(color?: string | null, fallback = INK): string {
   if (!color) return fallback;
+
   const named = PALETTE[color as TendrilColor];
   if (named) return named;
-  return color;
+
+  const token = TOKENS[color];
+  if (token) return token;
+
+  if (looksLikeCss(color)) return color;
+
+  warnOnce(color);
+  return fallback;
 }
+
+const warned = new Set<string>();
+
+/**
+ * One warning per bad value, not one per render.
+ *
+ * A wireframe redraws on every measurement, so warning unconditionally would bury the
+ * console -- and the console is the only place this can be said, since a colour prop is not
+ * something the build or the class linter ever sees.
+ */
+function warnOnce(color: string) {
+  if (warned.has(color) || typeof console === "undefined") return;
+  warned.add(color);
+  console.warn(
+    `[tendril] "${color}" is not a colour this library knows. Use an Ivy name ` +
+      `("Destructive"), a theme token ("paper-sunken", "ink-muted"), or a CSS colour ` +
+      `("#efe9dd"). Falling back rather than painting black.`,
+  );
+}
+
+/**
+ * The CSS named colours, so a legitimate `"rebeccapurple"` still passes through.
+ *
+ * The full list rather than a curated subset: the point of the check is to tell a real
+ * colour from a token that does not exist, and a short list would reject valid CSS.
+ */
+const CSS_NAMED_COLORS = new Set([
+  "aliceblue", "antiquewhite", "aqua", "aquamarine", "azure", "beige", "bisque", "black",
+  "blanchedalmond", "blue", "blueviolet", "brown", "burlywood", "cadetblue", "chartreuse",
+  "chocolate", "coral", "cornflowerblue", "cornsilk", "crimson", "cyan", "darkblue",
+  "darkcyan", "darkgoldenrod", "darkgray", "darkgreen", "darkgrey", "darkkhaki",
+  "darkmagenta", "darkolivegreen", "darkorange", "darkorchid", "darkred", "darksalmon",
+  "darkseagreen", "darkslateblue", "darkslategray", "darkslategrey", "darkturquoise",
+  "darkviolet", "deeppink", "deepskyblue", "dimgray", "dimgrey", "dodgerblue", "firebrick",
+  "floralwhite", "forestgreen", "fuchsia", "gainsboro", "ghostwhite", "gold", "goldenrod",
+  "gray", "green", "greenyellow", "grey", "honeydew", "hotpink", "indianred", "indigo",
+  "ivory", "khaki", "lavender", "lavenderblush", "lawngreen", "lemonchiffon", "lightblue",
+  "lightcoral", "lightcyan", "lightgoldenrodyellow", "lightgray", "lightgreen", "lightgrey",
+  "lightpink", "lightsalmon", "lightseagreen", "lightskyblue", "lightslategray",
+  "lightslategrey", "lightsteelblue", "lightyellow", "lime", "limegreen", "linen",
+  "magenta", "maroon", "mediumaquamarine", "mediumblue", "mediumorchid", "mediumpurple",
+  "mediumseagreen", "mediumslateblue", "mediumspringgreen", "mediumturquoise",
+  "mediumvioletred", "midnightblue", "mintcream", "mistyrose", "moccasin", "navajowhite",
+  "navy", "oldlace", "olive", "olivedrab", "orange", "orangered", "orchid",
+  "palegoldenrod", "palegreen", "paleturquoise", "palevioletred", "papayawhip",
+  "peachpuff", "peru", "pink", "plum", "powderblue", "purple", "rebeccapurple", "red",
+  "rosybrown", "royalblue", "saddlebrown", "salmon", "sandybrown", "seagreen", "seashell",
+  "sienna", "silver", "skyblue", "slateblue", "slategray", "slategrey", "snow",
+  "springgreen", "steelblue", "tan", "teal", "thistle", "tomato", "turquoise", "violet",
+  "wheat", "white", "whitesmoke", "yellow", "yellowgreen",
+  // Keywords that are colours in every practical sense.
+  "transparent", "currentcolor", "inherit", "initial", "unset", "none",
+]);
 
 /** Deterministic series colors for charts, in wireframe pencil tones. */
 export const CHART_DEFAULT: string[] = [

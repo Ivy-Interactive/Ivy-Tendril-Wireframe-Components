@@ -1,6 +1,6 @@
 {
   "name": "tendril-wireframes",
-  "version": "0.1.9",
+  "version": "0.1.10",
   "description": "Hand-drawn (Balsamiq-style) React component library mirroring the Ivy Framework widget set.",
   "type": "module",
   "license": "MIT",
